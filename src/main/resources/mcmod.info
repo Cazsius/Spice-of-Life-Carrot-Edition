@@ -1,0 +1,16 @@
+[
+{
+  "modid": "solcarrot",
+  "name": "Spice of Life: Carrot Edition",
+  "description": "A food mod similar to spice of life, but uses the carrot instead of the stick!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Cazsius"],
+  "logoFile": "",
+  "credits": "Lewis_McReu",
+  "screenshots": [],
+  "dependencies": []
+}
+]
