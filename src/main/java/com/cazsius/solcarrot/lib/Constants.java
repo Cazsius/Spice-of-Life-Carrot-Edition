@@ -14,4 +14,9 @@ public final class Constants {
 		public static final String IS_FOOD_TOOLTIP_ENABLED = "Add tooltips to foods to indicate if they have been eaten?";
 	}
 
+	public final class CommandMessages {
+		public static final String CLEAR_FOOD_ARRAY = "/clearfoodlist <player>";
+		public static final String SIZE_FOOD_ARRAY = "/sizefoodlist <player>";
+	}
+
 }

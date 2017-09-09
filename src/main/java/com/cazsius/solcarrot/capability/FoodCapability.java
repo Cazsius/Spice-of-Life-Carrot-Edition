@@ -14,7 +14,7 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 
-	ArrayList<Item> foodList = new ArrayList<>();
+	public ArrayList<Item> foodList = new ArrayList<>();
 
 	public FoodCapability() {
 	}
