@@ -45,7 +45,7 @@ public class CommandSizeFoodArray extends CommandBase {
 		else
 		{
 			int numFoodsTillNext = milestoneArray[milestone]-foodsEaten;
-			size = new TextComponentTranslation("You've eaten " + foodsEaten + " unqiue food"+(foodsEaten==1?"":"s")+"! You need  " + numFoodsTillNext + " more unique foods to increase your max health!",
+			size = new TextComponentTranslation("You've eaten " + foodsEaten + " unique food"+(foodsEaten==1?"":"s")+"! You need " + numFoodsTillNext + " more unique foods to increase your max health!",
 					new Object[0]);
 		}
 		sender.sendMessage(size);
