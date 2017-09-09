@@ -6,6 +6,7 @@ import com.cazsius.solcarrot.common.CommonProxy;
 import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
 import com.cazsius.solcarrot.handler.HandlerFoodTracker;
+import com.cazsius.solcarrot.handler.HandlerTooltip;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import com.cazsius.solcarrot.lib.Constants;
 
@@ -40,5 +41,6 @@ public class SOLCarrot {
 		MinecraftForge.EVENT_BUS.register(new HandlerCapability());
 		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
+		MinecraftForge.EVENT_BUS.register(new HandlerTooltip());
 	}
 }

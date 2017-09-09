@@ -66,4 +66,11 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		return foodList.size();
 	}
 
+	public boolean hasEaten(Item foodJustEaten) 
+	{
+		System.out.println(foodJustEaten);
+		System.out.println(foodList);
+		return foodList.contains(foodJustEaten);
+	}
+
 }

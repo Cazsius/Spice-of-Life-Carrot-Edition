@@ -14,6 +14,8 @@ public class HandlerConfiguration {
 
 	private static int defaultHeartCount;
 	private static int heartsPerMilestone;
+	
+	private static boolean isFoodTooltipEnabled;
 
 	/**
 	 * Initializes the configuration file.
@@ -35,6 +37,8 @@ public class HandlerConfiguration {
 				Constants.ConfigMessages.DEFAULT_HEART_COUNT);
 		heartsPerMilestone = config.getInt("heartsPerMilestone", Configuration.CATEGORY_GENERAL, 4, 1, 30,
 				Constants.ConfigMessages.HEART_PER_MILESTONE);
+		isFoodTooltipEnabled = config.getBoolean("isFoodTooltipEnabled", Configuration.CATEGORY_GENERAL, true,
+				Constants.ConfigMessages.IS_FOOD_TOOLTIP_ENABLED);
 
 		int[] defaultMilestones = { 5, 10, 15 };
 
@@ -79,6 +83,11 @@ public class HandlerConfiguration {
 
 	public static int[] getMilestoneArray() {
 		return milestoneArray;
+	}
+
+	public static boolean isFoodTooltipEnabled() 
+	{
+		return isFoodTooltipEnabled;
 	}
 
 }
