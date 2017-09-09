@@ -24,7 +24,6 @@ public class MaxHealthHandler {
 	public static final UUID MILESTONE_HEALTH_MODIFIER_ID = UUID.fromString("b20d3436-0d39-4868-96ab-d0a4856e68c6");
 	
 	@SubscribeEvent
-	//TODO Maybe TickEvent.PlayerTickEvent
 	public static void onPlayerLogin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
 		World world = player.world;

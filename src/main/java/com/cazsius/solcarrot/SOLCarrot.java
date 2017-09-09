@@ -38,7 +38,7 @@ public class SOLCarrot {
 	public void Init(FMLInitializationEvent e) {
 		MinecraftForge.EVENT_BUS.register(new HandlerFoodTracker());
 		MinecraftForge.EVENT_BUS.register(new HandlerCapability());
-		MinecraftForge.EVENT_BUS.register(new MaxHealthHandler());
+		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
 	}
 }
