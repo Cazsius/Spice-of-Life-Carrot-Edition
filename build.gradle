@@ -29,10 +29,20 @@ repositories {
 	maven {
 		url "http://www.ryanliptak.com/maven/"
 	}
+	
+	maven {
+		url "http://dvs1.progwml6.com/files/maven"
+	}
+	
+	maven {
+		url "http://tehnut.info/maven"
+	}
 }
 
 dependencies {
    deobfCompile "applecore:AppleCore:1.11.2-2.2.2:deobf"
+   deobfCompile "mcp.mobius.waila:Hwyla:1.8.17-B31_1.11"
+   deobfCompile "mezz.jei:jei_1.11.2:4.5.1.296"
 }
 
 processResources {

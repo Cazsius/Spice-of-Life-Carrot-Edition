@@ -40,6 +40,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		return capability == FOOD_CAPABILITY ? (T) this : null;
 	}
