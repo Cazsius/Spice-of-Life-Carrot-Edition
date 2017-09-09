@@ -12,6 +12,7 @@ public class HandlerFoodTracker {
 		if (!event.player.getEntityWorld().isRemote) {
 			FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			food.addFood(event.food.getItem());
+			MaxHealthHandler.updateFoodHPModifier(event.player);
 		}
 	}
 

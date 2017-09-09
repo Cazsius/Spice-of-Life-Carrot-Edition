@@ -23,10 +23,10 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		if (!foodList.contains(item)) {
 			foodList.add(item);
 		}
+        //???
+		/*if (foodList.size() == 25) {
 
-		if (foodList.size() == 25) {
-
-		}
+		}*/
 	}
 
 	@CapabilityInject(FoodCapability.class)
@@ -57,6 +57,11 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		for (int i = 0; i < list.tagCount(); i++) {
 			this.addFood(Item.getByNameOrId(((NBTTagString) list.get(i)).getString()));
 		}
+	}
+
+	public int getCount() 
+	{
+		return foodList.size();
 	}
 
 }
