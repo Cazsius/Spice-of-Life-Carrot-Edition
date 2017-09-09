@@ -4,6 +4,7 @@ import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodStorage;
 import com.cazsius.solcarrot.common.CommonProxy;
 import com.cazsius.solcarrot.handler.HandlerCapability;
+import com.cazsius.solcarrot.handler.HandlerConfiguration;
 import com.cazsius.solcarrot.handler.HandlerFoodTracker;
 import com.cazsius.solcarrot.lib.Constants;
 
@@ -28,6 +29,7 @@ public class SOLCarrot {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
+		HandlerConfiguration.initConfig(e.getSuggestedConfigurationFile());
 		proxy.preInit(e);
 	}
 

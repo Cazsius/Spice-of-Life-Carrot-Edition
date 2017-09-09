@@ -14,9 +14,9 @@ version = "1.11.2-ALPHA"
 group = "com.cazsius.solcarrot"
 archivesBaseName = "solcarrot"
 
-sourceCompatibility = targetCompatibility = "1.6" 
+sourceCompatibility = targetCompatibility = "1.8" 
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.6"
+    sourceCompatibility = targetCompatibility = "1.8"
 }
 
 minecraft {

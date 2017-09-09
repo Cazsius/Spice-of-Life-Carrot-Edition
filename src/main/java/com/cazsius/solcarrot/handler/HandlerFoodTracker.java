@@ -14,4 +14,5 @@ public class HandlerFoodTracker {
 			food.addFood(event.food.getItem());
 		}
 	}
+
 }
