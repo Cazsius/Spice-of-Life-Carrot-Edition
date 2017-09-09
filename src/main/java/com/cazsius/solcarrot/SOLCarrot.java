@@ -2,6 +2,8 @@ package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodStorage;
+import com.cazsius.solcarrot.command.CommandClearFoodArray;
+import com.cazsius.solcarrot.command.CommandSizeFoodArray;
 import com.cazsius.solcarrot.common.CommonProxy;
 import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
@@ -17,6 +19,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER)
 //TODO , dependencies = "required-after:AppleCore"
@@ -41,4 +44,10 @@ public class SOLCarrot {
 		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
 	}
+	
+	@EventHandler
+	public void serverLoad(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandClearFoodArray());
+        event.registerServerCommand(new CommandSizeFoodArray());
+    }
 }

@@ -13,4 +13,9 @@ public final class Constants {
 		public static final String FOOD_MILESTONE_ARRAY = "An array containing the milestones: How many unique foods you must eat to get the milestone bonus (defined above). Note that this represents the TOTAL number of foods needed; not the foods since the last milestone!";
 	}
 
+	public final class CommandMessages {
+		public static final String CLEAR_FOOD_ARRAY = "/clearfoodlist <player>";
+		public static final String SIZE_FOOD_ARRAY = "/sizefoodlist <player>";
+	}
+
 }
