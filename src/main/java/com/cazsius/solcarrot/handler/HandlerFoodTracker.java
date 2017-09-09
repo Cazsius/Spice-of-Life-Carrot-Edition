@@ -9,11 +9,9 @@ public class HandlerFoodTracker {
 
 	@SubscribeEvent
 	public void onFoodEaten(FoodEvent.FoodEaten event) {
-		if (!event.player.getEntityWorld().isRemote) {
-			FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-			food.addFood(event.food.getItem());
-			MaxHealthHandler.updateFoodHPModifier(event.player);
-		}
+		FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
+		food.addFood(event.food.getItem());
+		MaxHealthHandler.updateFoodHPModifier(event.player);
 	}
 
 }

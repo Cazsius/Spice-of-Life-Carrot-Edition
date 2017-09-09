@@ -16,7 +16,7 @@ public class CommandSizeFoodArray extends CommandBase {
 
 	@Override
 	public String getName() {
-		return "sizefoodarray";
+		return "sizefoodlist";
 	}
 
 	@Override
@@ -27,10 +27,27 @@ public class CommandSizeFoodArray extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		//TODO Make it display how much food you need total for next milestone
-		TextComponentTranslation size = new TextComponentTranslation("You've eaten " + food.foodList.size()
-				+ " unqiue food(s)! You need  " + new Random()/*TODO Insert logic for milestone number here */ + " more unique foods to reach you're next milestone",
-				new Object[0]);
+		
+		int foodsEaten = food.getCount();
+		int milestone = 0;
+		int[] milestoneArray = HandlerConfiguration.getMilestoneArray(); 
+		while (milestone < milestoneArray.length&&foodsEaten+1 > milestoneArray[milestone])
+		{
+			milestone++;
+		}
+		
+		TextComponentTranslation size; 
+		if (milestone == milestoneArray.length)
+		{
+			size = new TextComponentTranslation("You've eaten " + foodsEaten + " unqiue food"+(foodsEaten==1?"":"s")+"! You sadly cannot gain any more health from eating unique foods.",
+					new Object[0]);
+		}
+		else
+		{
+			int numFoodsTillNext = milestoneArray[milestone]-foodsEaten;
+			size = new TextComponentTranslation("You've eaten " + foodsEaten + " unqiue food"+(foodsEaten==1?"":"s")+"! You need  " + numFoodsTillNext + " more unique foods to increase your max health!",
+					new Object[0]);
+		}
 		sender.sendMessage(size);
 
 	}

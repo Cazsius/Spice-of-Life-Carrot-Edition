@@ -1,6 +1,8 @@
 package com.cazsius.solcarrot.capability;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
@@ -14,21 +16,13 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 
-	public ArrayList<Item> foodList = new ArrayList<>();
+	public Set<Item> foodList = new HashSet<>();
 
 	public FoodCapability() {
 	}
 
 	public void addFood(Item item) {
-		if (!foodList.contains(item)) {
-			foodList.add(item);
-		}
-		// ???
-		/*
-		 * if (foodList.size() == 25) {
-		 * 
-		 * }
-		 */
+		foodList.add(item);
 	}
 
 	@CapabilityInject(FoodCapability.class)
