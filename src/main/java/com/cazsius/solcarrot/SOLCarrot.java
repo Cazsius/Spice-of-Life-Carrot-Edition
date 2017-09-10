@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER , dependencies = "required-after:AppleCore")
+@Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION_NUMBER, dependencies = "required-after:AppleCore")
 public class SOLCarrot {
 
 	@Instance(Constants.MOD_ID)
@@ -45,10 +45,10 @@ public class SOLCarrot {
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
 		MinecraftForge.EVENT_BUS.register(new HandlerTooltip());
 	}
-	
+
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
-        event.registerServerCommand(new CommandClearFoodArray());
-        event.registerServerCommand(new CommandSizeFoodArray());
-    }
+		event.registerServerCommand(new CommandClearFoodArray());
+		event.registerServerCommand(new CommandSizeFoodArray());
+	}
 }

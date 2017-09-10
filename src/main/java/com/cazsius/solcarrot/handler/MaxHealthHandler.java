@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class MaxHealthHandler {
 	public static final UUID MILESTONE_HEALTH_MODIFIER_ID = UUID.fromString("b20d3436-0d39-4868-96ab-d0a4856e68c6");
-	
+
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;

@@ -22,9 +22,10 @@ public class HandlerFoodTracker {
 			event.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
 			event.player.world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, event.player.posX, event.player.posY + 2,
 					event.player.posZ, event.player.motionX, event.player.motionY, event.player.motionZ, new int[0]);
-			if(event.player.world.isRemote) {
-			TextComponentTranslation milestone = new TextComponentTranslation("You've reached a new milestone! " + HandlerConfiguration.getHeartsPerMilestone() + " hearts have been added!");
-			event.player.sendMessage(milestone);
+			if (event.player.world.isRemote) {
+				TextComponentTranslation milestone = new TextComponentTranslation("You've reached a new milestone! "
+						+ HandlerConfiguration.getHeartsPerMilestone() + " hearts have been added!");
+				event.player.sendMessage(milestone);
 			}
 
 		}

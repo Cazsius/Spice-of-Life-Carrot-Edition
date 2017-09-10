@@ -9,6 +9,5 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
 		PacketHandler.registerMessages("solcarrot");
 	}
-	
-	
+
 }

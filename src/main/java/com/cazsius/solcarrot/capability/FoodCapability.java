@@ -61,28 +61,23 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		return foodList.size();
 	}
 
-	public boolean hasEaten(Item foodJustEaten) 
-	{
+	public boolean hasEaten(Item foodJustEaten) {
 		return foodList.contains(foodJustEaten);
 	}
 
-	public List<Integer> getIDs() 
-	{
+	public List<Integer> getIDs() {
 		List<Integer> toReturn = new ArrayList<>();
-		for (Item i : foodList)
-		{
+		for (Item i : foodList) {
 			toReturn.add(Item.getIdFromItem(i));
 		}
 		return toReturn;
 	}
 
-	public void clearFood() 
-	{
+	public void clearFood() {
 		foodList.clear();
 	}
 
-	public void copyFoods(FoodCapability food) 
-	{
+	public void copyFoods(FoodCapability food) {
 		foodList.addAll(food.foodList);
 	}
 

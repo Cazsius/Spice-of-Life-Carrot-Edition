@@ -5,24 +5,24 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketHandler {
-    private static int packetId = 0;
+	private static int packetId = 0;
 
-    public static SimpleNetworkWrapper INSTANCE = null;
+	public static SimpleNetworkWrapper INSTANCE = null;
 
-    public PacketHandler() {
-    }
+	public PacketHandler() {
+	}
 
-    public static int nextID() {
-        return packetId++;
-    }
+	public static int nextID() {
+		return packetId++;
+	}
 
-    public static void registerMessages(String channelName) {
-        INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
-        registerMessages();
-    }
+	public static void registerMessages(String channelName) {
+		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
+		registerMessages();
+	}
 
-    public static void registerMessages() {
-        // Register messages which are sent from the client to the server here:
-        INSTANCE.registerMessage(MessageFoodList.Handler.class, MessageFoodList.class, nextID(), Side.CLIENT);
-    }
+	public static void registerMessages() {
+		// Register messages which are sent from the client to the server here:
+		INSTANCE.registerMessage(MessageFoodList.Handler.class, MessageFoodList.class, nextID(), Side.CLIENT);
+	}
 }

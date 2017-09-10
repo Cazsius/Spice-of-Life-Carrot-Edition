@@ -16,33 +16,30 @@ import java.util.*;
 import com.cazsius.solcarrot.capability.FoodCapability;
 
 @SideOnly(Side.CLIENT)
-public class HandlerTooltip
-{
-	public static boolean isValidFood(ItemStack itemStack)
-	{
+public class HandlerTooltip {
+	public static boolean isValidFood(ItemStack itemStack) {
 		return AppleCoreAPI.accessor.isFood(itemStack);
 	}
 
 	@SubscribeEvent
-	public void onItemTooltip(ItemTooltipEvent event)
-	{
-		if (HandlerConfiguration.isFoodTooltipEnabled() && event.getEntityPlayer() != null && event.getItemStack() != null && isValidFood(event.getItemStack()))
-		{
+	public void onItemTooltip(ItemTooltipEvent event) {
+		if (HandlerConfiguration.isFoodTooltipEnabled() && event.getEntityPlayer() != null
+				&& event.getItemStack() != null && isValidFood(event.getItemStack())) {
 			EntityPlayer player = event.getEntityPlayer();
 			Item foodJustEaten = event.getItemStack().getItem();
 			FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			boolean hasBeenEaten = food.hasEaten(foodJustEaten);
-			
+
 			List<String> toolTipStringsToAdd = new ArrayList<String>();
-			
-			if (hasBeenEaten)
-			{
-				toolTipStringsToAdd.add(TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC + I18n.format("solcarrot.tooltip.hpeaten"));
-			}
-			else
-			{
-				toolTipStringsToAdd.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC + I18n.format("solcarrot.tooltip.noteaten1"));
-				toolTipStringsToAdd.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC + I18n.format("solcarrot.tooltip.noteaten2"));
+
+			if (hasBeenEaten) {
+				toolTipStringsToAdd.add(TextFormatting.DARK_GRAY.toString() + TextFormatting.ITALIC
+						+ I18n.format("solcarrot.tooltip.hpeaten"));
+			} else {
+				toolTipStringsToAdd.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC
+						+ I18n.format("solcarrot.tooltip.noteaten1"));
+				toolTipStringsToAdd.add(TextFormatting.DARK_AQUA.toString() + TextFormatting.ITALIC
+						+ I18n.format("solcarrot.tooltip.noteaten2"));
 			}
 
 			event.getToolTip().addAll(toolTipStringsToAdd);

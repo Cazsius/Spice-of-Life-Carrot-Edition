@@ -21,16 +21,14 @@ public class HandlerCapability {
 			event.addCapability(FOOD, new FoodCapability());
 		}
 	}
-	
+
 	@SubscribeEvent
-	public void onPlayerLogin(PlayerLoggedInEvent event)
-	{
+	public void onPlayerLogin(PlayerLoggedInEvent event) {
 		// server needs to send any loaded data to the client
 		syncFoodList(event.player);
 	}
-	
-	public void syncFoodList(EntityPlayer player)
-	{
+
+	public void syncFoodList(EntityPlayer player) {
 		FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		PacketHandler.INSTANCE.sendTo(new MessageFoodList(food), (EntityPlayerMP) player);
 	}

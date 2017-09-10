@@ -14,7 +14,7 @@ public class HandlerConfiguration {
 
 	private static int defaultHeartCount;
 	private static int heartsPerMilestone;
-	
+
 	private static boolean isFoodTooltipEnabled;
 
 	/**
@@ -85,8 +85,7 @@ public class HandlerConfiguration {
 		return milestoneArray;
 	}
 
-	public static boolean isFoodTooltipEnabled() 
-	{
+	public static boolean isFoodTooltipEnabled() {
 		return isFoodTooltipEnabled;
 	}
 

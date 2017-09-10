@@ -23,7 +23,6 @@ public class CommandClearFoodArray extends CommandBase {
 		return "clearfoodlist";
 	}
 
-	
 	@Override
 	public String getUsage(ICommandSender sender) {
 		return Constants.CommandMessages.CLEAR_FOOD_ARRAY;
@@ -36,16 +35,17 @@ public class CommandClearFoodArray extends CommandBase {
 		} else {
 			FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			food.foodList.clear();
-			MaxHealthHandler.updateFoodHPModifier((EntityPlayer)sender);
+			MaxHealthHandler.updateFoodHPModifier((EntityPlayer) sender);
 			TextComponentTranslation clear = new TextComponentTranslation("Food List reset!");
 			sender.sendMessage(clear);
 		}
 	}
-	
+
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args,
 			BlockPos targetPos) {
-		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.<String>emptyList();
+		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames())
+				: Collections.<String>emptyList();
 	}
 
 }
