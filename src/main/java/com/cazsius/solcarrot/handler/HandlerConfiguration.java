@@ -35,12 +35,12 @@ public class HandlerConfiguration {
 
 		defaultHeartCount = config.getInt("defaultHeartCount", Configuration.CATEGORY_GENERAL, 10, 1, 30,
 				Constants.ConfigMessages.DEFAULT_HEART_COUNT);
-		heartsPerMilestone = config.getInt("heartsPerMilestone", Configuration.CATEGORY_GENERAL, 4, 1, 30,
+		heartsPerMilestone = config.getInt("heartsPerMilestone", Configuration.CATEGORY_GENERAL, 2, 1, 30,
 				Constants.ConfigMessages.HEART_PER_MILESTONE);
 		isFoodTooltipEnabled = config.getBoolean("isFoodTooltipEnabled", Configuration.CATEGORY_GENERAL, true,
 				Constants.ConfigMessages.IS_FOOD_TOOLTIP_ENABLED);
 
-		int[] defaultMilestones = { 5, 10, 15 };
+		int[] defaultMilestones = {5, 10, 15, 20, 25};
 
 		Property milestoneProperty = config.get(Configuration.CATEGORY_GENERAL, "Milestone amounts", defaultMilestones,
 				Constants.ConfigMessages.FOOD_MILESTONE_ARRAY);
