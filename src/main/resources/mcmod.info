@@ -7,9 +7,9 @@
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["Cazsius"],
+  "authorList": ["Cazsius, Talonos"],
   "logoFile": "",
-  "credits": "Lewis_McReu and Talonos for some coding assistance",
+  "credits": "Lewis_McReu for some coding assistance",
   "screenshots": [],
   "dependencies": []
 }
