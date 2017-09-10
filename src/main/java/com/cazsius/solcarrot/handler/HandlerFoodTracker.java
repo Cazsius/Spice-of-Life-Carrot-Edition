@@ -43,7 +43,8 @@ public class HandlerFoodTracker {
 				}
 				else
 				{
-					milestoneMessage = new TextComponentTranslation("Sample another "+0+"varieties of food to gain another "+(hpm==1?"heart!":hpm + " hearts!"));
+					milestoneMessage = new TextComponentTranslation("Sample another "+(milestoneArray[milestone]-milestoneArray[milestone-1])+
+							" varieties of food to gain another "+(hpm==1?"heart!":hpm + " hearts!"));
 				}
 				event.player.sendMessage(milestoneMessage);
 			}
