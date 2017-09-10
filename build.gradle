@@ -5,12 +5,12 @@ buildscript {
     }
 	
 	dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.11.2-1.0"
+version = "1.12.1-1.0"
 group = "com.cazsius.solcarrot"
 archivesBaseName = "solcarrot"
 
@@ -20,9 +20,9 @@ compileJava {
 }
 
 minecraft {
-    version = "1.11.2-13.20.1.2386"
+    version = "1.12.1-14.22.0.2475"
     runDir = "run"
-    mappings = "stable_32"
+    mappings = "snapshot_20170909"
 }
 
 repositories {
@@ -40,9 +40,9 @@ repositories {
 }
 
 dependencies {
-   deobfCompile "applecore:AppleCore:1.11.2-2.2.2:deobf"
-   deobfCompile "mcp.mobius.waila:Hwyla:1.8.17-B31_1.11"
-   deobfCompile "mezz.jei:jei_1.11.2:4.5.1.296"
+   deobfCompile "applecore:AppleCore:1.12.1-2.2.2:deobf"
+   deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
+   deobfCompile "mezz.jei:jei_1.12.1:4.7.8.94"
 }
 
 processResources {
