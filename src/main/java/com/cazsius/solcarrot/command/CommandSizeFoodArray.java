@@ -1,7 +1,5 @@
 package com.cazsius.solcarrot.command;
 
-import java.util.Random;
-
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
 import com.cazsius.solcarrot.lib.Constants;
