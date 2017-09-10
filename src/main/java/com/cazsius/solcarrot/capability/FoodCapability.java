@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.capability;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import net.minecraft.item.Item;
@@ -62,9 +63,27 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 
 	public boolean hasEaten(Item foodJustEaten) 
 	{
-		System.out.println(foodJustEaten);
-		System.out.println(foodList);
 		return foodList.contains(foodJustEaten);
+	}
+
+	public List<Integer> getIDs() 
+	{
+		List<Integer> toReturn = new ArrayList<>();
+		for (Item i : foodList)
+		{
+			toReturn.add(Item.getIdFromItem(i));
+		}
+		return toReturn;
+	}
+
+	public void clearFood() 
+	{
+		foodList.clear();
+	}
+
+	public void copyFoods(FoodCapability food) 
+	{
+		foodList.addAll(food.foodList);
 	}
 
 }
