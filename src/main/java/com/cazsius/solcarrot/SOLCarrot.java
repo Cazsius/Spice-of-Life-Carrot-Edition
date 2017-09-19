@@ -1,19 +1,11 @@
 package com.cazsius.solcarrot;
 
-import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.FoodStorage;
 import com.cazsius.solcarrot.command.CommandClearFoodArray;
 import com.cazsius.solcarrot.command.CommandSizeFoodArray;
 import com.cazsius.solcarrot.common.CommonProxy;
-import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
-import com.cazsius.solcarrot.handler.HandlerFoodTracker;
-import com.cazsius.solcarrot.handler.HandlerTooltip;
-import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import com.cazsius.solcarrot.lib.Constants;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -29,7 +21,7 @@ public class SOLCarrot {
 	public static SOLCarrot instance;
 
 	@SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
-	private static CommonProxy proxy;
+	public static CommonProxy proxy;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
@@ -38,13 +30,9 @@ public class SOLCarrot {
 	}
 
 	@EventHandler
-	public void Init(FMLInitializationEvent e) {
-		MinecraftForge.EVENT_BUS.register(new HandlerFoodTracker());
-		MinecraftForge.EVENT_BUS.register(new HandlerCapability());
-		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
-		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
-		MinecraftForge.EVENT_BUS.register(new HandlerTooltip());
-	}
+	public void init(FMLInitializationEvent e) {
+		proxy.init(e);
+		}
 
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {

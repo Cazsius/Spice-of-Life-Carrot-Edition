@@ -1,9 +1,9 @@
 package com.cazsius.solcarrot.handler;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
@@ -52,7 +52,7 @@ public class MessageFoodList implements IMessage {
 		}
 
 		private void handle(MessageFoodList message, MessageContext ctx) {
-			EntityPlayer player = Minecraft.getMinecraft().player;
+			EntityPlayer player = SOLCarrot.proxy.getSidedPlayer(ctx);
 			System.out.println("Is Remote: " + player.world.isRemote);
 			FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			System.out.println("List: " + food.getIDs());
