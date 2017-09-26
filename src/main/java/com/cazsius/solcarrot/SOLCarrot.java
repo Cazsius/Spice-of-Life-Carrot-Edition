@@ -3,9 +3,15 @@ package com.cazsius.solcarrot;
 import com.cazsius.solcarrot.command.CommandClearFoodArray;
 import com.cazsius.solcarrot.command.CommandSizeFoodArray;
 import com.cazsius.solcarrot.common.CommonProxy;
+import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
 import com.cazsius.solcarrot.lib.Constants;
 
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -38,5 +44,24 @@ public class SOLCarrot {
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandClearFoodArray());
 		event.registerServerCommand(new CommandSizeFoodArray());
+		event.registerServerCommand(new CommandBase() {
+
+			@Override
+			public String getUsage(ICommandSender sender) {
+				return "sync";
+			}
+
+			@Override
+			public String getName() {
+				// TODO Auto-generated method stub
+				return "sync";
+			}
+
+			@Override
+			public void execute(MinecraftServer server, ICommandSender sender,
+					String[] args) throws CommandException {
+				HandlerCapability.syncFoodList((EntityPlayer) sender);
+			}
+		});
 	}
 }
