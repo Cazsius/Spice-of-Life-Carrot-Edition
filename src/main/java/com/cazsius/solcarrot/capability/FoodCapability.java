@@ -44,9 +44,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	public NBTBase serializeNBT() {
 		NBTTagList list = new NBTTagList();
 		for (Item items : this.foodList) {
-			list.appendTag(new NBTTagString(
-					((ResourceLocation) Item.REGISTRY.getNameForObject(items))
-							.toString()));
+			list.appendTag(new NBTTagString(((ResourceLocation) Item.REGISTRY.getNameForObject(items)).toString()));
 		}
 		return list;
 	}
@@ -55,8 +53,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	public void deserializeNBT(NBTBase nbt) {
 		NBTTagList list = (NBTTagList) nbt;
 		for (int i = 0; i < list.tagCount(); i++) {
-			this.addFood(Item
-					.getByNameOrId(((NBTTagString) list.get(i)).getString()));
+			this.addFood(Item.getByNameOrId(((NBTTagString) list.get(i)).getString()));
 		}
 	}
 

@@ -4,7 +4,6 @@ import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodStorage;
 import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerFoodTracker;
-import com.cazsius.solcarrot.handler.HandlerTooltip;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import com.cazsius.solcarrot.handler.PacketHandler;
 
@@ -20,7 +19,7 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
 		PacketHandler.registerMessages("solcarrot");
 	}
-	
+
 	public void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new HandlerFoodTracker());
 		MinecraftForge.EVENT_BUS.register(new HandlerCapability());

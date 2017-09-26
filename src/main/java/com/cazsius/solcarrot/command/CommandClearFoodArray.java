@@ -37,7 +37,6 @@ public class CommandClearFoodArray extends CommandBase {
 			FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			food.foodList.clear();
 			MaxHealthHandler.updateFoodHPModifier((EntityPlayer) sender);
-			//clear = new TextComponentTranslation(Constants.CommandMessages.CLEAR_FOOD_ARRAY_DESC);
 			clear = new TextComponentTranslation("solcarrot.command.clearfoodarray.desc");
 			sender.sendMessage(clear);
 		}

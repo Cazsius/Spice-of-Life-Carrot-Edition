@@ -13,8 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class HandlerCapability {
 
-	public static final ResourceLocation FOOD = new ResourceLocation(
-			Constants.MOD_ID, "food");
+	public static final ResourceLocation FOOD = new ResourceLocation(Constants.MOD_ID, "food");
 
 	@SubscribeEvent
 	public void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -31,9 +30,7 @@ public class HandlerCapability {
 	}
 
 	public static void syncFoodList(EntityPlayer player) {
-		FoodCapability food = player
-				.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		PacketHandler.INSTANCE.sendTo(new MessageFoodList(food),
-				(EntityPlayerMP) player);
+		FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
+		PacketHandler.INSTANCE.sendTo(new MessageFoodList(food), (EntityPlayerMP) player);
 	}
 }

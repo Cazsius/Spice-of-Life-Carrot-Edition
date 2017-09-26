@@ -10,10 +10,8 @@ public class DeathHandler {
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {
 		EntityPlayer player = event.getEntityPlayer();
-		FoodCapability cap = player
-				.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		FoodCapability orig = event.getOriginal()
-				.getCapability(FoodCapability.FOOD_CAPABILITY, null);
+		FoodCapability cap = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
+		FoodCapability orig = event.getOriginal().getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		cap.deserializeNBT(orig.serializeNBT());
 	}
 }

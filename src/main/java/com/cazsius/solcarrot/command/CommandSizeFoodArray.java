@@ -22,8 +22,7 @@ public class CommandSizeFoodArray extends CommandBase {
 		return Constants.CommandMessages.SIZE_FOOD_ARRAY;
 	}
 
-	
-	//TODO NEED CHEATS TO USE CURRENTLY EVEN
+	// TODO NEED CHEATS TO USE CURRENTLY EVEN
 	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
