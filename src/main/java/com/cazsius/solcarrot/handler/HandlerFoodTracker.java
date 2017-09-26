@@ -5,9 +5,11 @@ import com.cazsius.solcarrot.capability.FoodCapability;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import squeek.applecore.api.food.FoodEvent;
 
+@SuppressWarnings("deprecation")
 public class HandlerFoodTracker {
 
 	@SubscribeEvent
@@ -24,8 +26,10 @@ public class HandlerFoodTracker {
 					event.player.posZ, event.player.motionX, event.player.motionY, event.player.motionZ, new int[0]);
 			if (event.player.world.isRemote) {
 				int hpm = HandlerConfiguration.getHeartsPerMilestone();
-				TextComponentTranslation milestoneMessage = new TextComponentTranslation(
-						"What a unique flavor! You've gained " + (hpm == 1 ? "a heart!" : hpm + " hearts!"));
+				TextComponentTranslation milestoneMessage = new TextComponentTranslation("solcarrot.message.foodeaten",
+						(hpm == 1 ? I18n.translateToLocal("solcarrot.message.foodeaten.singleheart")
+								: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
+
 				event.player.sendMessage(milestoneMessage);
 
 				int foodsEaten = food.getCount();
@@ -36,12 +40,12 @@ public class HandlerFoodTracker {
 				}
 
 				if (milestone == milestoneArray.length) {
-					milestoneMessage = new TextComponentTranslation(
-							"Your desire to seek unique foods is finally satisfied.");
+					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire.lost");
 				} else {
-					milestoneMessage = new TextComponentTranslation(
-							"Sample another " + (milestoneArray[milestone] - milestoneArray[milestone - 1])
-									+ " varieties of food to gain another " + (hpm == 1 ? "heart!" : hpm + " hearts!"));
+					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire",
+							(milestoneArray[milestone] - milestoneArray[milestone - 1]),
+							(hpm == 1 ? I18n.translateToLocal("solcarrot.message.foodeaten.singleheart")
+									: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
 				}
 				event.player.sendMessage(milestoneMessage);
 			}

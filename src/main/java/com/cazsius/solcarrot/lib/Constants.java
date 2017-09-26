@@ -15,8 +15,8 @@ public final class Constants {
 	}
 
 	public final class CommandMessages {
-		public static final String CLEAR_FOOD_ARRAY = "/clearfoodlist <player>";
-		public static final String SIZE_FOOD_ARRAY = "/sizefoodlist <player>";
+		public static final String CLEAR_FOOD_ARRAY = "/clearfoodlist <player>";		
+		public static final String SIZE_FOOD_ARRAY = "/sizefoodlist";
 	}
 
 }
