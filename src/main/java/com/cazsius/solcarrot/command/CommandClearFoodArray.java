@@ -33,10 +33,12 @@ public class CommandClearFoodArray extends CommandBase {
 		if (args.length < 1) {
 			throw new WrongUsageException(Constants.CommandMessages.CLEAR_FOOD_ARRAY, new Object[0]);
 		} else {
+			TextComponentTranslation clear;
 			FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			food.foodList.clear();
 			MaxHealthHandler.updateFoodHPModifier((EntityPlayer) sender);
-			TextComponentTranslation clear = new TextComponentTranslation("Food List reset!");
+			//clear = new TextComponentTranslation(Constants.CommandMessages.CLEAR_FOOD_ARRAY_DESC);
+			clear = new TextComponentTranslation("solcarrot.command.clearfoodarray.desc");
 			sender.sendMessage(clear);
 		}
 	}
