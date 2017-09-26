@@ -22,6 +22,13 @@ public class CommandSizeFoodArray extends CommandBase {
 		return Constants.CommandMessages.SIZE_FOOD_ARRAY;
 	}
 
+	
+	//TODO NEED CHEATS TO USE CURRENTLY EVEN
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 0;
+	}
+
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
@@ -35,19 +42,14 @@ public class CommandSizeFoodArray extends CommandBase {
 
 		TextComponentTranslation size;
 		if (milestone == milestoneArray.length) {
-			size = new TextComponentTranslation(
-					"You've eaten " + foodsEaten + " unqiue food" + (foodsEaten == 1 ? "" : "s")
-							+ "! You sadly cannot gain any more health from eating unique foods.",
-					new Object[0]);
+			size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.maxmilestone", foodsEaten,
+					(foodsEaten == 1 ? "" : "s"), new Object[0]);
 		} else {
 			int numFoodsTillNext = milestoneArray[milestone] - foodsEaten;
-			size = new TextComponentTranslation(
-					"You've eaten " + foodsEaten + " unique food" + (foodsEaten == 1 ? "" : "s") + "! You need "
-							+ numFoodsTillNext + " more unique foods to increase your max health!",
-					new Object[0]);
+			size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.moremilestone", foodsEaten,
+					(foodsEaten == 1 ? "" : "s"), numFoodsTillNext, new Object[0]);
 		}
 		sender.sendMessage(size);
-
 	}
 
 }
