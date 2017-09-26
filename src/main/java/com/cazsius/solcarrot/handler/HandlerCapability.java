@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class HandlerCapability {
 
@@ -23,12 +23,13 @@ public class HandlerCapability {
 	}
 
 	@SubscribeEvent
-	public void onPlayerLogin(PlayerLoggedInEvent event) {
+	public void onPlayerLogin(EntityJoinWorldEvent event) {
 		// server needs to send any loaded data to the client
-		syncFoodList(event.player);
+		if (event.getEntity() instanceof EntityPlayer && !event.getWorld().isRemote)
+			syncFoodList((EntityPlayer) event.getEntity());
 	}
 
-	public void syncFoodList(EntityPlayer player) {
+	public static void syncFoodList(EntityPlayer player) {
 		FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		PacketHandler.INSTANCE.sendTo(new MessageFoodList(food), (EntityPlayerMP) player);
 	}

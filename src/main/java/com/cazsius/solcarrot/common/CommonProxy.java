@@ -20,15 +20,14 @@ public class CommonProxy {
 		PacketHandler.registerMessages("solcarrot");
 	}
 
-	public void init(FMLInitializationEvent e) {
+	public void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new HandlerFoodTracker());
 		MinecraftForge.EVENT_BUS.register(new HandlerCapability());
 		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
 	}
-	
+
 	public EntityPlayer getSidedPlayer(MessageContext messageContext) {
 		return messageContext.getServerHandler().player;
 	}
-
 }

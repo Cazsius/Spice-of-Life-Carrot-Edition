@@ -40,7 +40,7 @@ public class HandlerConfiguration {
 		isFoodTooltipEnabled = config.getBoolean("isFoodTooltipEnabled", Configuration.CATEGORY_GENERAL, true,
 				Constants.ConfigMessages.IS_FOOD_TOOLTIP_ENABLED);
 
-		int[] defaultMilestones = {5, 10, 15, 20, 25};
+		int[] defaultMilestones = { 5, 10, 15, 20, 25 };
 
 		Property milestoneProperty = config.get(Configuration.CATEGORY_GENERAL, "Milestone amounts", defaultMilestones,
 				Constants.ConfigMessages.FOOD_MILESTONE_ARRAY);

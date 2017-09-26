@@ -78,7 +78,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 
 	public void copyFoods(FoodCapability food) {
+		clearFood();
 		foodList.addAll(food.foodList);
 	}
-
 }

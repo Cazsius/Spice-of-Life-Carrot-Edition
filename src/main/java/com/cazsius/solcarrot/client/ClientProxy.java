@@ -20,7 +20,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new HandlerTooltip());
 	}
 
-	
 	@Override
 	public EntityPlayer getSidedPlayer(MessageContext messageContext) {
 		return Minecraft.getMinecraft().player;

@@ -42,21 +42,19 @@ public class MessageFoodList implements IMessage {
 	public static class Handler implements IMessageHandler<MessageFoodList, IMessage> {
 		@Override
 		public IMessage onMessage(MessageFoodList message, MessageContext ctx) {
-			// Always use a construct like this to actually handle your message. This
-			// ensures that
-			// your 'handle' code is run on the main Minecraft thread. 'onMessage' itself
-			// is called on the networking thread so it is not safe to do a lot of things
-			// here.
+			// Always use a construct like this to actually handle your message.
+			// This ensures that your 'handle' code is run on the main Minecraft
+			// thread.
+			// 'onMessage' itself is called on the networking thread so it is
+			// not safe to do a lot of things here.
 			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
 			return null;
 		}
 
 		private void handle(MessageFoodList message, MessageContext ctx) {
 			EntityPlayer player = SOLCarrot.proxy.getSidedPlayer(ctx);
-			System.out.println("Is Remote: " + player.world.isRemote);
 			FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 			System.out.println("List: " + food.getIDs());
-			food.clearFood();
 			food.copyFoods(message.food);
 		}
 	}
