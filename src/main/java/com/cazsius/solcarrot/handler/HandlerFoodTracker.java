@@ -13,9 +13,10 @@ import squeek.applecore.api.food.FoodEvent;
 public class HandlerFoodTracker {
 
 	@SubscribeEvent
-	public void onFoodEaten(FoodEvent.FoodEaten event) {
+	public void onFoodEaten(FoodEvent.FoodEaten event) 
+	{
 		FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		food.addFood(event.food.getItem());
+		food.addFood(event.food.getItem(), event.food.getMetadata());
 
 		float storedHP = event.player.getMaxHealth();
 

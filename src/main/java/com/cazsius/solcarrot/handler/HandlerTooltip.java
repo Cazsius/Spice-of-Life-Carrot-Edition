@@ -28,7 +28,7 @@ public class HandlerTooltip {
 			EntityPlayer player = event.getEntityPlayer();
 			Item foodJustEaten = event.getItemStack().getItem();
 			FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-			boolean hasBeenEaten = food.hasEaten(foodJustEaten);
+			boolean hasBeenEaten = food.hasEaten(foodJustEaten, event.getItemStack().getMetadata());
 
 			List<String> toolTipStringsToAdd = new ArrayList<String>();
 
