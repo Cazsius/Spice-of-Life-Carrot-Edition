@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.handler;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.capability.FoodInstance;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,16 +27,21 @@ public class MessageFoodList implements IMessage {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		PacketBuffer pb = new PacketBuffer(buf);
-		while (pb.isReadable()) {
-			food.addFood(Item.getItemById(pb.readInt()));
+		while (pb.isReadable()) 
+		{
+			//                             Item ID         Meta-data
+			food.addFood(Item.getItemById(pb.readInt()),pb.readInt());
 		}
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
+	public void toBytes(ByteBuf buf) 
+	{
 		PacketBuffer pb = new PacketBuffer(buf);
-		for (int i : food.getIDs()) {
-			pb.writeInt(i);
+		for (FoodInstance fInstance : food.getHistory()) 
+		{
+			pb.writeInt(Item.getIdFromItem(fInstance.item()));
+			pb.writeInt(fInstance.meta());
 		}
 	}
 
@@ -53,9 +59,7 @@ public class MessageFoodList implements IMessage {
 
 		private void handle(MessageFoodList message, MessageContext ctx) {
 			EntityPlayer player = SOLCarrot.proxy.getSidedPlayer(ctx);
-			System.out.println("Is Remote: " + player.world.isRemote); // TODO remove prints
 			FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-			System.out.println("List: " + food.getIDs());
 			food.copyFoods(message.food);
 		}
 	}

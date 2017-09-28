@@ -7,6 +7,7 @@ import java.util.Set;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumFacing;
@@ -17,13 +18,13 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 
-	public Set<Item> foodList = new HashSet<>();
+	public Set<FoodInstance> foodList = new HashSet<>();
 
 	public FoodCapability() {
 	}
 
-	public void addFood(Item item) {
-		foodList.add(item);
+	public void addFood(Item item, int meta) {
+		foodList.add(new FoodInstance(item, meta));
 	}
 
 	@CapabilityInject(FoodCapability.class)
@@ -41,19 +42,28 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 
 	@Override
-	public NBTBase serializeNBT() {
+	public NBTBase serializeNBT() 
+	{
 		NBTTagList list = new NBTTagList();
-		for (Item items : this.foodList) {
-			list.appendTag(new NBTTagString(((ResourceLocation) Item.REGISTRY.getNameForObject(items)).toString()));
+		for (FoodInstance fInstance : this.foodList) 
+		{
+			String toWrite = ((ResourceLocation) Item.REGISTRY.getNameForObject(fInstance.item())).toString();
+			toWrite+="@"+fInstance.meta();
+			list.appendTag(new NBTTagString(toWrite));
 		}
 		return list;
 	}
 
 	@Override
-	public void deserializeNBT(NBTBase nbt) {
+	public void deserializeNBT(NBTBase nbt) 
+	{
 		NBTTagList list = (NBTTagList) nbt;
-		for (int i = 0; i < list.tagCount(); i++) {
-			this.addFood(Item.getByNameOrId(((NBTTagString) list.get(i)).getString()));
+		for (int i = 0; i < list.tagCount(); i++)
+		{
+			String toDecompose = ((NBTTagString) list.get(i)).getString();
+			String name = toDecompose.substring(0, toDecompose.indexOf("@"));
+			int meta = Integer.decode(toDecompose.substring(toDecompose.indexOf("@")+1)); 
+			this.addFood(Item.getByNameOrId(name), meta);
 		}
 	}
 
@@ -61,17 +71,10 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		return foodList.size();
 	}
 
-	public boolean hasEaten(Item foodJustEaten) {
-		return foodList.contains(foodJustEaten);
+	public boolean hasEaten(Item foodJustEaten, int meta) {
+		return foodList.contains(new FoodInstance(foodJustEaten, meta));
 	}
 
-	public List<Integer> getIDs() {
-		List<Integer> toReturn = new ArrayList<>();
-		for (Item i : foodList) {
-			toReturn.add(Item.getIdFromItem(i));
-		}
-		return toReturn;
-	}
 
 	public void clearFood() {
 		foodList.clear();
@@ -80,5 +83,10 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	public void copyFoods(FoodCapability food) {
 		clearFood();
 		foodList.addAll(food.foodList);
+	}
+
+	public List<FoodInstance> getHistory() 
+	{
+		return new ArrayList<FoodInstance>(foodList);
 	}
 }
