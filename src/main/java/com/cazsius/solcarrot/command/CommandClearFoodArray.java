@@ -31,7 +31,7 @@ public class CommandClearFoodArray extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length < 1) {
-			throw new WrongUsageException(Constants.CommandMessages.CLEAR_FOOD_ARRAY, new Object[0]);
+			throw new WrongUsageException(Constants.CommandMessages.CLEAR_FOOD_ARRAY);
 		} else {
 			TextComponentTranslation clear;
 			FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
