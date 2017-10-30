@@ -22,14 +22,27 @@ public class CommandSizeFoodArray extends CommandBase {
 		return Constants.CommandMessages.SIZE_FOOD_ARRAY;
 	}
 
-	// TODO NEED CHEATS TO USE CURRENTLY EVEN
+	@Override
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		super.getRequiredPermissionLevel();
+		return super.checkPermission(server, sender);
+	}
+	
+	/*
 	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
 	}
-
+	*/
+	
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+		
+		/*
+		int permLevel = super.getRequiredPermissionLevel();
+		if(permLevel >= 0) {
+		*/
+		
 		FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
 
 		int foodsEaten = food.getCount();
@@ -42,13 +55,13 @@ public class CommandSizeFoodArray extends CommandBase {
 		TextComponentTranslation size;
 		if (milestone == milestoneArray.length) {
 			size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.maxmilestone", foodsEaten,
-					(foodsEaten == 1 ? "" : "s"), new Object[0]);
+					(foodsEaten == 1 ? "" : "s"));
 		} else {
 			int numFoodsTillNext = milestoneArray[milestone] - foodsEaten;
 			size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.moremilestone", foodsEaten,
-					(foodsEaten == 1 ? "" : "s"), numFoodsTillNext, new Object[0]);
+					(foodsEaten == 1 ? "" : "s"), numFoodsTillNext);
 		}
 		sender.sendMessage(size);
+		}
+	//}
 	}
-
-}
