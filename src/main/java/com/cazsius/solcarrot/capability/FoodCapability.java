@@ -47,7 +47,9 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		NBTTagList list = new NBTTagList();
 		for (FoodInstance fInstance : this.foodList) 
 		{
-			String toWrite = ((ResourceLocation) Item.REGISTRY.getNameForObject(fInstance.item())).toString();
+			ResourceLocation location = Item.REGISTRY.getNameForObject(fInstance.item());
+			if (location == null) continue;
+			String toWrite = location.toString();
 			toWrite+="@"+fInstance.meta();
 			list.appendTag(new NBTTagString(toWrite));
 		}
@@ -61,8 +63,10 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		for (int i = 0; i < list.tagCount(); i++)
 		{
 			String toDecompose = ((NBTTagString) list.get(i)).getString();
-			String name = toDecompose.substring(0, toDecompose.indexOf("@"));
-			int meta = Integer.decode(toDecompose.substring(toDecompose.indexOf("@")+1)); 
+			int index = toDecompose.indexOf("@");
+			if (index < 0) continue;
+			String name = toDecompose.substring(0, index);
+			int meta = Integer.decode(toDecompose.substring(index + 1)); 
 			this.addFood(Item.getByNameOrId(name), meta);
 		}
 	}
