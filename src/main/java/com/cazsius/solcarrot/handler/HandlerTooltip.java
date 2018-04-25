@@ -17,6 +17,7 @@ import com.cazsius.solcarrot.capability.FoodCapability;
 
 @SideOnly(Side.CLIENT)
 public class HandlerTooltip {
+	
 	public static boolean isValidFood(ItemStack itemStack) {
 		return AppleCoreAPI.accessor.isFood(itemStack);
 	}
@@ -43,6 +44,7 @@ public class HandlerTooltip {
 			}
 
 			event.getToolTip().addAll(toolTipStringsToAdd);
+
 		}
 	}
 }

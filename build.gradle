@@ -20,9 +20,9 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.1-14.22.0.2475"
+    version = "1.12.2-14.23.3.2655"
     runDir = "run"
-    mappings = "snapshot_20170909"
+    mappings = "snapshot_20180425"
 }
 
 repositories {
@@ -40,9 +40,9 @@ repositories {
 }
 
 dependencies {
-   deobfCompile "applecore:AppleCore:1.12.1-2.2.2:deobf"
-   deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
-   deobfCompile "mezz.jei:jei_1.12.1:4.7.8.94"
+	deobfCompile "applecore:AppleCore:1.12.2-3.1.1:deobf"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
+	deobfCompile "mezz.jei:jei_1.12.2:4.9.1.169"
 }
 
 processResources {

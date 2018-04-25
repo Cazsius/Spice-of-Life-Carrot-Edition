@@ -4,7 +4,9 @@ import com.cazsius.solcarrot.capability.FoodCapability;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import squeek.applecore.api.food.FoodEvent;
@@ -30,8 +32,10 @@ public class HandlerFoodTracker {
 				TextComponentTranslation milestoneMessage = new TextComponentTranslation("solcarrot.message.foodeaten",
 						(hpm == 1 ? I18n.translateToLocal("solcarrot.message.foodeaten.singleheart")
 								: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
+				TextComponentString milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
+				
 
-				event.player.sendMessage(milestoneMessage);
+				event.player.sendStatusMessage(milestoneMessageSend, true);
 
 				int foodsEaten = food.getCount();
 				int milestone = 0;
@@ -42,13 +46,15 @@ public class HandlerFoodTracker {
 
 				if (milestone == milestoneArray.length) {
 					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire.lost");
+					milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 				} else {
 					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire",
 							(milestoneArray[milestone] - milestoneArray[milestone - 1]),
 							(hpm == 1 ? I18n.translateToLocal("solcarrot.message.foodeaten.singleheart")
 									: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
+					milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 				}
-				event.player.sendMessage(milestoneMessage);
+				event.player.sendStatusMessage(milestoneMessageSend, true);
 			}
 
 		}
