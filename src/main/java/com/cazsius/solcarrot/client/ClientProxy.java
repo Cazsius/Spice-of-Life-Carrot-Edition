@@ -1,10 +1,12 @@
 package com.cazsius.solcarrot.client;
 
+import com.cazsius.solcarrot.command.CommandSizeFoodArray;
 import com.cazsius.solcarrot.common.CommonProxy;
 import com.cazsius.solcarrot.handler.HandlerTooltip;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -18,6 +20,7 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new HandlerTooltip());
+        ClientCommandHandler.instance.registerCommand(new CommandSizeFoodArray());
 	}
 
 	@Override

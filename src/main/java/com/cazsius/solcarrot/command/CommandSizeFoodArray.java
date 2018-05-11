@@ -24,45 +24,44 @@ public class CommandSizeFoodArray extends CommandBase {
 	public String getUsage(ICommandSender sender) {
 		return Constants.CommandMessages.SIZE_FOOD_ARRAY;
 	}
-
-	@Override
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		super.getRequiredPermissionLevel();
-		return super.checkPermission(server, sender);
-	}
-	
-
-	
+		
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
-	
-		int permLevel = super.getRequiredPermissionLevel();
+		/*	
+		int permLevel = this.getRequiredPermissionLevel();
 			if(permLevel >= 0) {
-		
+		*/
+				
 				FoodCapability food = sender.getCommandSenderEntity().getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		
+			
 				int foodsEaten = food.getCount();
 				int milestone = 0;
 				int[] milestoneArray = HandlerConfiguration.getMilestoneArray();
 				while (milestone < milestoneArray.length && foodsEaten + 1 > milestoneArray[milestone]) {
 					milestone++;
 				}
-		
+			
 				TextComponentTranslation size;
 				TextComponentString size_send;
 				if (milestone == milestoneArray.length) {
 					size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.maxmilestone", foodsEaten,
-							(foodsEaten == 1 ? "" : "s"));
-					size_send = new TextComponentString(TextFormatting.DARK_AQUA + size.getUnformattedText());
-				} else {
-					int numFoodsTillNext = milestoneArray[milestone] - foodsEaten;
-					size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.moremilestone", foodsEaten,
+						(foodsEaten == 1 ? "" : "s"));
+						size_send = new TextComponentString(TextFormatting.DARK_AQUA + size.getUnformattedText());
+					} else {
+						int numFoodsTillNext = milestoneArray[milestone] - foodsEaten;
+						size = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.moremilestone", foodsEaten,
 							(foodsEaten == 1 ? "" : "s"), numFoodsTillNext);
-					size_send = new TextComponentString(TextFormatting.DARK_AQUA + size.getUnformattedText());
-				}
-				
-				player.sendStatusMessage(size_send, true);
-			}
-		}
+						size_send = new TextComponentString(TextFormatting.DARK_AQUA + size.getUnformattedText());
+					}
+						
+					player.sendStatusMessage(size_send, true);
+			//}
 	}
+	
+	
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 0;
+	}
+}

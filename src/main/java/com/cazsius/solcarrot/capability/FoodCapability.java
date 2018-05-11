@@ -7,7 +7,6 @@ import java.util.Set;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumFacing;

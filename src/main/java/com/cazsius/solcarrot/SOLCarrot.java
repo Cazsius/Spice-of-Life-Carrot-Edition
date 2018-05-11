@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.command.CommandClearFoodArray;
-import com.cazsius.solcarrot.command.CommandSizeFoodArray;
 import com.cazsius.solcarrot.common.CommonProxy;
 import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
@@ -43,7 +42,6 @@ public class SOLCarrot {
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandClearFoodArray());
-		event.registerServerCommand(new CommandSizeFoodArray());
 		event.registerServerCommand(new CommandBase() {
 
 			@Override
@@ -53,7 +51,6 @@ public class SOLCarrot {
 
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return "sync";
 			}
 
