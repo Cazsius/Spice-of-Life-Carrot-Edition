@@ -27,19 +27,16 @@ public class MessageFoodList implements IMessage {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		PacketBuffer pb = new PacketBuffer(buf);
-		while (pb.isReadable()) 
-		{
-			//                             Item ID         Meta-data
-			food.addFood(Item.getItemById(pb.readInt()),pb.readInt());
+		while (pb.isReadable()) {
+			// Item ID Meta-data
+			food.addFood(Item.getItemById(pb.readInt()), pb.readInt());
 		}
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) 
-	{
+	public void toBytes(ByteBuf buf) {
 		PacketBuffer pb = new PacketBuffer(buf);
-		for (FoodInstance fInstance : food.getHistory()) 
-		{
+		for (FoodInstance fInstance : food.getHistory()) {
 			pb.writeInt(Item.getIdFromItem(fInstance.item()));
 			pb.writeInt(fInstance.meta());
 		}

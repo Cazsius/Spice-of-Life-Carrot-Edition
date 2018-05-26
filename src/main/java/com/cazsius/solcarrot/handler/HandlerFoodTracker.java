@@ -15,8 +15,7 @@ import squeek.applecore.api.food.FoodEvent;
 public class HandlerFoodTracker {
 
 	@SubscribeEvent
-	public void onFoodEaten(FoodEvent.FoodEaten event) 
-	{
+	public void onFoodEaten(FoodEvent.FoodEaten event) {
 		FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		food.addFood(event.food.getItem(), event.food.getMetadata());
 
@@ -32,8 +31,8 @@ public class HandlerFoodTracker {
 				TextComponentTranslation milestoneMessage = new TextComponentTranslation("solcarrot.message.foodeaten",
 						(hpm == 1 ? I18n.translateToLocal("solcarrot.message.foodeaten.singleheart")
 								: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
-				TextComponentString milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
-				
+				TextComponentString milestoneMessageSend = new TextComponentString(
+						TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 
 				event.player.sendStatusMessage(milestoneMessageSend, true);
 
@@ -46,13 +45,15 @@ public class HandlerFoodTracker {
 
 				if (milestone == milestoneArray.length) {
 					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire.lost");
-					milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
+					milestoneMessageSend = new TextComponentString(
+							TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 				} else {
 					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire",
 							(milestoneArray[milestone] - milestoneArray[milestone - 1]),
 							(hpm == 1 ? I18n.translateToLocal("solcarrot.message.foodeaten.singleheart")
 									: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
-					milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
+					milestoneMessageSend = new TextComponentString(
+							TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 				}
 				event.player.sendStatusMessage(milestoneMessageSend, true);
 			}

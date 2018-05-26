@@ -41,31 +41,29 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 
 	@Override
-	public NBTBase serializeNBT() 
-	{
+	public NBTBase serializeNBT() {
 		NBTTagList list = new NBTTagList();
-		for (FoodInstance fInstance : this.foodList) 
-		{
+		for (FoodInstance fInstance : this.foodList) {
 			ResourceLocation location = Item.REGISTRY.getNameForObject(fInstance.item());
-			if (location == null) continue;
+			if (location == null)
+				continue;
 			String toWrite = location.toString();
-			toWrite+="@"+fInstance.meta();
+			toWrite += "@" + fInstance.meta();
 			list.appendTag(new NBTTagString(toWrite));
 		}
 		return list;
 	}
 
 	@Override
-	public void deserializeNBT(NBTBase nbt) 
-	{
+	public void deserializeNBT(NBTBase nbt) {
 		NBTTagList list = (NBTTagList) nbt;
-		for (int i = 0; i < list.tagCount(); i++)
-		{
+		for (int i = 0; i < list.tagCount(); i++) {
 			String toDecompose = ((NBTTagString) list.get(i)).getString();
 			int index = toDecompose.indexOf("@");
-			if (index < 0) continue;
+			if (index < 0)
+				continue;
 			String name = toDecompose.substring(0, index);
-			int meta = Integer.decode(toDecompose.substring(index + 1)); 
+			int meta = Integer.decode(toDecompose.substring(index + 1));
 			this.addFood(Item.getByNameOrId(name), meta);
 		}
 	}
@@ -78,7 +76,6 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		return foodList.contains(new FoodInstance(foodJustEaten, meta));
 	}
 
-
 	public void clearFood() {
 		foodList.clear();
 	}
@@ -88,8 +85,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		foodList.addAll(food.foodList);
 	}
 
-	public List<FoodInstance> getHistory() 
-	{
+	public List<FoodInstance> getHistory() {
 		return new ArrayList<FoodInstance>(foodList);
 	}
 }

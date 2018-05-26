@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.common;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodStorage;
+import com.cazsius.solcarrot.handler.ContentHandler;
 import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.HandlerFoodTracker;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
@@ -25,6 +26,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new HandlerCapability());
 		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
+		ContentHandler.initItems();
 	}
 
 	public EntityPlayer getSidedPlayer(MessageContext messageContext) {

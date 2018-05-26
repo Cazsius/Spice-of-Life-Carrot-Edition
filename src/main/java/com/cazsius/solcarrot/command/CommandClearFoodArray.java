@@ -29,7 +29,7 @@ public class CommandClearFoodArray extends CommandBase {
 	public String getUsage(ICommandSender sender) {
 		return Constants.CommandMessages.CLEAR_FOOD_ARRAY;
 	}
-	
+
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length < 1) {
