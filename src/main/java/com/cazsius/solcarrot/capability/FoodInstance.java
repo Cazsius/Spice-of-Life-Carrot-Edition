@@ -2,20 +2,17 @@ package com.cazsius.solcarrot.capability;
 
 import net.minecraft.item.Item;
 
-public class FoodInstance 
-{
+public class FoodInstance {
 	private int meta;
 	private Item i;
 	
-	public FoodInstance(Item i, int meta)
-	{
-		this.i=i;
-		this.meta=meta;
+	public FoodInstance(Item i, int meta) {
+		this.i = i;
+		this.meta = meta;
 	}
-
+	
 	@Override
-	public int hashCode() 
-	{
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((i == null) ? 0 : i.hashCode());
@@ -24,48 +21,23 @@ public class FoodInstance
 	}
 	
 	@Override
-	public boolean equals(Object obj) 
-	{
-		if (this == obj)
-		{
-			return true;
-		}
-		if (obj == null)
-		{
+	public boolean equals(Object obj) {
+		if (!(obj instanceof FoodInstance))
 			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		
 		FoodInstance other = (FoodInstance) obj;
-		if (i == null&&other.i != null) 
-		{
-			return false;
+		
+		if (i == null) {
+			return other.i == null; // both null
+		} else {
+			return meta == other.meta && i.equals(other.i);
 		}
-		if (!i.equals(other.i))
-		{
-			return false;
-		}
-		if (meta != other.meta)
-		{
-			return false;
-		}
-		return true;
 	}
-
-	public Item item() 
-	{
+	
+	public Item item() {
 		return i;
 	}
 	
-	public int meta() 
-	{
+	public int meta() {
 		return meta;
 	}
-
-
-	
-	
 }
