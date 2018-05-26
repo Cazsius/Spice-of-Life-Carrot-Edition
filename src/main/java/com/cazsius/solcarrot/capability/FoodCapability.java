@@ -47,8 +47,8 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 			ResourceLocation location = Item.REGISTRY.getNameForObject(fInstance.item());
 			if (location == null)
 				continue;
-			String toWrite = location.toString();
-			toWrite += "@" + fInstance.meta();
+			
+			String toWrite = location + "@" + fInstance.meta();
 			list.appendTag(new NBTTagString(toWrite));
 		}
 		return list;
@@ -59,11 +59,20 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		NBTTagList list = (NBTTagList) nbt;
 		for (int i = 0; i < list.tagCount(); i++) {
 			String toDecompose = ((NBTTagString) list.get(i)).getString();
-			int index = toDecompose.indexOf("@");
-			if (index < 0)
-				continue;
-			String name = toDecompose.substring(0, index);
-			int meta = Integer.decode(toDecompose.substring(index + 1));
+			
+			String[] parts = toDecompose.split("@");
+			String name = parts[0];
+			int meta;
+			if (parts.length > 1) {
+				meta = Integer.decode(parts[1]);
+			} else {
+				meta = 0;
+			}
+			
+			Item item = Item.getByNameOrId(name);
+			if (item == null)
+				continue; // TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
+			
 			this.addFood(Item.getByNameOrId(name), meta);
 		}
 	}

@@ -19,30 +19,18 @@ public class FoodInstance {
 		result = prime * result + meta;
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
+		if (!(obj instanceof FoodInstance))
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		
 		FoodInstance other = (FoodInstance) obj;
-		if (i == null && other.i != null) {
-			return false;
+		
+		if (i == null) {
+			return other.i == null; // both null
+		} else {
+			return meta == other.meta && i.equals(other.i);
 		}
-		if (!i.equals(other.i)) {
-			return false;
-		}
-		if (meta != other.meta) {
-			return false;
-		}
-		return true;
 	}
 	
 	public Item item() {
