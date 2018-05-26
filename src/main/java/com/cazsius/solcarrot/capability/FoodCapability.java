@@ -65,8 +65,12 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 			int index = toDecompose.indexOf("@");
 			if (index < 0) continue;
 			String name = toDecompose.substring(0, index);
-			int meta = Integer.decode(toDecompose.substring(index + 1)); 
-			this.addFood(Item.getByNameOrId(name), meta);
+			int meta = Integer.decode(toDecompose.substring(index + 1));
+			Item item = Item.getByNameOrId(name);
+			if (item != null)
+			{
+				this.addFood(item, meta);
+			}
 		}
 	}
 
