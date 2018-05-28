@@ -19,7 +19,7 @@ public class FoodInstance {
 		result = prime * result + meta;
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof FoodInstance))

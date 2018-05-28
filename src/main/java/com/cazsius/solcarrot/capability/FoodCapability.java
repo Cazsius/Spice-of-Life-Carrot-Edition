@@ -19,8 +19,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	
 	public Set<FoodInstance> foodList = new HashSet<>();
 	
-	public FoodCapability() {
-	}
+	public FoodCapability() {}
 	
 	public void addFood(Item item, int meta) {
 		foodList.add(new FoodInstance(item, meta));
@@ -35,7 +34,6 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		return capability == FOOD_CAPABILITY ? (T) this : null;
 	}
@@ -72,7 +70,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 			Item item = Item.getByNameOrId(name);
 			if (item == null)
 				continue; // TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
-			
+				
 			this.addFood(Item.getByNameOrId(name), meta);
 		}
 	}

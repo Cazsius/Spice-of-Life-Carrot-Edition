@@ -4,7 +4,6 @@
 *.iws
 *.classpath
 *.project
-*.prefs
 *.launch
 /output
 
