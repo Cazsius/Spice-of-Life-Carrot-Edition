@@ -61,15 +61,21 @@ public class CommandSizeFoodArray extends CommandBase {
 			int numFoodsTillNext = nextMilestone - foodsEaten;
 			milestoneDesc = new TextComponentTranslation("solcarrot.command.sizefoodarray.desc.milestoneMore", numFoodsTillNext);
 		}
-
+		
+		boolean showAboveHotbar = HandlerConfiguration.shouldShowProgressAboveHotbar();
+		
 		ITextComponent textToSend = progressDesc;
-		textToSend.appendText(" ");
+		textToSend.appendText(showAboveHotbar ? " " : "\n"); // above-hotbar mode is single-line only :(
 		textToSend.appendSibling(milestoneDesc);
 		
 		textToSend.getStyle().setColor(TextFormatting.DARK_AQUA);
-		textToSend = new TextComponentString(textToSend.getFormattedText());
-
-		player.sendStatusMessage(textToSend, false);
+		
+		if (showAboveHotbar) {
+			// messages above hotbar are stripped of their formatting, so we have to pretend we aren't formatted...
+			textToSend = new TextComponentString(textToSend.getFormattedText());
+		}
+		
+		player.sendStatusMessage(textToSend, showAboveHotbar);
 	}
 	
 	@Override

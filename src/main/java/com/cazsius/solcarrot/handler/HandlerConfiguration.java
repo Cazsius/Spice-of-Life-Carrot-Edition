@@ -17,7 +17,7 @@ public class HandlerConfiguration {
 	private static int heartsPerMilestone;
 	
 	private static boolean isFoodTooltipEnabled;
-	private static boolean shouldShowProgressInChat;
+	private static boolean shouldShowProgressAboveHotbar;
 	
 	/**
 	 * Initializes the configuration file.
@@ -49,11 +49,11 @@ public class HandlerConfiguration {
 				Configuration.CATEGORY_GENERAL,
 				true,
 				Constants.ConfigMessages.IS_FOOD_TOOLTIP_ENABLED);
-		shouldShowProgressInChat = config.getBoolean(
-				"shouldShowProgressInChat",
+		shouldShowProgressAboveHotbar = config.getBoolean(
+				"shouldShowProgressAboveHotbar",
 				Configuration.CATEGORY_GENERAL,
-				false,
-				Constants.ConfigMessages.SHOULD_SHOW_PROGRESS_IN_CHAT);
+				true,
+				Constants.ConfigMessages.SHOULD_SHOW_PROGRESS_ABOVE_HOTBAR);
 		
 		int[] defaultMilestones = { 5, 10, 15, 20, 25 };
 		
@@ -104,7 +104,7 @@ public class HandlerConfiguration {
 		return isFoodTooltipEnabled;
 	}
 	
-	public static boolean shouldShowProgressInChat() {
-		return shouldShowProgressInChat;
+	public static boolean shouldShowProgressAboveHotbar() {
+		return shouldShowProgressAboveHotbar;
 	}
 }

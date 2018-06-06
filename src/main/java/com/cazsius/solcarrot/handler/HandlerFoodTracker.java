@@ -11,17 +11,15 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import squeek.applecore.api.food.FoodEvent;
 
-@SuppressWarnings("deprecation")
 public class HandlerFoodTracker {
-
+	
 	@SubscribeEvent
-	public void onFoodEaten(FoodEvent.FoodEaten event) 
-	{
+	public void onFoodEaten(FoodEvent.FoodEaten event) {
 		FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		food.addFood(event.food.getItem(), event.food.getMetadata());
-
+		
 		float storedHP = event.player.getMaxHealth();
-
+		
 		MaxHealthHandler.updateFoodHPModifier(event.player);
 		if (storedHP < event.player.getMaxHealth()) {
 			event.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
@@ -34,16 +32,15 @@ public class HandlerFoodTracker {
 								: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
 				TextComponentString milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 				
-
-				event.player.sendStatusMessage(milestoneMessageSend, true);
-
+				event.player.sendStatusMessage(milestoneMessageSend, HandlerConfiguration.shouldShowProgressAboveHotbar());
+				
 				int foodsEaten = food.getCount();
 				int milestone = 0;
 				int[] milestoneArray = HandlerConfiguration.getMilestoneArray();
 				while (milestone < milestoneArray.length && foodsEaten + 1 > milestoneArray[milestone]) {
 					milestone++;
 				}
-
+				
 				if (milestone == milestoneArray.length) {
 					milestoneMessage = new TextComponentTranslation("solcarrot.message.desire.lost");
 					milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
@@ -54,10 +51,10 @@ public class HandlerFoodTracker {
 									: hpm + " " + I18n.translateToLocal("solcarrot.message.foodeaten.multipleheart")));
 					milestoneMessageSend = new TextComponentString(TextFormatting.DARK_AQUA + milestoneMessage.getUnformattedText());
 				}
-				event.player.sendStatusMessage(milestoneMessageSend, true);
+				event.player.sendStatusMessage(milestoneMessageSend, HandlerConfiguration.shouldShowProgressAboveHotbar());
 			}
-
+			
 		}
 	}
-
+	
 }
