@@ -1,0 +1,18 @@
+#Tooltips
+solcarrot.tooltip.noteaten1=HenÃ¼z yemedin!
+solcarrot.tooltip.noteaten2=TadÄ± nasÄ±l bir ÅŸey acaba?
+solcarrot.tooltip.hpeaten=Yedin: Kalp arttÄ±rmaya yardÄ±mcÄ±.
+
+#Commands
+solcarrot.command.sizefoodarray.desc.foodsEatenSingular=Bir adet farklÄ± yiyecek yedin!
+solcarrot.command.sizefoodarray.desc.foodsEatenPlural=%s Adet farklÄ± yiyecek yedin!
+solcarrot.command.sizefoodarray.desc.milestoneMax=Ne yazÄ±k ki farklÄ± yemek yiyerek daha fazla saÄŸlÄ±k kazanamazsÄ±n.
+solcarrot.command.sizefoodarray.desc.milestoneMore=Maksimum saÄŸlÄ±ÄŸÄ±nÄ± artÄ±rmak iÃ§in, daha fazla %s yemelisin!
+solcarrot.command.clearfoodarray.desc=Yemek Listesi sÄ±fÄ±rlandÄ±!
+
+#Messages
+solcarrot.message.foodeaten=Vay be, ne farklÄ± bir tat! %s KazandÄ±n!
+solcarrot.message.foodeaten.singleheart=Bir Kalp
+solcarrot.message.foodeaten.multipleheart=Kalp
+solcarrot.message.desire=Bundan %s tane daha yemelisin ki, %s kazanasÄ±n!
+solcarrot.message.desire.lost=FarklÄ± bir tat arama arzunuz sonlandÄ±.
