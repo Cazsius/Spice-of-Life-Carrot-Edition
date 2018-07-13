@@ -16,7 +16,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class FoodCapability implements ICapabilitySerializable<NBTBase> {
-	
+
 	public Set<FoodInstance> foodList = new HashSet<>();
 	
 	public FoodCapability() {}
