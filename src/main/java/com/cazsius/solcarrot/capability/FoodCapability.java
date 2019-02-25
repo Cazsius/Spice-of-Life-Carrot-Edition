@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagList;
@@ -16,6 +17,12 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class FoodCapability implements ICapabilitySerializable<NBTBase> {
+	
+	public static FoodCapability get(EntityPlayer player) {
+		FoodCapability foodCapability = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
+		assert foodCapability != null;
+		return foodCapability;
+	}
 
 	public Set<FoodInstance> foodList = new HashSet<>();
 	
@@ -26,7 +33,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 	
 	@CapabilityInject(FoodCapability.class)
-	public static Capability<FoodCapability> FOOD_CAPABILITY = null;
+	public static Capability<FoodCapability> FOOD_CAPABILITY;
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -93,6 +100,6 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 	
 	public List<FoodInstance> getHistory() {
-		return new ArrayList<FoodInstance>(foodList);
+		return new ArrayList<>(foodList);
 	}
 }

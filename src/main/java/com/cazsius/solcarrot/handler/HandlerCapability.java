@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.handler;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.lib.Constants;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber
 public class HandlerCapability {
 
-	public static final ResourceLocation FOOD = new ResourceLocation(Constants.MOD_ID, "food");
+	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("food");
 
 	@SubscribeEvent
 	public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -32,7 +32,7 @@ public class HandlerCapability {
 	}
 
 	public static void syncFoodList(EntityPlayer player) {
-		FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
+		FoodCapability food = FoodCapability.get(player);
 		PacketHandler.INSTANCE.sendTo(new MessageFoodList(food), (EntityPlayerMP) player);
 	}
 }
