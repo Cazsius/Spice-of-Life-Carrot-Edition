@@ -3,12 +3,12 @@ solcarrot.tooltip.noteaten1=Not yet eaten!
 solcarrot.tooltip.noteaten2=What does it taste like?
 solcarrot.tooltip.hpeaten=Eaten: Assisted in adding hearts
 
-#Commands
-solcarrot.command.sizefoodarray.desc.foodsEatenSingular=You've eaten one unique food!
-solcarrot.command.sizefoodarray.desc.foodsEatenPlural=You've eaten %s unique foods!
-solcarrot.command.sizefoodarray.desc.milestoneMax=You sadly cannot gain any more health from trying new foods.
-solcarrot.command.sizefoodarray.desc.milestoneMore=You need %s more to increase your max health!
-solcarrot.command.clearfoodarray.desc=Food List reset!
+# Commands
+command.solcarrot.sizefoodlist.usage=/sizefoodlist
+command.solcarrot.sizefoodlist.desc.foods_eaten.singular=You've eaten one unique food!
+command.solcarrot.sizefoodlist.desc.foods_eaten.plural=You've eaten %s unique foods!
+command.solcarrot.sizefoodlist.desc.milestone.max=You sadly cannot gain any more health from trying new foods.
+command.solcarrot.sizefoodlist.desc.milestone.more=You need %s more to increase your max health.
 
 #Messages
 solcarrot.message.foodeaten=What a unique flavor! You've gained %s!
@@ -16,6 +16,12 @@ solcarrot.message.foodeaten.singleheart=a heart
 solcarrot.message.foodeaten.multipleheart=hearts
 solcarrot.message.desire=Sample another %s varieties of food to gain another %s!
 solcarrot.message.desire.lost=Your desire to seek unique foods is finally satisfied.
+command.solcarrot.clearfoodlist.usage=/clearfoodlist
+command.solcarrot.clearfoodlist.success=Food list reset!
 
 #Items
+command.solcarrot.syncfoodlist.usage=/syncfoodlist
+command.solcarrot.syncfoodlist.success=Food list synchronized!
+
+command.solcarrot.error.players_only=This command can only be executed by players.
 item.solcarrot.food_book.name=Food Book

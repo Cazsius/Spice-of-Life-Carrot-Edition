@@ -14,9 +14,4 @@ public final class Constants {
 		public static final String IS_FOOD_TOOLTIP_ENABLED = "Add tooltips to foods to indicate if they have been eaten?";
 		public static final String SHOULD_SHOW_PROGRESS_ABOVE_HOTBAR = "Whether to show food progress messages (i.e. when you gain hearts or from /sizefoodlist) above the hotbar rather than in chat";
 	}
-	
-	public final class CommandMessages {
-		public static final String CLEAR_FOOD_ARRAY = "/clearfoodlist <player>";
-		public static final String SIZE_FOOD_ARRAY = "/sizefoodlist";
-	}
 }
