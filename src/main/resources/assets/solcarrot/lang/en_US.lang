@@ -1,7 +1,7 @@
-#Tooltips
-solcarrot.tooltip.noteaten1=Not yet eaten!
-solcarrot.tooltip.noteaten2=What does it taste like?
-solcarrot.tooltip.hpeaten=Eaten: Assisted in adding hearts
+# Tooltips
+tooltip.solcarrot.not_eaten_1=Not yet eaten!
+tooltip.solcarrot.not_eaten_2=What does it taste like?
+tooltip.solcarrot.eaten=Eaten: Assisted in adding hearts
 
 # Commands
 command.solcarrot.sizefoodlist.usage=/sizefoodlist
