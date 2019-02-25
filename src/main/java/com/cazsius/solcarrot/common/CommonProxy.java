@@ -9,6 +9,7 @@ import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import com.cazsius.solcarrot.handler.PacketHandler;
 
 import com.cazsius.solcarrot.item.ItemFoodBook;
+import com.cazsius.solcarrot.lib.Constants;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,7 +23,7 @@ import net.minecraftforge.registries.GameData;
 public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent e) {
-		PacketHandler.registerMessages("solcarrot");
+		PacketHandler.registerMessages(Constants.MOD_ID);
 	}
 
 	public void init(FMLInitializationEvent event) {
