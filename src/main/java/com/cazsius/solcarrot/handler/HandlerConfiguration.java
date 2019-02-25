@@ -1,11 +1,10 @@
 package com.cazsius.solcarrot.handler;
 
-import java.io.File;
-
 import com.cazsius.solcarrot.lib.Constants;
-
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+
+import java.io.File;
 
 public class HandlerConfiguration {
 	private static Configuration config = null;
@@ -20,10 +19,9 @@ public class HandlerConfiguration {
 	private static boolean shouldShowProgressAboveHotbar;
 	
 	/**
-	 * Initializes the configuration file.
-	 *
-	 * @param file
-	 *            The file to read/write config stuff to.
+	 Initializes the configuration file.
+	 
+	 @param file The file to read/write config stuff to.
 	 */
 	public static void initConfig(File file) {
 		setConfig(new Configuration(file));
@@ -31,7 +29,7 @@ public class HandlerConfiguration {
 	}
 	
 	/**
-	 * Syncs all configuration properties.
+	 Syncs all configuration properties.
 	 */
 	public static void syncConfig() {
 		defaultHeartCount = config.getInt(
@@ -55,7 +53,7 @@ public class HandlerConfiguration {
 				true,
 				Constants.ConfigMessages.SHOULD_SHOW_PROGRESS_ABOVE_HOTBAR);
 		
-		int[] defaultMilestones = { 5, 10, 15, 20, 25 };
+		int[] defaultMilestones = {5, 10, 15, 20, 25};
 		
 		Property milestoneProperty = config.get(Configuration.CATEGORY_GENERAL, "Milestone amounts", defaultMilestones,
 				Constants.ConfigMessages.FOOD_MILESTONE_ARRAY);
