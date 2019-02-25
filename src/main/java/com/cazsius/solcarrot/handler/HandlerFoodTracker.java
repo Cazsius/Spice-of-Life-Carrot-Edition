@@ -8,13 +8,15 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import squeek.applecore.api.food.FoodEvent;
 
+@Mod.EventBusSubscriber
 public class HandlerFoodTracker {
 	
 	@SubscribeEvent
-	public void onFoodEaten(FoodEvent.FoodEaten event) {
+	public static void onFoodEaten(FoodEvent.FoodEaten event) {
 		FoodCapability food = event.player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		food.addFood(event.food.getItem(), event.food.getMetadata());
 		

@@ -26,10 +26,7 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(new HandlerFoodTracker());
-		MinecraftForge.EVENT_BUS.register(new HandlerCapability());
-		MinecraftForge.EVENT_BUS.register(MaxHealthHandler.class);
-		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability.class);
+		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability::new);
 		NetworkRegistry.INSTANCE.registerGuiHandler(SOLCarrot.instance, new GuiHandler());
 	}
 

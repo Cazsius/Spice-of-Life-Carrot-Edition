@@ -6,6 +6,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,6 +17,7 @@ import java.util.*;
 import com.cazsius.solcarrot.capability.FoodCapability;
 
 @SideOnly(Side.CLIENT)
+@Mod.EventBusSubscriber
 public class HandlerTooltip {
 	
 	public static boolean isValidFood(ItemStack itemStack) {
@@ -23,7 +25,7 @@ public class HandlerTooltip {
 	}
 
 	@SubscribeEvent
-	public void onItemTooltip(ItemTooltipEvent event) {
+	public static void onItemTooltip(ItemTooltipEvent event) {
 		if (HandlerConfiguration.isFoodTooltipEnabled() && event.getEntityPlayer() != null
 				&& event.getItemStack() != null && isValidFood(event.getItemStack())) {
 			EntityPlayer player = event.getEntityPlayer();
