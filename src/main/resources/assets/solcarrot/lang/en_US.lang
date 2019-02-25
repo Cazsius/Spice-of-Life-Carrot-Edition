@@ -10,18 +10,20 @@ command.solcarrot.sizefoodlist.desc.foods_eaten.plural=You've eaten %s unique fo
 command.solcarrot.sizefoodlist.desc.milestone.max=You sadly cannot gain any more health from trying new foods.
 command.solcarrot.sizefoodlist.desc.milestone.more=You need %s more to increase your max health.
 
-#Messages
-solcarrot.message.foodeaten=What a unique flavor! You've gained %s!
-solcarrot.message.foodeaten.singleheart=a heart
-solcarrot.message.foodeaten.multipleheart=hearts
-solcarrot.message.desire=Sample another %s varieties of food to gain another %s!
-solcarrot.message.desire.lost=Your desire to seek unique foods is finally satisfied.
 command.solcarrot.clearfoodlist.usage=/clearfoodlist
 command.solcarrot.clearfoodlist.success=Food list reset!
 
-#Items
 command.solcarrot.syncfoodlist.usage=/syncfoodlist
 command.solcarrot.syncfoodlist.success=Food list synchronized!
 
 command.solcarrot.error.players_only=This command can only be executed by players.
+
+# Messages
+message.solcarrot.milestone_achieved=What a unique flavor! You've gained %s!
+message.solcarrot.milestone_achieved.hearts.singular=a heart
+message.solcarrot.milestone_achieved.hearts.plural=%s hearts
+message.solcarrot.desire.continues=Sample another %s varieties of food to gain another %s!
+message.solcarrot.desire.finished=Your desire to seek unique foods is finally satisfied.
+
+# Items
 item.solcarrot.food_book.name=Food Book
