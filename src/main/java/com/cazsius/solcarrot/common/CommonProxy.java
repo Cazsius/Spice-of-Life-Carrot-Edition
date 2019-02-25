@@ -21,11 +21,8 @@ import net.minecraftforge.registries.GameData;
 
 public class CommonProxy {
 
-	public static Item itemFoodBook = new ItemFoodBook();
-
 	public void preInit(FMLPreInitializationEvent e) {
 		PacketHandler.registerMessages("solcarrot");
-		GameData.register_impl(itemFoodBook);
 	}
 
 	public void init(FMLInitializationEvent event) {

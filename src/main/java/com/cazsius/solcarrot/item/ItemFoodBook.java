@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot.item;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import com.cazsius.solcarrot.lib.Constants;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,8 +15,6 @@ public class ItemFoodBook extends Item {
     public ItemFoodBook() {
         super();
         this.setCreativeTab(CreativeTabs.MISC);
-        this.setRegistryName("food_book");
-        this.setUnlocalizedName(Constants.MOD_ID + "." + "food_book".replace("_", "."));
     }
 
     @Override

@@ -11,6 +11,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -28,6 +29,14 @@ public class SOLCarrot {
 	
 	@SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+	
+	public static ResourceLocation resourceLocation(String path) {
+		return new ResourceLocation(Constants.MOD_ID, path);
+	}
+	
+	public static String namespaced(String path) {
+		return Constants.MOD_ID + "." + path;
+	}
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
