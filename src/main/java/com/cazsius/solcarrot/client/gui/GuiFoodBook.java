@@ -2,7 +2,6 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodInstance;
-import com.cazsius.solcarrot.common.CommonProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -18,9 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SideOnly(Side.CLIENT)
 public class GuiFoodBook extends GuiScreen {

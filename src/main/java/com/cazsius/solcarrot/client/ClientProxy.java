@@ -2,7 +2,6 @@ package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.command.CommandSizeFoodList;
 import com.cazsius.solcarrot.common.CommonProxy;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.ClientCommandHandler;

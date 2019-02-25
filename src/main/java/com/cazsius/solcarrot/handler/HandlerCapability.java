@@ -2,7 +2,6 @@ package com.cazsius.solcarrot.handler;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
