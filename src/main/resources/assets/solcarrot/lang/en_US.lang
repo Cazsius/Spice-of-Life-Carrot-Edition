@@ -27,3 +27,7 @@ message.solcarrot.desire.finished=Your desire to seek unique foods is finally sa
 
 # Items
 item.solcarrot.food_book.name=Food Book
+
+# GUIs
+gui.solcarrot.food_book.title=My Food Log
+gui.solcarrot.food_book.header=Foods Eaten: %s

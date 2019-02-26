@@ -3,166 +3,174 @@ package com.cazsius.solcarrot.client.gui;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodInstance;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+
+import static com.cazsius.solcarrot.lib.Localization.localized;
+import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
 
 @SideOnly(Side.CLIENT)
-public class GuiFoodBook extends GuiScreen {
-
-    private GuiFoodBook.NextPageButton buttonNextPage;
-    private GuiFoodBook.NextPageButton buttonPreviousPage;
-    private GuiButton buttonDone;
-
-    private final FoodCapability foodCapability = new FoodCapability();
-    private final EntityPlayer usingPlayer;
-
-    private int bookTotalPages = 2;
-    private int currPage;
-    private int totalFoods;
-    private NBTTagList bookPages;
-    private int foodPosX = (width - 150) / 2;
-    private int foodPosY = (height - 170) / 2;
-
-    private static final ResourceLocation FOOD_BOOK_GUI_TEXTURES = new ResourceLocation("textures/gui/book.png");
-
-    public GuiFoodBook(EntityPlayer player) {
-        super();
-        usingPlayer = player;
-    }
-
-    @Override
-    public void initGui() {
-        this.buttonList.clear();
-        Keyboard.enableRepeatEvents(true);
-        int i = (this.width - 192) / 2;
-        this.buttonDone = this.addButton(new GuiButton(0, this.width / 2 - 100, 196, 200, 20, I18n.format("gui.done")));
-        this.buttonNextPage = this.addButton(new GuiFoodBook.NextPageButton(1, i + 120, 156, true));
-        this.buttonPreviousPage = this.addButton(new GuiFoodBook.NextPageButton(2, i + 38, 156, false));
-        this.updateButtons();
-    }
-
-    public void renderFoodOnPage(EntityPlayer player, int posX, int posY) {
-        Set setFoodList =  player.getCapability(this.foodCapability.FOOD_CAPABILITY, null).foodList;
-        List<FoodInstance> foodList = new ArrayList<>(setFoodList);
-        int foodPerRow = 0;
-        for(int i = 0; i < foodList.size(); i++) {
-            totalFoods++;
-            foodPerRow++;
-            posX = posX + 16;
-            ItemStack foodStack = new ItemStack(foodList.get(i).item());
-            this.itemRender.renderItemIntoGUI(foodStack, posX, posY);
-            if(foodPerRow >= 7) {
-                foodPerRow = 0;
-                posY = posY + 20;
-                posX = foodPosX;
-            }
-        }
-    }
-
-
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(FOOD_BOOK_GUI_TEXTURES);
-        int i = (this.width - 192) / 2;
-        int j = 2;
-        this.drawTexturedModalRect(i, 2, 0, 0, 192, 192);
-
-        this.foodPosX = (width - 150) / 2;
-        this.foodPosY = (height - 170) / 2;
-        this.renderFoodOnPage(this.usingPlayer, foodPosX, foodPosY);
-
-        Minecraft.getMinecraft().fontRenderer.drawString("My Food Log", 180, 25, 000000, false);
-
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
-
-
-
-    private void updateButtons()
-    {
-        this.buttonNextPage.visible = (this.currPage < this.bookTotalPages - 1);
-        this.buttonPreviousPage.visible = this.currPage > 0;
-        this.buttonDone.visible = true;
-    }
-
-    @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
-
-        if (button.enabled) {
-            //buttonDone
-            if(button.id == 0) {
-                this.mc.displayGuiScreen((GuiScreen)null);
-            }
-            //buttonNextPage
-            else if (button.id == 1) {
-                if (this.currPage < this.bookTotalPages - 1) {
-                    ++this.currPage;
-                } else if (totalFoods >= 35) {
-                    this.addNewPage();
-                }
-            }
-            //butonPreviousPage
-            else if (button.id == 2) {
-                if (this.currPage > 0) {
-                    --this.currPage;
-                }
-            }
-        }
-    }
-
-    //Add new Page if X amount of Foods are Displayed
-    private void addNewPage() {
-        if (this.bookPages != null && this.totalFoods >= 35) {
-            this.bookPages.appendTag(new NBTTagString(""));
-            ++this.bookTotalPages;
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    static class NextPageButton extends GuiButton
-    {
-        private final boolean isForward;
-
-        public NextPageButton(int buttonId, int x, int y, boolean isForwardIn)
-        {
-            super(buttonId, x, y, 23, 13, "");
-            this.isForward = isForwardIn;
-        }
-
-        /**
-         * Draws this button to the screen.
-         */
-        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-            if (this.visible) {
-                boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-                mc.getTextureManager().bindTexture(GuiFoodBook.FOOD_BOOK_GUI_TEXTURES);
-                int i = 0;
-                int j = 192;
-
-                if (flag) {
-                    i += 23;
-                }
-
-                if (!this.isForward) {
-                    j += 13;
-                }
-
-                this.drawTexturedModalRect(this.x, this.y, i, j, 23, 13);
-            }
-        }
-    }
+public final class GuiFoodBook extends GuiScreen {
+	private static final ResourceLocation backgroundTexture = new ResourceLocation("textures/gui/book.png");
+	private static final int textureWidth = 192;
+	private static final int textureHeight = 192;
+	
+	private static final int foodsPerRow = 5;
+	private static final int rowsPerPage = 5;
+	private static final int foodsPerPage = foodsPerRow * rowsPerPage;
+	
+	private int leftEdge;
+	private int topEdge;
+	private int centerX;
+	private int centerY;
+	
+	private NextPageButton nextPageButton;
+	private NextPageButton prevPageButton;
+	private GuiButton doneButton;
+	
+	private final FoodCapability foodCapability;
+	private final List<FoodInstance> foodLog;
+	
+	private int pageCount;
+	private int currentPage = 0;
+	
+	public GuiFoodBook(EntityPlayer player) {
+		super();
+		
+		foodCapability = FoodCapability.get(player);
+		foodLog = foodCapability.getHistory();
+		pageCount = (foodLog.size() + foodsPerPage - 1) / foodsPerPage;
+		System.out.println("page count: " + pageCount + ", foods per page:" + foodsPerPage);
+	}
+	
+	@Override
+	public void initGui() {
+		super.initGui();
+		
+		centerX = width / 2;
+		centerY = height / 2;
+		leftEdge = centerX - (textureWidth) / 2;
+		topEdge = centerY - (textureHeight) / 2;
+		
+		buttonList.clear();
+		
+		int pageFlipButtonSpacing = 50;
+		prevPageButton = addButton(new NextPageButton(1, centerX - pageFlipButtonSpacing / 2 - NextPageButton.width, topEdge + 150, false));
+		nextPageButton = addButton(new NextPageButton(2, centerX + pageFlipButtonSpacing / 2, topEdge + 150, true));
+		
+		updateButtonVisibility();
+	}
+	
+	private void updateButtonVisibility() {
+		this.nextPageButton.visible = currentPage < pageCount - 1;
+		this.prevPageButton.visible = currentPage > 0;
+	}
+	
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.getTextureManager().bindTexture(backgroundTexture);
+		drawTexturedModalRect(leftEdge, topEdge, 0, 0, textureWidth, textureHeight);
+		
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		
+		String title = localized("gui", "food_book.title");
+		drawCenteredString(title, centerX, topEdge + 16, 0x000000);
+		
+		String header = localized("gui", "food_book.header", foodLog.size());
+		drawCenteredString(header, centerX, topEdge + 30, 0x000000);
+		
+		drawCenteredString("" + (currentPage + 1), centerX, topEdge + 154, 0x000000);
+		
+		renderFoodOnPage(mouseX, mouseY);
+	}
+	
+	private void drawCenteredString(String text, int x, int y, int color) {
+		fontRenderer.drawString(text, x - fontRenderer.getStringWidth(text) / 2, y, color);
+	}
+	
+	private void renderFoodOnPage(int mouseX, int mouseY) {
+		int startIndex = currentPage * foodsPerPage;
+		int endIndex = Math.min(foodLog.size(), startIndex + foodsPerPage); // well, 1 past the end
+		
+		int size = 16;
+		int spacing = size + 4;
+		int minX = centerX - spacing * foodsPerRow / 2;
+		int minY = centerY - spacing * rowsPerPage / 2;
+		
+		Optional<ItemStack> hoveredFood = Optional.empty();
+		for (int i = startIndex; i < endIndex; i++) {
+			FoodInstance food = foodLog.get(i);
+			int x = minX + spacing * (i % foodsPerRow);
+			int y = minY + spacing * ((i / foodsPerRow) % rowsPerPage);
+			
+			ItemStack itemStack = food.getItemStack();
+			itemRender.renderItemIntoGUI(itemStack, x, y);
+			
+			if (x <= mouseX && mouseX < x + size && y <= mouseY && mouseY < y + size) {
+				hoveredFood = Optional.of(itemStack);
+			}
+		}
+		
+		hoveredFood.ifPresent(food -> renderToolTip(food, mouseX, mouseY));
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton button) {
+		if (!button.enabled) return;
+		
+		if (button == doneButton) {
+			mc.player.closeScreen();
+		} else if (button == prevPageButton) {
+			currentPage--;
+			updateButtonVisibility();
+		} else if (button == nextPageButton) {
+			currentPage++;
+			updateButtonVisibility();
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private static class NextPageButton extends GuiButton {
+		private static final int width = 23;
+		private static final int height = 13;
+		
+		private final boolean isForward;
+		
+		private NextPageButton(int buttonId, int x, int y, boolean isForward) {
+			super(buttonId, x, y, 23, 13, "");
+			this.isForward = isForward;
+		}
+		
+		@Override
+		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+			if (!visible) return;
+			
+			int textureX = 0;
+			int textureY = 192;
+			
+			boolean isHovered = x <= mouseX && mouseX < x + width && y <= mouseY && mouseY < y + height;
+			if (isHovered) {
+				textureX += 23;
+			}
+			
+			if (!isForward) {
+				textureY += 13;
+			}
+			
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			mc.getTextureManager().bindTexture(GuiFoodBook.backgroundTexture);
+			drawTexturedModalRect(x, y, textureX, textureY, 23, 13);
+		}
+	}
 }
