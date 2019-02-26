@@ -21,7 +21,7 @@ import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 public class SOLCarrotItems {
 	private static final List<Item> ITEMS = new ArrayList<>(); // has to be on top so it's loaded first
 	
-	public static final ItemFoodBook enderBox = item(new ItemFoodBook(), "food_book");
+	public static final ItemFoodBook foodBook = item(new ItemFoodBook(), "food_book");
 	
 	private static <I extends Item> I item(I item, String name) {
 		item.setRegistryName(SOLCarrot.resourceLocation(name));
