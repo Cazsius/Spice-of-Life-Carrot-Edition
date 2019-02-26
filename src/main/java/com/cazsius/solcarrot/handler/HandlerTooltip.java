@@ -34,8 +34,7 @@ public class HandlerTooltip {
 		if (!isValidFood(event.getItemStack())) return;
 		Item foodJustEaten = event.getItemStack().getItem();
 		
-		FoodCapability food = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		assert food != null;
+		FoodCapability food = FoodCapability.get(player);
 		boolean hasBeenEaten = food.hasEaten(foodJustEaten, event.getItemStack().getMetadata());
 		
 		List<String> tooltip = event.getToolTip();
