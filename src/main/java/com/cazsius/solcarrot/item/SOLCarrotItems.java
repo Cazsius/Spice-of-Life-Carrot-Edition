@@ -25,7 +25,7 @@ public class SOLCarrotItems {
 	
 	private static <I extends Item> I item(I item, String name) {
 		item.setRegistryName(SOLCarrot.resourceLocation(name));
-		item.setUnlocalizedName(SOLCarrot.namespaced(name));
+		item.setTranslationKey(SOLCarrot.namespaced(name));
 		ITEMS.add(item);
 		return item;
 	}

@@ -13,7 +13,7 @@ public class Localization {
 	public static String localized(String domain, IForgeRegistryEntry entry, String path, Object... params) {
 		final ResourceLocation location = entry.getRegistryName();
 		assert location != null;
-		return localized(domain, location.getResourcePath() + "." + path, params);
+		return localized(domain, location.getPath() + "." + path, params);
 	}
 	
 	public static String localized(String domain, String path, Object... params) {
