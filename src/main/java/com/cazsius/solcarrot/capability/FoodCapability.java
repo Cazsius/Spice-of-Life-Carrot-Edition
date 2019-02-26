@@ -16,7 +16,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		assert foodCapability != null;
 		return foodCapability;
 	}
-
+	
 	public Set<FoodInstance> foodList = new HashSet<>();
 	
 	public FoodCapability() {}
@@ -41,12 +41,12 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	@Override
 	public NBTBase serializeNBT() {
 		NBTTagList list = new NBTTagList();
-		for (FoodInstance fInstance : this.foodList) {
-			ResourceLocation location = Item.REGISTRY.getNameForObject(fInstance.item());
+		for (FoodInstance food : this.foodList) {
+			ResourceLocation location = Item.REGISTRY.getNameForObject(food.item);
 			if (location == null)
 				continue;
 			
-			String toWrite = location + "@" + fInstance.meta();
+			String toWrite = location + "@" + food.metadata;
 			list.appendTag(new NBTTagString(toWrite));
 		}
 		return list;
@@ -70,8 +70,8 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 			Item item = Item.getByNameOrId(name);
 			if (item == null)
 				continue; // TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
-				
-			this.addFood(Item.getByNameOrId(name), meta);
+			
+			this.addFood(item, meta);
 		}
 	}
 	

@@ -23,7 +23,7 @@ public class HandlerTooltip {
 	private static boolean isValidFood(ItemStack itemStack) {
 		return AppleCoreAPI.accessor.isFood(itemStack);
 	}
-
+	
 	@SubscribeEvent
 	public static void onItemTooltip(ItemTooltipEvent event) {
 		if (!HandlerConfiguration.isFoodTooltipEnabled()) return;

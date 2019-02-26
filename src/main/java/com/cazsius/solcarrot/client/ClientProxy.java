@@ -12,13 +12,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-
+	
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-        ClientCommandHandler.instance.registerCommand(new CommandSizeFoodList());
+		ClientCommandHandler.instance.registerCommand(new CommandSizeFoodList());
 	}
-
+	
 	@Override
 	public EntityPlayer getSidedPlayer(MessageContext messageContext) {
 		return Minecraft.getMinecraft().player;

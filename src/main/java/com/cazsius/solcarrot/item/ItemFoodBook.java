@@ -9,18 +9,18 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class ItemFoodBook extends Item {
-    
-    public static final int GUI_ID = 1;
-    
-    public ItemFoodBook() {
-        super();
-        this.setCreativeTab(CreativeTabs.MISC);
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-        player.openGui(SOLCarrot.instance, GUI_ID, world, (int) player.posX, (int) player.posY, (int) player.posZ);
-        
-        return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-    }
+	
+	public static final int GUI_ID = 1;
+	
+	public ItemFoodBook() {
+		super();
+		this.setCreativeTab(CreativeTabs.MISC);
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		player.openGui(SOLCarrot.instance, GUI_ID, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+		
+		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+	}
 }

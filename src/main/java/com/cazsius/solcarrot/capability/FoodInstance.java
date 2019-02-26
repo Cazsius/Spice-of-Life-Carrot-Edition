@@ -1,22 +1,23 @@
 package com.cazsius.solcarrot.capability;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class FoodInstance {
-	private int meta;
-	private Item i;
+	public final Item item;
+	public final int metadata;
 	
-	public FoodInstance(Item i, int meta) {
-		this.i = i;
-		this.meta = meta;
+	public FoodInstance(Item item, int metadata) {
+		this.item = item;
+		this.metadata = metadata;
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((i == null) ? 0 : i.hashCode());
-		result = prime * result + meta;
+		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		result = prime * result + metadata;
 		return result;
 	}
 	
@@ -26,19 +27,10 @@ public class FoodInstance {
 			return false;
 		FoodInstance other = (FoodInstance) obj;
 		
-		if (i == null) {
-			return other.i == null; // both null
-		} else {
-			return meta == other.meta && i.equals(other.i);
-		}
+		return ItemStack.areItemStacksEqual(getItemStack(), other.getItemStack());
 	}
 	
-	public Item item() {
-		return i;
+	public ItemStack getItemStack() {
+		return new ItemStack(item, 1, metadata);
 	}
-	
-	public int meta() {
-		return meta;
-	}
-	
 }
