@@ -34,18 +34,16 @@ public final class GuiFoodBook extends GuiScreen {
 	
 	private NextPageButton nextPageButton;
 	private NextPageButton prevPageButton;
-	private GuiButton doneButton;
-	
-	private final FoodCapability foodCapability;
-	private final List<FoodInstance> foodLog;
 	
 	private int pageCount;
 	private int currentPage = 0;
 	
+	private final List<FoodInstance> foodLog;
+	
 	public GuiFoodBook(EntityPlayer player) {
 		super();
 		
-		foodCapability = FoodCapability.get(player);
+		FoodCapability foodCapability = FoodCapability.get(player);
 		foodLog = foodCapability.getHistory();
 		pageCount = (foodLog.size() + foodsPerPage - 1) / foodsPerPage;
 	}
@@ -69,8 +67,8 @@ public final class GuiFoodBook extends GuiScreen {
 	}
 	
 	private void updateButtonVisibility() {
-		this.nextPageButton.visible = currentPage < pageCount - 1;
-		this.prevPageButton.visible = currentPage > 0;
+		nextPageButton.visible = currentPage < pageCount - 1;
+		prevPageButton.visible = currentPage > 0;
 	}
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -127,9 +125,7 @@ public final class GuiFoodBook extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 		if (!button.enabled) return;
 		
-		if (button == doneButton) {
-			mc.player.closeScreen();
-		} else if (button == prevPageButton) {
+		if (button == prevPageButton) {
 			currentPage--;
 			updateButtonVisibility();
 		} else if (button == nextPageButton) {
