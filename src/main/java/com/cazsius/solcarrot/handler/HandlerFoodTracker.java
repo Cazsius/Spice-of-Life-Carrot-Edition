@@ -1,14 +1,17 @@
 package com.cazsius.solcarrot.handler;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.command.Command;
 import com.cazsius.solcarrot.lib.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.text.*;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import squeek.applecore.api.food.FoodEvent;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
@@ -48,8 +51,21 @@ public class HandlerFoodTracker {
 					nextMilestoneMessage = localized("message", "desire.continues", progressInfo.foodsUntilNextMilestone(), heartsDescription);
 				}
 				
-				Command.showMessage(player, milestoneAchievedMessage + "\n" + nextMilestoneMessage);
+				showMessage(player, milestoneAchievedMessage, nextMilestoneMessage);
 			}
 		}
+	}
+	
+	private static void showMessage(EntityPlayer player, String... message) {
+		boolean showAboveHotbar = HandlerConfiguration.shouldShowProgressAboveHotbar();
+		String separator = showAboveHotbar ? " " : "\n"; // above-hotbar mode is single-line only :(
+		Optional<String> combinedMessage = Arrays.stream(message)
+				.reduce((acc, next) -> acc + separator + next);
+		assert combinedMessage.isPresent(); // at least one message to send
+		
+		String prefix = showAboveHotbar ? "" : localized("message", "prefix") + " ";
+		ITextComponent component = new TextComponentString(prefix + combinedMessage.get());
+		component.setStyle(new Style().setColor(TextFormatting.DARK_AQUA));
+		player.sendStatusMessage(component, showAboveHotbar);
 	}
 }

@@ -5,13 +5,11 @@ import com.cazsius.solcarrot.handler.HandlerCapability;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
-import static com.cazsius.solcarrot.lib.Localization.localized;
-
-public final class CommandClearFoodList extends Command {
+final class CommandClearFoodList extends CommandFoodList.SubCommand {
 	
 	@Override
 	public String getName() {
-		return "clearfoodlist";
+		return "clear";
 	}
 	
 	@Override
@@ -19,6 +17,12 @@ public final class CommandClearFoodList extends Command {
 		foodCapability.clearFood();
 		HandlerCapability.syncFoodList(player);
 		MaxHealthHandler.updateFoodHPModifier(player);
-		showMessage(player, localized("command", "clearfoodlist.success"));
+		
+		showMessage(player, localizedComponent("success"));
+	}
+	
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 2;
 	}
 }

@@ -3,9 +3,9 @@ package com.cazsius.solcarrot.client.gui;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodInstance;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
-import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
 
 @SideOnly(Side.CLIENT)
 public final class GuiFoodBook extends GuiScreen {

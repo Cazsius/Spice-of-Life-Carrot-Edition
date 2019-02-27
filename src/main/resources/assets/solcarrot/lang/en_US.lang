@@ -4,21 +4,20 @@ tooltip.solcarrot.not_eaten_2=What does it taste like?
 tooltip.solcarrot.eaten=Eaten: Assisted in adding hearts
 
 # Commands
-command.solcarrot.sizefoodlist.usage=/sizefoodlist
-command.solcarrot.sizefoodlist.desc.foods_eaten.singular=You've eaten one unique food!
-command.solcarrot.sizefoodlist.desc.foods_eaten.plural=You've eaten %s unique foods!
-command.solcarrot.sizefoodlist.desc.milestone.max=You sadly cannot gain any more health from trying new foods.
-command.solcarrot.sizefoodlist.desc.milestone.more=You need %s more to increase your max health.
+command.solcarrot.foodlist.usage=/foodlist <size|clear|sync>
+command.solcarrot.foodlist.size.desc.foods_eaten.singular=You've eaten one unique food!
+command.solcarrot.foodlist.size.desc.foods_eaten.plural=You've eaten %s unique foods!
+command.solcarrot.foodlist.size.desc.milestone.max=You sadly cannot gain any more health from trying new foods.
+command.solcarrot.foodlist.size.desc.milestone.more=You need %s more to increase your max health.
 
-command.solcarrot.clearfoodlist.usage=/clearfoodlist
-command.solcarrot.clearfoodlist.success=Food list reset!
+command.solcarrot.foodlist.clear.success=Food list reset!
 
-command.solcarrot.syncfoodlist.usage=/syncfoodlist
-command.solcarrot.syncfoodlist.success=Food list synchronized!
+command.solcarrot.foodlist.sync.success=Food list synchronized!
 
 command.solcarrot.error.players_only=This command can only be executed by players.
 
 # Messages
+message.solcarrot.prefix=[SoL: Carrot] 
 message.solcarrot.milestone_achieved=What a unique flavor! You've gained %s!
 message.solcarrot.milestone_achieved.hearts.singular=a heart
 message.solcarrot.milestone_achieved.hearts.plural=%s hearts

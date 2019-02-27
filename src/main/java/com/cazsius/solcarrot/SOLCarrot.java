@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot;
 
-import com.cazsius.solcarrot.command.CommandClearFoodList;
-import com.cazsius.solcarrot.command.CommandSyncFoodList;
+import com.cazsius.solcarrot.command.CommandFoodList;
 import com.cazsius.solcarrot.common.CommonProxy;
 import com.cazsius.solcarrot.handler.HandlerConfiguration;
 import com.cazsius.solcarrot.lib.Constants;
@@ -42,7 +41,6 @@ public class SOLCarrot {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandClearFoodList());
-		event.registerServerCommand(new CommandSyncFoodList());
+		event.registerServerCommand(new CommandFoodList());
 	}
 }

@@ -2,28 +2,26 @@ package com.cazsius.solcarrot.command;
 
 import com.cazsius.solcarrot.lib.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.text.ITextComponent;
 
-import static com.cazsius.solcarrot.lib.Localization.localized;
-import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
-
-public final class CommandSizeFoodList extends Command {
+final class CommandSizeFoodList extends CommandFoodList.SubCommand {
 	
 	@Override
 	public String getName() {
-		return "sizefoodlist";
+		return "size";
 	}
 	
 	@Override
 	void execute(EntityPlayer player, String[] args) {
 		ProgressInfo progressInfo = ProgressInfo.getProgressInfo(player);
 		
-		String progressDesc = localizedQuantity("command", "sizefoodlist.desc.foods_eaten", progressInfo.foodsEaten);
+		ITextComponent progressDesc = localizedQuantityComponent("desc.foods_eaten", progressInfo.foodsEaten);
 		
-		String milestoneDesc = progressInfo.hasReachedMax()
-				? localized("command", "sizefoodlist.desc.milestone.max")
-				: localized("command", "sizefoodlist.desc.milestone.more", progressInfo.foodsUntilNextMilestone());
+		ITextComponent milestoneDesc = progressInfo.hasReachedMax()
+				? localizedComponent("desc.milestone.max")
+				: localizedComponent("desc.milestone.more", progressInfo.foodsUntilNextMilestone());
 		
-		showMessage(player, progressDesc + "\n" + milestoneDesc);
+		showMessage(player, progressDesc, milestoneDesc);
 	}
 	
 	@Override
