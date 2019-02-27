@@ -48,7 +48,6 @@ public final class GuiFoodBook extends GuiScreen {
 		foodCapability = FoodCapability.get(player);
 		foodLog = foodCapability.getHistory();
 		pageCount = (foodLog.size() + foodsPerPage - 1) / foodsPerPage;
-		System.out.println("page count: " + pageCount + ", foods per page:" + foodsPerPage);
 	}
 	
 	@Override
