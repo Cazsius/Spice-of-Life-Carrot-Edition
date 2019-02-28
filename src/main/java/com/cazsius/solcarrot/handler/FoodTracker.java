@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.handler;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.lib.ProgressInfo;
@@ -17,7 +18,7 @@ import java.util.Optional;
 import static com.cazsius.solcarrot.lib.Localization.localized;
 import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public class FoodTracker {
 	
 	@SubscribeEvent

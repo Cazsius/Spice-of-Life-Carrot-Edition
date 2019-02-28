@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
-import com.cazsius.solcarrot.lib.Constants;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.config.Config;
@@ -14,8 +13,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 // new config names + versioning commented out for now
 // TODO switch to new names when updating to next mc version
 
-@Mod.EventBusSubscriber
-@Config(modid = Constants.MOD_ID)//, name = Constants.MOD_ID + "-" + SOLCarrotConfig.version)
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
+@Config(modid = SOLCarrot.MOD_ID)//, name = Constants.MOD_ID + "-" + SOLCarrotConfig.version)
 public class SOLCarrotConfig {
 	//static final String version = "1.5"; // only change this if the new version is not backwards-compatible with the old one.
 	
@@ -46,9 +45,9 @@ public class SOLCarrotConfig {
 	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (!event.getModID().equals(Constants.MOD_ID)) return;
+		if (!event.getModID().equals(SOLCarrot.MOD_ID)) return;
 		
-		ConfigManager.sync(Constants.MOD_ID, Config.Type.INSTANCE);
+		ConfigManager.sync(SOLCarrot.MOD_ID, Config.Type.INSTANCE);
 		
 		if (event.isWorldRunning()) {
 			PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();

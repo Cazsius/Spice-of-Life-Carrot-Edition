@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.handler;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +19,7 @@ import java.util.List;
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
 @SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(Side.CLIENT)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = SOLCarrot.MOD_ID)
 public class TooltipHandler {
 	
 	private static boolean isValidFood(ItemStack itemStack) {

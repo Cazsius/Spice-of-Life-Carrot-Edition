@@ -17,7 +17,7 @@ import java.util.List;
 
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public class SOLCarrotItems {
 	private static final List<Item> ITEMS = new ArrayList<>(); // has to be on top so it's loaded first
 	

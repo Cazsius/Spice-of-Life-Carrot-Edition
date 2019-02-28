@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.lib;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -17,7 +18,7 @@ public class Localization {
 	
 	/** e.g. keyString("tooltip", "eaten_status.not_eaten_1") -> "tooltip.solcarrot.eatenStatus.not_eaten_1") */
 	public static String keyString(String domain, String path) {
-		return domain + "." + Constants.MOD_ID + "." + path;
+		return domain + "." + SOLCarrot.MOD_ID + "." + path;
 	}
 	
 	@SideOnly(Side.CLIENT)

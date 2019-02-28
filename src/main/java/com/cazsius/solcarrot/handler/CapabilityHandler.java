@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public class CapabilityHandler {
 	
 	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("foodCapability");
