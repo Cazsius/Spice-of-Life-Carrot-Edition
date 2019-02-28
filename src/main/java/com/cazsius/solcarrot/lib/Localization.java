@@ -4,6 +4,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Localization {
@@ -18,6 +20,7 @@ public class Localization {
 		return domain + "." + Constants.MOD_ID + "." + path;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static String localized(String domain, IForgeRegistryEntry entry, String path, Object... args) {
 		return I18n.format(keyString(domain, entry, path), args);
 	}
@@ -26,6 +29,7 @@ public class Localization {
 		return new TextComponentTranslation(keyString(domain, entry, path), args);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static String localized(String domain, String path, Object... args) {
 		return I18n.format(keyString(domain, path), args);
 	}
@@ -34,6 +38,7 @@ public class Localization {
 		return new TextComponentTranslation(keyString(domain, path), args);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public static String localizedQuantity(String domain, String path, int number) {
 		return number == 1
 				? I18n.format(keyString(domain, path + ".singular"))
