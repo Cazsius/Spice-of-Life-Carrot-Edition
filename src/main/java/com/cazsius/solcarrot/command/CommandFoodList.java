@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static com.cazsius.solcarrot.lib.Localization.keyString;
-import static com.cazsius.solcarrot.lib.Localization.localized;
 
 public class CommandFoodList extends CommandTreeBase {
 	
@@ -31,7 +30,7 @@ public class CommandFoodList extends CommandTreeBase {
 	
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return localized("command", getName() + ".usage");
+		return Localization.keyString("command", getName() + ".usage");
 	}
 	
 	@Override
