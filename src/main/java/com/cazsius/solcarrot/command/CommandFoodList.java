@@ -48,10 +48,7 @@ public class CommandFoodList extends CommandTreeBase {
 		
 		@Override
 		public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-			if (!(sender.getCommandSenderEntity() instanceof EntityPlayer))
-				throw new WrongUsageException(keyString("command", "error.players_only"));
-			EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
-			execute(player, args);
+			execute(CommandFoodList.getCommandSenderAsPlayer(sender), args);
 		}
 		
 		void execute(EntityPlayer player, String[] args) {

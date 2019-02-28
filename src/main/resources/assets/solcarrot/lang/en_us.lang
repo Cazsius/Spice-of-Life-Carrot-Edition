@@ -5,6 +5,7 @@ tooltip.solcarrot.eaten=Eaten: Assisted in adding hearts
 
 # Commands
 command.solcarrot.foodlist.usage=/foodlist <size|clear|sync>
+
 command.solcarrot.foodlist.size.desc.foods_eaten.singular=You've eaten one unique food!
 command.solcarrot.foodlist.size.desc.foods_eaten.plural=You've eaten %s unique foods!
 command.solcarrot.foodlist.size.desc.milestone.max=You sadly cannot gain any more health from trying new foods.
@@ -13,8 +14,6 @@ command.solcarrot.foodlist.size.desc.milestone.more=You need %s more to increase
 command.solcarrot.foodlist.clear.success=Food list reset!
 
 command.solcarrot.foodlist.sync.success=Food list synchronized!
-
-command.solcarrot.error.players_only=This command can only be executed by players.
 
 # Messages
 message.solcarrot.prefix=[SoL: Carrot] 
