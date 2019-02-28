@@ -1,13 +1,16 @@
 package com.cazsius.solcarrot;
 
+import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.capability.FoodStorage;
 import com.cazsius.solcarrot.command.CommandFoodList;
-import com.cazsius.solcarrot.common.CommonProxy;
-import com.cazsius.solcarrot.lib.Constants;
+import com.cazsius.solcarrot.common.GuiHandler;
+import com.cazsius.solcarrot.handler.PacketHandler;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @Mod(modid = SOLCarrot.MOD_ID, version = "__VERSION_FROM_GRADLE__", dependencies = "required-after:applecore")
 public class SOLCarrot {
@@ -16,9 +19,6 @@ public class SOLCarrot {
 	
 	@Mod.Instance(MOD_ID)
 	public static SOLCarrot instance;
-	
-	@SidedProxy(clientSide = Constants.CLIENT_PROXY_CLASS, serverSide = Constants.SERVER_PROXY_CLASS)
-	public static CommonProxy proxy;
 	
 	public static ResourceLocation resourceLocation(String path) {
 		return new ResourceLocation(MOD_ID, path);
@@ -30,12 +30,13 @@ public class SOLCarrot {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
-		proxy.preInit(e);
+		PacketHandler.registerMessages(MOD_ID);
 	}
 	
 	@EventHandler
 	public void Init(FMLInitializationEvent e) {
-		proxy.init(e);
+		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability::new);
+		NetworkRegistry.INSTANCE.registerGuiHandler(SOLCarrot.instance, new GuiHandler());
 	}
 	
 	@EventHandler

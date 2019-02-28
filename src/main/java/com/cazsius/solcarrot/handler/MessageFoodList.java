@@ -4,11 +4,14 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodInstance;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageFoodList implements IMessage {
 	private FoodCapability foodCapability;
@@ -40,8 +43,10 @@ public class MessageFoodList implements IMessage {
 		}
 	}
 	
+	// message is only ever sent from server to client, so everything inside can use client-only methods just fine.
 	public static class Handler implements IMessageHandler<MessageFoodList, IMessage> {
 		@Override
+		@SideOnly(Side.CLIENT)
 		public IMessage onMessage(MessageFoodList message, MessageContext ctx) {
 			// Always use a construct like this to actually handle your message.
 			// This ensures that your 'handle' code is run on the main Minecraft
@@ -52,8 +57,9 @@ public class MessageFoodList implements IMessage {
 			return null;
 		}
 		
+		@SideOnly(Side.CLIENT)
 		private void handle(MessageFoodList message, MessageContext ctx) {
-			EntityPlayer player = SOLCarrot.proxy.getSidedPlayer(ctx);
+			EntityPlayer player = Minecraft.getMinecraft().player;
 			FoodCapability.get(player).copyFoods(message.foodCapability);
 		}
 	}
