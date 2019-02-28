@@ -31,10 +31,6 @@ public class SOLCarrot {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		PacketHandler.registerMessages(MOD_ID);
-	}
-	
-	@EventHandler
-	public void Init(FMLInitializationEvent e) {
 		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodStorage(), FoodCapability::new);
 		NetworkRegistry.INSTANCE.registerGuiHandler(SOLCarrot.instance, new GuiHandler());
 	}
