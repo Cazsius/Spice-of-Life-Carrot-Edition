@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -28,6 +29,13 @@ public class CapabilityHandler {
 		// server needs to send any loaded data to the client
 		if (event.getEntity() instanceof EntityPlayer && !event.getWorld().isRemote)
 			syncFoodList((EntityPlayer) event.getEntity());
+	}
+	
+	@SubscribeEvent
+	public static void onClone(PlayerEvent.Clone event) {
+		FoodCapability newInstance = FoodCapability.get(event.getEntityPlayer());
+		FoodCapability original = FoodCapability.get(event.getOriginal());
+		newInstance.deserializeNBT(original.serializeNBT());
 	}
 	
 	public static void syncFoodList(EntityPlayer player) {
