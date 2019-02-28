@@ -1,9 +1,13 @@
 package com.cazsius.solcarrot;
 
+import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import com.cazsius.solcarrot.lib.Constants;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -37,5 +41,12 @@ public class SOLCarrotConfig {
 		if (!event.getModID().equals(Constants.MOD_ID)) return;
 		
 		ConfigManager.sync(Constants.MOD_ID, Config.Type.INSTANCE);
+		
+		if (event.isWorldRunning()) {
+			PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+			for (EntityPlayer player : players.getPlayers()) {
+				MaxHealthHandler.updateFoodHPModifier(player);
+			}
+		}
 	}
 }
