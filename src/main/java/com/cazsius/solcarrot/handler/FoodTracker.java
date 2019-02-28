@@ -18,7 +18,7 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
 
 @Mod.EventBusSubscriber
-public class HandlerFoodTracker {
+public class FoodTracker {
 	
 	@SubscribeEvent
 	public static void onFoodEaten(FoodEvent.FoodEaten event) {

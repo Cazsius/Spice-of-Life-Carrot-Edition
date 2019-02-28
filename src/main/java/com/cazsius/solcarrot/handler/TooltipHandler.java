@@ -19,7 +19,7 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(Side.CLIENT)
-public class HandlerTooltip {
+public class TooltipHandler {
 	
 	private static boolean isValidFood(ItemStack itemStack) {
 		return AppleCoreAPI.accessor.isFood(itemStack);

@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.command;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.handler.HandlerCapability;
+import com.cazsius.solcarrot.handler.CapabilityHandler;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -15,7 +15,7 @@ final class CommandClearFoodList extends CommandFoodList.SubCommand {
 	@Override
 	void execute(EntityPlayer player, FoodCapability foodCapability, String[] args) {
 		foodCapability.clearFood();
-		HandlerCapability.syncFoodList(player);
+		CapabilityHandler.syncFoodList(player);
 		MaxHealthHandler.updateFoodHPModifier(player);
 		
 		showMessage(player, localizedComponent("success"));

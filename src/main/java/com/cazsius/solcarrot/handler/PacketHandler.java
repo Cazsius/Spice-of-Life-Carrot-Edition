@@ -9,8 +9,7 @@ public class PacketHandler {
 	
 	public static SimpleNetworkWrapper INSTANCE = null;
 	
-	public PacketHandler() {
-	}
+	public PacketHandler() {}
 	
 	public static int nextID() {
 		return packetId++;
