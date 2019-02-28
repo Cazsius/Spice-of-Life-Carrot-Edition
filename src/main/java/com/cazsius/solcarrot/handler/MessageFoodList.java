@@ -1,6 +1,5 @@
 package com.cazsius.solcarrot.handler;
 
-import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodInstance;
 import io.netty.buffer.ByteBuf;

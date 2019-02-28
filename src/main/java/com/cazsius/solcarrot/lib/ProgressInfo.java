@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.lib;
 
-import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.SOLCarrotConfig;
+import com.cazsius.solcarrot.capability.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ProgressInfo {
