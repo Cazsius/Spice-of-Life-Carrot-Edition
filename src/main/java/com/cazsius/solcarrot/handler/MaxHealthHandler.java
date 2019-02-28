@@ -53,11 +53,12 @@ public class MaxHealthHandler {
 					totalHealthModifier,
 					0
 			);
+			
+			float oldMax = player.getMaxHealth();
 			updateHealthModifier(player, modifier);
-			// This should never happen, but let's be defensive.
-			if (player.getHealth() > player.getMaxHealth()) {
-				player.setHealth(player.getMaxHealth());
-			}
+			
+			// adjust current health proportionally to increase in max health
+			player.setHealth(player.getHealth() * player.getMaxHealth() / oldMax);
 		}
 	}
 	
