@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.handler;
 
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.lib.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +41,7 @@ public class HandlerFoodTracker {
 			if (player.world.isRemote) {
 				ProgressInfo progressInfo = ProgressInfo.getProgressInfo(player);
 				
-				String heartsDescription = localizedQuantity("message", "milestone_achieved.hearts", HandlerConfiguration.getHeartsPerMilestone());
+				String heartsDescription = localizedQuantity("message", "milestone_achieved.hearts", SOLCarrotConfig.heartsPerMilestone);
 				
 				String milestoneAchievedMessage = localized("message", "milestone_achieved", heartsDescription);
 				
@@ -57,7 +58,7 @@ public class HandlerFoodTracker {
 	}
 	
 	private static void showMessage(EntityPlayer player, String... message) {
-		boolean showAboveHotbar = HandlerConfiguration.shouldShowProgressAboveHotbar();
+		boolean showAboveHotbar = SOLCarrotConfig.shouldShowProgressAboveHotbar;
 		String separator = showAboveHotbar ? " " : "\n"; // above-hotbar mode is single-line only :(
 		Optional<String> combinedMessage = Arrays.stream(message)
 				.reduce((acc, next) -> acc + separator + next);

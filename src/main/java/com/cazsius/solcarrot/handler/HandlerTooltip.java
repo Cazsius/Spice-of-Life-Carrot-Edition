@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.handler;
 
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -26,7 +27,7 @@ public class HandlerTooltip {
 	
 	@SubscribeEvent
 	public static void onItemTooltip(ItemTooltipEvent event) {
-		if (!HandlerConfiguration.isFoodTooltipEnabled()) return;
+		if (!SOLCarrotConfig.isFoodTooltipEnabled) return;
 		
 		if (event.getEntityPlayer() == null) return;
 		EntityPlayer player = event.getEntityPlayer();

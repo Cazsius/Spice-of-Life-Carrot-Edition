@@ -2,7 +2,6 @@ package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.command.CommandFoodList;
 import com.cazsius.solcarrot.common.CommonProxy;
-import com.cazsius.solcarrot.handler.HandlerConfiguration;
 import com.cazsius.solcarrot.lib.Constants;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
@@ -30,7 +29,6 @@ public class SOLCarrot {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
-		HandlerConfiguration.initConfig(e.getSuggestedConfigurationFile());
 		proxy.preInit(e);
 	}
 	

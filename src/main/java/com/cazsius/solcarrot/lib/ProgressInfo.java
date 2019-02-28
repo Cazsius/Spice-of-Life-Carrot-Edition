@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.lib;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.handler.HandlerConfiguration;
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ProgressInfo {
@@ -10,7 +10,7 @@ public class ProgressInfo {
 	}
 	
 	public static ProgressInfo getProgressInfo(int foodsEaten) {
-		int[] milestones = HandlerConfiguration.getMilestoneArray();
+		int[] milestones = SOLCarrotConfig.milestones;
 		for (int i = 0; i < milestones.length; i++) {
 			if (foodsEaten < milestones[i])
 				return new ProgressInfo(i, milestones[i], foodsEaten);
