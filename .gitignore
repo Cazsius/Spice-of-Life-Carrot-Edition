@@ -17,6 +17,5 @@
 /run/
 /out/
 /classes/
-gradle.properties
 
 \.idea/
