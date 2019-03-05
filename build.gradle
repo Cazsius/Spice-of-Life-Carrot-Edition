@@ -45,9 +45,9 @@ repositories {
 }
 
 dependencies {
-	deobfCompile "mezz.jei:jei_1.12.2:4.9.1.169"
-    deobfCompile "applecore:AppleCore:1.12.2-3.1.1:deobf"
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
+	deobfCompile "mezz.jei:jei_1.12.2:4.15.0.268"
+    deobfCompile "applecore:AppleCore:1.12.2-3.2.0:deobf"
+    deobfCompile "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
 }
 
 processResources {
