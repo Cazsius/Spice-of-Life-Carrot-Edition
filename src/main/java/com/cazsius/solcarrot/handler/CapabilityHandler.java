@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public class CapabilityHandler {
 	
-	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("foodCapability");
+	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("food");
 	
 	@SubscribeEvent
 	public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
