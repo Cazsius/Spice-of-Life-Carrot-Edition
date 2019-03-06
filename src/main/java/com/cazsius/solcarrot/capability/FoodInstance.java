@@ -9,7 +9,8 @@ public class FoodInstance {
 	
 	public FoodInstance(Item item, int metadata) {
 		this.item = item;
-		this.metadata = metadata;
+		// e.g. actually additions coffee has metadata for how empty it is, but should only register once.
+		this.metadata = item.getHasSubtypes() ? metadata : 0;
 	}
 	
 	@Override
