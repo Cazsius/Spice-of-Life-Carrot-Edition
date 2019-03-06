@@ -66,16 +66,9 @@ public class CommandFoodList extends CommandTreeBase {
 			return Localization.localizedQuantityComponent("command", localizationPath(path), number);
 		}
 		
-		static void showMessage(EntityPlayer player, ITextComponent... message) {
-			Optional<ITextComponent> combinedMessage = Arrays.stream(message)
-					.reduce((acc, next) -> acc.appendText("\n").appendSibling(next));
-			assert combinedMessage.isPresent(); // at least one message to send
-			
-			ITextComponent formatting = new TextComponentString(TextFormatting.DARK_AQUA.toString());
-			player.sendStatusMessage(
-					formatting.appendSibling(combinedMessage.get()),
-					false
-			);
+		static void showMessage(EntityPlayer player, ITextComponent message) {
+			Style style = new Style().setColor(TextFormatting.DARK_AQUA);
+			player.sendStatusMessage(message.setStyle(style), false);
 		}
 		
 		private String localizationPath(String path) {

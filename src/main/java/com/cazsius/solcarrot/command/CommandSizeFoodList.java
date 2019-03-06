@@ -18,12 +18,12 @@ final class CommandSizeFoodList extends CommandFoodList.SubCommand {
 		ProgressInfo progressInfo = ProgressInfo.getProgressInfo(player);
 		
 		ITextComponent progressDesc = localizedQuantityComponent("desc.foods_eaten", progressInfo.foodsEaten);
+		showMessage(player, progressDesc);
 		
 		ITextComponent milestoneDesc = progressInfo.hasReachedMax()
 				? localizedComponent("desc.milestone.max")
 				: localizedComponent("desc.milestone.more", progressInfo.foodsUntilNextMilestone());
-		
-		showMessage(player, progressDesc, milestoneDesc);
+		showMessage(player, milestoneDesc);
 	}
 	
 	@Override
