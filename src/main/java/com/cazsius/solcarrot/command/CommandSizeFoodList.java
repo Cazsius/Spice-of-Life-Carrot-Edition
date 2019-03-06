@@ -1,7 +1,9 @@
 package com.cazsius.solcarrot.command;
 
 import com.cazsius.solcarrot.lib.ProgressInfo;
+import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 
 final class CommandSizeFoodList extends CommandFoodList.SubCommand {
@@ -25,7 +27,7 @@ final class CommandSizeFoodList extends CommandFoodList.SubCommand {
 	}
 	
 	@Override
-	public int getRequiredPermissionLevel() {
-		return 0;
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return true;
 	}
 }
