@@ -8,9 +8,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.*;
 import net.minecraftforge.server.command.CommandTreeBase;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 import static com.cazsius.solcarrot.lib.Localization.keyString;
 
 public class CommandFoodList extends CommandTreeBase {
