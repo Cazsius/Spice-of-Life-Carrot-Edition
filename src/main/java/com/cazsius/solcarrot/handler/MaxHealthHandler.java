@@ -37,7 +37,10 @@ public class MaxHealthHandler {
 		updateHealthModifier(event.getEntityPlayer(), getHealthModifier(event.getOriginal()));
 	}
 	
-	public static void updateFoodHPModifier(EntityPlayer player) {
+	/** @return whether or not the player reached a new milestone in this update */
+	public static boolean updateFoodHPModifier(EntityPlayer player) {
+		if (player.world.isRemote) return false;
+		
 		AttributeModifier prevModifier = getHealthModifier(player);
 		
 		int healthPenalty = 2 * (SOLCarrotConfig.baseHearts - 10);
@@ -60,6 +63,9 @@ public class MaxHealthHandler {
 			
 			// adjust current health proportionally to increase in max health
 			player.setHealth(player.getHealth() * player.getMaxHealth() / oldMax);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
