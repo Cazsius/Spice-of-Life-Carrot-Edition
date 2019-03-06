@@ -6,14 +6,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
@@ -45,6 +45,10 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		FoodCapability foodCapability = FoodCapability.get(player);
 		foodLog = foodCapability.getHistory();
+		// sort by name, using metadata as tiebreaker
+		foodLog.sort(Comparator.comparing((food) -> food.metadata)); // sort is stable, so this works
+		foodLog.sort(Comparator.comparing((food) -> I18n.format(food.getItemStack().getTranslationKey() + ".name")));
+		
 		pageCount = (foodLog.size() + foodsPerPage - 1) / foodsPerPage;
 	}
 	
