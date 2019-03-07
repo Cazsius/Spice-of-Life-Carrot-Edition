@@ -1,20 +1,13 @@
 package com.cazsius.solcarrot.handler;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.FoodInstance;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
 
 public class MessageFoodList extends NBTMessage {
 	private FoodCapability foodCapability;
