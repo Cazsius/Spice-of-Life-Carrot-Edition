@@ -67,12 +67,16 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 			if (item == null)
 				continue; // TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
 			
-			addFood(item, meta);
+			addFood(new FoodInstance(item, meta));
 		}
 	}
 	
-	public void addFood(Item item, int meta) {
-		foodList.add(new FoodInstance(item, meta));
+	public void addFood(ItemStack itemStack) {
+		addFood(new FoodInstance(itemStack));
+	}
+	
+	private void addFood(FoodInstance food) {
+		foodList.add(food);
 	}
 	
 	public int getCount() {
@@ -88,11 +92,11 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 	
 	public void copyFoods(FoodCapability food) {
-		clearFood();
+		foodList.clear();
 		foodList.addAll(food.foodList);
 	}
 	
-	public List<FoodInstance> getHistory() {
+	public List<FoodInstance> getEatenFoods() {
 		return new ArrayList<>(foodList);
 	}
 }

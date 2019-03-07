@@ -80,7 +80,7 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		FoodCapability foodCapability = FoodCapability.get(player);
 		// sort by name, using metadata as tiebreaker
-		List<ItemStack> eatenFoods = foodCapability.getHistory().stream()
+		List<ItemStack> eatenFoods = foodCapability.getEatenFoods().stream()
 				.map(FoodInstance::getItemStack)
 				// sort by name, using metadata as tiebreaker
 				.sorted(Comparator.comparing(ItemStack::getMetadata))

@@ -6,13 +6,17 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MessageFoodList implements IMessage {
+import java.io.IOException;
+
+public class MessageFoodList extends NBTMessage {
 	private FoodCapability foodCapability;
 	
 	public MessageFoodList(FoodCapability foodCapability) {
@@ -25,21 +29,13 @@ public class MessageFoodList implements IMessage {
 	}
 	
 	@Override
-	public void fromBytes(ByteBuf buf) {
-		PacketBuffer pb = new PacketBuffer(buf);
-		while (pb.isReadable()) {
-			//                                      item ID        metadata
-			foodCapability.addFood(Item.getItemById(pb.readInt()), pb.readInt());
-		}
+	public NBTBase serializeNBT() {
+		return foodCapability.serializeNBT();
 	}
 	
 	@Override
-	public void toBytes(ByteBuf buf) {
-		PacketBuffer pb = new PacketBuffer(buf);
-		for (FoodInstance food : foodCapability.getHistory()) {
-			pb.writeInt(Item.getIdFromItem(food.item));
-			pb.writeInt(food.metadata);
-		}
+	public void deserializeNBT(NBTBase tag) {
+		foodCapability.deserializeNBT(tag);
 	}
 	
 	// message is only ever sent from server to client, so everything inside can use client-only methods just fine.
