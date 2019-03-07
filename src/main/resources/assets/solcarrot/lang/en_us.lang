@@ -28,4 +28,5 @@ item.solcarrot.food_book.name=Food Book
 
 # GUIs
 gui.solcarrot.food_book.title=My Food Log
-gui.solcarrot.food_book.header=Foods Eaten: %s
+gui.solcarrot.food_book.eaten_foods=Already Tasted: %s
+gui.solcarrot.food_book.uneaten_foods=Not Yet Tried: %s

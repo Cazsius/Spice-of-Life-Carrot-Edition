@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.capability.FoodInstance;
+import com.cazsius.solcarrot.lib.FoodItemStacks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
@@ -23,9 +25,9 @@ public final class GuiFoodBook extends GuiScreen {
 	private static final int textureWidth = 192;
 	private static final int textureHeight = 192;
 	
-	private static final int foodsPerRow = 5;
+	private static final int itemsPerRow = 5;
 	private static final int rowsPerPage = 5;
-	private static final int foodsPerPage = foodsPerRow * rowsPerPage;
+	private static final int itemsPerPage = itemsPerRow * rowsPerPage;
 	
 	private int leftEdge;
 	private int topEdge;
@@ -35,26 +37,29 @@ public final class GuiFoodBook extends GuiScreen {
 	private NextPageButton nextPageButton;
 	private NextPageButton prevPageButton;
 	
-	private int pageCount;
-	private int currentPage = 0;
+	private EntityPlayer player;
 	
-	private final List<FoodInstance> foodLog;
+	private final List<Page> pages = new ArrayList<>();
+	private int currentPageNumber = 0;
 	
 	public GuiFoodBook(EntityPlayer player) {
-		super();
-		
-		FoodCapability foodCapability = FoodCapability.get(player);
-		foodLog = foodCapability.getHistory();
-		// sort by name, using metadata as tiebreaker
-		foodLog.sort(Comparator.comparing((food) -> food.metadata)); // sort is stable, so this works
-		foodLog.sort(Comparator.comparing((food) -> I18n.format(food.getItemStack().getTranslationKey() + ".name")));
-		
-		pageCount = (foodLog.size() + foodsPerPage - 1) / foodsPerPage;
+		this.player = player;
+	}
+	
+	private List<ItemListPage> pages(String header, List<ItemStack> items) {
+		List<ItemListPage> pages = new ArrayList<>();
+		for (int startIndex = 0; startIndex < items.size(); startIndex += itemsPerPage) {
+			int endIndex = Math.min(startIndex + itemsPerPage, items.size());
+			pages.add(new ItemListPage(header, items.subList(startIndex, endIndex)));
+		}
+		return pages;
 	}
 	
 	@Override
 	public void initGui() {
 		super.initGui();
+		
+		initPages();
 		
 		centerX = width / 2;
 		centerY = height / 2;
@@ -70,11 +75,33 @@ public final class GuiFoodBook extends GuiScreen {
 		updateButtonVisibility();
 	}
 	
-	private void updateButtonVisibility() {
-		nextPageButton.visible = currentPage < pageCount - 1;
-		prevPageButton.visible = currentPage > 0;
+	private void initPages() {
+		pages.clear();
+		
+		FoodCapability foodCapability = FoodCapability.get(player);
+		// sort by name, using metadata as tiebreaker
+		List<ItemStack> eatenFoods = foodCapability.getHistory().stream()
+				.map(FoodInstance::getItemStack)
+				// sort by name, using metadata as tiebreaker
+				.sorted(Comparator.comparing(ItemStack::getMetadata))
+				.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
+				.collect(Collectors.toList());
+		String eatenFoodsHeader = localized("gui", "food_book.eaten_foods", eatenFoods.size());
+		pages.addAll(pages(eatenFoodsHeader, eatenFoods));
+		
+		List<ItemStack> uneatenFoods = FoodItemStacks.getAllFoods().stream()
+				.filter(food -> !foodCapability.hasEaten(food))
+				.collect(Collectors.toList());
+		String uneatenFoodsHeader = localized("gui", "food_book.uneaten_foods", uneatenFoods.size());
+		pages.addAll(pages(uneatenFoodsHeader, uneatenFoods));
 	}
 	
+	private void updateButtonVisibility() {
+		nextPageButton.visible = currentPageNumber < pages.size() - 1;
+		prevPageButton.visible = currentPageNumber > 0;
+	}
+	
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		
@@ -84,45 +111,19 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		
+		// book title
 		String title = localized("gui", "food_book.title");
 		drawCenteredString(title, centerX, topEdge + 16, 0x000000);
 		
-		String header = localized("gui", "food_book.header", foodLog.size());
-		drawCenteredString(header, centerX, topEdge + 30, 0x000000);
+		// page number
+		drawCenteredString("" + (currentPageNumber + 1), centerX, topEdge + 154, 0x000000);
 		
-		drawCenteredString("" + (currentPage + 1), centerX, topEdge + 154, 0x000000);
-		
-		renderFoodOnPage(mouseX, mouseY);
+		// current page
+		pages.get(currentPageNumber).render(mouseX, mouseY);
 	}
 	
 	private void drawCenteredString(String text, int x, int y, int color) {
 		fontRenderer.drawString(text, x - fontRenderer.getStringWidth(text) / 2, y, color);
-	}
-	
-	private void renderFoodOnPage(int mouseX, int mouseY) {
-		int startIndex = currentPage * foodsPerPage;
-		int endIndex = Math.min(foodLog.size(), startIndex + foodsPerPage); // well, 1 past the end
-		
-		int size = 16;
-		int spacing = size + 4;
-		int minX = centerX - spacing * foodsPerRow / 2;
-		int minY = centerY - spacing * rowsPerPage / 2;
-		
-		Optional<ItemStack> hoveredFood = Optional.empty();
-		for (int i = startIndex; i < endIndex; i++) {
-			FoodInstance food = foodLog.get(i);
-			int x = minX + spacing * (i % foodsPerRow);
-			int y = minY + spacing * ((i / foodsPerRow) % rowsPerPage);
-			
-			ItemStack itemStack = food.getItemStack();
-			itemRender.renderItemIntoGUI(itemStack, x, y);
-			
-			if (x <= mouseX && mouseX < x + size && y <= mouseY && mouseY < y + size) {
-				hoveredFood = Optional.of(itemStack);
-			}
-		}
-		
-		hoveredFood.ifPresent(food -> renderToolTip(food, mouseX, mouseY));
 	}
 	
 	@Override
@@ -130,10 +131,10 @@ public final class GuiFoodBook extends GuiScreen {
 		if (!button.enabled) return;
 		
 		if (button == prevPageButton) {
-			currentPage--;
+			currentPageNumber--;
 			updateButtonVisibility();
 		} else if (button == nextPageButton) {
-			currentPage++;
+			currentPageNumber++;
 			updateButtonVisibility();
 		}
 	}
@@ -169,6 +170,54 @@ public final class GuiFoodBook extends GuiScreen {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			mc.getTextureManager().bindTexture(GuiFoodBook.backgroundTexture);
 			drawTexturedModalRect(x, y, textureX, textureY, 23, 13);
+		}
+	}
+	
+	private abstract class Page {
+		private String header;
+		
+		private Page(String header) {
+			this.header = header;
+		}
+		
+		void render(int mouseX, int mouseY) {
+			// draw title
+			drawCenteredString(header, centerX, topEdge + 30, 0x000000);
+		}
+	}
+	
+	private class ItemListPage extends Page {
+		private static final int itemSize = 16;
+		private static final int itemSpacing = itemSize + 4;
+		
+		private List<ItemStack> items;
+		
+		private ItemListPage(String header, List<ItemStack> items) {
+			super(header);
+			this.items = items;
+		}
+		
+		@Override
+		void render(int mouseX, int mouseY) {
+			super.render(mouseX, mouseY);
+			
+			int minX = centerX - itemSpacing * itemsPerRow / 2;
+			int minY = centerY - itemSpacing * rowsPerPage / 2;
+			
+			Optional<ItemStack> hoveredItem = Optional.empty();
+			for (int i = 0; i < items.size(); i++) {
+				ItemStack itemStack = items.get(i);
+				int x = minX + itemSpacing * (i % itemsPerRow);
+				int y = minY + itemSpacing * ((i / itemsPerRow) % rowsPerPage);
+				
+				itemRender.renderItemIntoGUI(itemStack, x, y);
+				
+				if (x <= mouseX && mouseX < x + itemSize && y <= mouseY && mouseY < y + itemSize) {
+					hoveredItem = Optional.of(itemStack);
+				}
+			}
+			
+			hoveredItem.ifPresent(item -> renderToolTip(item, mouseX, mouseY));
 		}
 	}
 }
