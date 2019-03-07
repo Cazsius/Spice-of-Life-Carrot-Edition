@@ -6,11 +6,12 @@ import com.cazsius.solcarrot.command.CommandFoodList;
 import com.cazsius.solcarrot.common.GuiHandler;
 import com.cazsius.solcarrot.handler.PacketHandler;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @Mod(modid = SOLCarrot.MOD_ID, version = "__VERSION_FROM_GRADLE__", dependencies = "required-after:applecore")
@@ -37,7 +38,14 @@ public class SOLCarrot {
 	}
 	
 	@EventHandler
+	public void init(FMLInitializationEvent e) {
+		MinecraftForge.EVENT_BUS.post(new InitializationEvent());
+	}
+	
+	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandFoodList());
 	}
+	
+	public static class InitializationEvent extends Event {}
 }
