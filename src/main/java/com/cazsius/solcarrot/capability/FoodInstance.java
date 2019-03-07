@@ -7,6 +7,10 @@ public class FoodInstance {
 	public final Item item;
 	public final int metadata;
 	
+	public FoodInstance(ItemStack itemStack) {
+		this(itemStack.getItem(), itemStack.getMetadata());
+	}
+	
 	public FoodInstance(Item item, int metadata) {
 		this.item = item;
 		// e.g. actually additions coffee has metadata for how empty it is, but should only register once.

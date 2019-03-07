@@ -4,7 +4,6 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -34,13 +33,9 @@ public class TooltipHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		
 		if (!isValidFood(event.getItemStack())) return;
-		Item foodJustEaten = event.getItemStack().getItem();
-		
-		FoodCapability food = FoodCapability.get(player);
-		boolean hasBeenEaten = food.hasEaten(foodJustEaten, event.getItemStack().getMetadata());
+		boolean hasBeenEaten = FoodCapability.get(player).hasEaten(event.getItemStack());
 		
 		List<String> tooltip = event.getToolTip();
-		
 		if (hasBeenEaten) {
 			String formatting = "" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC;
 			tooltip.add(formatting + localized("tooltip", "eaten"));

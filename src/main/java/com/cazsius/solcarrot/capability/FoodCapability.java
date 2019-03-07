@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.capability;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -9,24 +10,19 @@ import net.minecraftforge.common.capabilities.*;
 
 import java.util.*;
 
-public class FoodCapability implements ICapabilitySerializable<NBTBase> {
-	
+public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	public static FoodCapability get(EntityPlayer player) {
 		FoodCapability foodCapability = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
 		assert foodCapability != null;
 		return foodCapability;
 	}
 	
-	public Set<FoodInstance> foodList = new HashSet<>();
-	
-	public FoodCapability() {}
-	
-	public void addFood(Item item, int meta) {
-		foodList.add(new FoodInstance(item, meta));
-	}
-	
 	@CapabilityInject(FoodCapability.class)
 	public static Capability<FoodCapability> FOOD_CAPABILITY;
+	
+	private final Set<FoodInstance> foodList = new HashSet<>();
+	
+	public FoodCapability() {}
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -41,7 +37,7 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	@Override
 	public NBTBase serializeNBT() {
 		NBTTagList list = new NBTTagList();
-		for (FoodInstance food : this.foodList) {
+		for (FoodInstance food : foodList) {
 			ResourceLocation location = Item.REGISTRY.getNameForObject(food.item);
 			if (location == null)
 				continue;
@@ -71,16 +67,20 @@ public class FoodCapability implements ICapabilitySerializable<NBTBase> {
 			if (item == null)
 				continue; // TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
 			
-			this.addFood(item, meta);
+			addFood(item, meta);
 		}
+	}
+	
+	public void addFood(Item item, int meta) {
+		foodList.add(new FoodInstance(item, meta));
 	}
 	
 	public int getCount() {
 		return foodList.size();
 	}
 	
-	public boolean hasEaten(Item foodJustEaten, int meta) {
-		return foodList.contains(new FoodInstance(foodJustEaten, meta));
+	public boolean hasEaten(ItemStack itemStack) {
+		return foodList.contains(new FoodInstance(itemStack));
 	}
 	
 	public void clearFood() {
