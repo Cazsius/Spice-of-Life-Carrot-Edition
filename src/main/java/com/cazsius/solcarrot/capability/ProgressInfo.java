@@ -1,13 +1,9 @@
 package com.cazsius.solcarrot.capability;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import javafx.util.Pair;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 /** contains all relevant variables for current and future progress, so we don't have to sync config to clients */
 public class ProgressInfo {
