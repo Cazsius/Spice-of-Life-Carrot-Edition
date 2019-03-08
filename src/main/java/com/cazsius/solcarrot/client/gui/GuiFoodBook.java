@@ -11,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,7 +23,7 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 @SideOnly(Side.CLIENT)
 public final class GuiFoodBook extends GuiScreen {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
-	private static final int textureWidth = 184;
+	private static final int textureWidth = 186;
 	private static final int textureHeight = 192;
 	
 	private static final int itemsPerRow = 5;
@@ -33,6 +34,9 @@ public final class GuiFoodBook extends GuiScreen {
 	private int topEdge;
 	private int centerX;
 	private int centerY;
+	
+	private int mouseX;
+	private int mouseY;
 	
 	private NextPageButton nextPageButton;
 	private NextPageButton prevPageButton;
@@ -109,6 +113,9 @@ public final class GuiFoodBook extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
+		
 		drawDefaultBackground();
 		
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -125,11 +132,12 @@ public final class GuiFoodBook extends GuiScreen {
 		drawCenteredString("" + (currentPageNumber + 1), centerX, topEdge + 154, 0x000000);
 		
 		// current page
-		pages.get(currentPageNumber).render(mouseX, mouseY);
+		pages.get(currentPageNumber).render();
 	}
 	
 	private void drawCenteredString(String text, int x, int y, int color) {
-		fontRenderer.drawString(text, x - fontRenderer.getStringWidth(text) / 2 + 1, y, color);
+		int width = fontRenderer.getStringWidth(text) - 1;
+		fontRenderer.drawString(text, x - width / 2, y, color);
 	}
 	
 	@Override
@@ -149,6 +157,11 @@ public final class GuiFoodBook extends GuiScreen {
 			currentPageNumber++;
 			updateButtonVisibility();
 		}
+	}
+	
+	private boolean isMouseInRect(int x, int y, int width, int height) {
+		return x <= mouseX && mouseX < x + width
+				&& y <= mouseY && mouseY < y + height;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -192,7 +205,7 @@ public final class GuiFoodBook extends GuiScreen {
 			this.header = header;
 		}
 		
-		void render(int mouseX, int mouseY) {
+		void render() {
 			// draw title
 			drawCenteredString(header, centerX, topEdge + 30, 0x000000);
 		}
@@ -203,16 +216,20 @@ public final class GuiFoodBook extends GuiScreen {
 		private static final int lessBlack = 0x88_000000;
 		private static final int leastBlack = 0x44_000000;
 		
+		private Optional<String> tooltip = Optional.empty();
+		private ProgressInfo progressInfo;
+		
 		private StatListPage() {
 			super(localized("gui", "food_book.stats"));
 		}
 		
 		@Override
-		void render(int mouseX, int mouseY) {
-			super.render(mouseX, mouseY);
-			ProgressInfo progressInfo = foodCapability.getProgressInfo();
+		void render() {
+			super.render();
+			tooltip = Optional.empty();
+			progressInfo = foodCapability.getProgressInfo();
 			
-			renderProgressDiagram(progressInfo);
+			renderProgressDiagram();
 			
 			String foodsTasted = localized("gui", "food_book.stats.foods_tasted",
 					eatenFoods.size(),
@@ -225,13 +242,24 @@ public final class GuiFoodBook extends GuiScreen {
 					progressInfo.heartsPerMilestone * progressInfo.milestones.length
 			);
 			drawCenteredString(heartsGained, centerX, topEdge + 120, fullBlack);
+			
+			tooltip.ifPresent(text -> {
+				GuiUtils.drawHoveringText(
+						ItemStack.EMPTY,
+						Collections.singletonList(text),
+						mouseX, mouseY,
+						width, height,
+						-1,
+						fontRenderer
+				);
+			});
 		}
 		
 		private void drawHeart(int x, int y, boolean isOpaque) {
 			GlStateManager.enableBlend();
 			mc.getTextureManager().bindTexture(texture);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, isOpaque ? 1.0F : 0.5F);
-			drawTexturedModalRect(x, y, 0, 224, 16, 16);
+			drawTexturedModalRect(x, y, 0, 224, 9, 9);
 		}
 		
 		private void drawCarrot(int x, int y) {
@@ -240,32 +268,47 @@ public final class GuiFoodBook extends GuiScreen {
 			drawTexturedModalRect(x, y, 0, 240, 16, 16);
 		}
 		
-		private void drawMilestoneHearts(ProgressInfo progressInfo, int x, int y, boolean isOpaque) {
+		private void drawMilestoneHearts(int x, int y, boolean isOpaque) {
 			int heartsPerMilestone = progressInfo.heartsPerMilestone;
+			
+			int width;
 			if (heartsPerMilestone <= 3) {
-				int spacing = -8;
-				int width = 16 + spacing * (heartsPerMilestone - 1);
+				int spacing = 8;
+				width = 9 + spacing * (heartsPerMilestone - 1);
 				for (int i = 0; i < heartsPerMilestone; i++) {
 					drawHeart(x - width / 2 + spacing * i, y, isOpaque);
 				}
 			} else {
 				String label = "" + heartsPerMilestone;
 				int labelWidth = fontRenderer.getStringWidth(label);
-				int spacing = -3;
-				int width = 12 + spacing + labelWidth;
+				int spacing = 1;
+				width = 9 + spacing + labelWidth;
 				int left = x - width / 2;
 				drawHeart(left + labelWidth + spacing, y, isOpaque);
-				fontRenderer.drawString(label, left, y + 5, isOpaque ? fullBlack : lessBlack);
+				fontRenderer.drawString(label, left, y + 1, isOpaque ? fullBlack : lessBlack);
+			}
+			
+			if (isMouseInRect(x - width / 2, y, width, 9)) {
+				tooltip = Optional.of(localized("gui", "food_book.stats.tooltip.hearts_per_milestone"));
 			}
 		}
 		
-		private void renderProgressDiagram(ProgressInfo progressInfo) {
+		private void drawCenteredLabel(String text, String tooltip, int x, int y, int color) {
+			drawCenteredString(text, x, y, color);
+			
+			int width = fontRenderer.getStringWidth(text) - 1;
+			if (isMouseInRect(x - width / 2, y, width, 8)) {
+				this.tooltip = Optional.of(tooltip);
+			}
+		}
+		
+		private void renderProgressDiagram() {
 			int lineY = topEdge + 72;
 			int segmentLength = 48;
-			int leftEdge = centerX - segmentLength * 3/4;
+			int leftEdge = centerX - segmentLength * 3 / 4;
 			int leftPoint = centerX - segmentLength / 2;
 			int rightPoint = centerX + segmentLength / 2;
-			int rightEdge = centerX + segmentLength * 3/4;
+			int rightEdge = centerX + segmentLength * 3 / 4;
 			int padding = 4;
 			
 			int milestonesAchieved = progressInfo.milestonesAchieved();
@@ -281,11 +324,16 @@ public final class GuiFoodBook extends GuiScreen {
 			
 			if (milestonesAchieved > 0) {
 				drawHorizontalLine(leftEdge, leftPoint, lineY, fullBlack);
-				drawMilestoneHearts(progressInfo, leftPoint, lineY - 28, true);
+				drawMilestoneHearts(leftPoint, lineY - 23, true);
 			}
 			
 			drawVerticalLine(leftPoint, lineY - 2, lineY - 1, fullBlack);
-			drawCenteredString("" + previousMilestone, leftPoint, lineY - 10, fullBlack);
+			drawCenteredLabel(
+					"" + previousMilestone,
+					localized("gui", "food_book.stats.tooltip.previous_milestone"),
+					leftPoint, lineY - 10,
+					fullBlack
+			);
 			
 			drawHorizontalLine(leftPoint, progressX, lineY, fullBlack);
 			
@@ -297,8 +345,13 @@ public final class GuiFoodBook extends GuiScreen {
 			if (!hasReachedMax) {
 				drawVerticalLine(rightPoint, lineY - 2, lineY - 1, lessBlack);
 				GlStateManager.enableBlend();
-				drawCenteredString("" + nextMilestone, rightPoint, lineY - 10, lessBlack);
-				drawMilestoneHearts(progressInfo, rightPoint, lineY - 28, false);
+				drawCenteredLabel(
+						"" + nextMilestone,
+						localized("gui", "food_book.stats.tooltip.next_milestone"),
+						rightPoint, lineY - 10,
+						lessBlack
+				);
+				drawMilestoneHearts(rightPoint, lineY - 23, false);
 			}
 			
 			boolean isMaxInSight = !hasReachedMax && !isNextMilestoneMax;
@@ -307,11 +360,21 @@ public final class GuiFoodBook extends GuiScreen {
 			drawVerticalLine(progressX, lineY + 1, lineY + 5, fullBlack);
 			
 			GlStateManager.enableBlend();
-			drawCenteredString("" + progressInfo.foodsEaten, progressX, lineY + 7, fullBlack);
+			drawCenteredLabel(
+					"" + progressInfo.foodsEaten,
+					localized("gui", "food_book.stats.tooltip.foods_tasted"),
+					progressX, lineY + 7,
+					fullBlack
+			);
 			
 			int totalFoods = eatenFoods.size() + uneatenFoods.size();
 			if (!uneatenFoods.isEmpty()) {
-				fontRenderer.drawString("" + totalFoods, rightEdge + padding, lineY - 4, leastBlack);
+				drawCenteredLabel(
+						"" + totalFoods,
+						localized("gui", "food_book.stats.tooltip.total_foods"),
+						rightEdge + padding + 8, lineY - 4,
+						leastBlack
+				);
 			}
 		}
 	}
@@ -328,8 +391,8 @@ public final class GuiFoodBook extends GuiScreen {
 		}
 		
 		@Override
-		void render(int mouseX, int mouseY) {
-			super.render(mouseX, mouseY);
+		void render() {
+			super.render();
 			
 			int minX = centerX - itemSpacing * itemsPerRow / 2;
 			int minY = centerY - itemSpacing * rowsPerPage / 2;
@@ -342,7 +405,7 @@ public final class GuiFoodBook extends GuiScreen {
 				
 				itemRender.renderItemIntoGUI(itemStack, x, y);
 				
-				if (x <= mouseX && mouseX < x + itemSize && y <= mouseY && mouseY < y + itemSize) {
+				if (isMouseInRect(x, y, itemSize, itemSize)) {
 					hoveredItem = Optional.of(itemStack);
 				}
 			}

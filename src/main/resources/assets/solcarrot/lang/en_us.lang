@@ -31,5 +31,11 @@ gui.solcarrot.food_book.title=My Food Log
 gui.solcarrot.food_book.stats=Statistics
 gui.solcarrot.food_book.eaten_foods=Already Tasted: %s
 gui.solcarrot.food_book.uneaten_foods=Not Yet Tried: %s
+
 gui.solcarrot.food_book.stats.foods_tasted=%1$s/%2$s foods tasted
 gui.solcarrot.food_book.stats.hearts_gained=%1$s/%2$s hearts gained
+gui.solcarrot.food_book.stats.tooltip.previous_milestone=Previous Milestone
+gui.solcarrot.food_book.stats.tooltip.next_milestone=Next Milestone
+gui.solcarrot.food_book.stats.tooltip.total_foods=Total Foods
+gui.solcarrot.food_book.stats.tooltip.foods_tasted=Foods Tasted
+gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone=Hearts per Milestone
