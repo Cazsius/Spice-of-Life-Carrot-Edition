@@ -7,7 +7,8 @@ package com.cazsius.solcarrot.handler;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.lib.ProgressInfo;
+import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.capability.ProgressInfo;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -45,7 +46,8 @@ public class MaxHealthHandler {
 		
 		int healthPenalty = 2 * (SOLCarrotConfig.baseHearts - 10);
 		
-		int milestonesAchieved = ProgressInfo.getProgressInfo(player).milestonesAchieved;
+		ProgressInfo progressInfo = FoodCapability.get(player).getProgressInfo();
+		int milestonesAchieved = progressInfo.milestonesAchieved();
 		int addedHealthFromFood = milestonesAchieved * 2 * SOLCarrotConfig.heartsPerMilestone;
 		
 		double totalHealthModifier = healthPenalty + addedHealthFromFood;

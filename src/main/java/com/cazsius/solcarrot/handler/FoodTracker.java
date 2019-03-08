@@ -3,7 +3,7 @@ package com.cazsius.solcarrot.handler;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.lib.ProgressInfo;
+import com.cazsius.solcarrot.capability.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
@@ -51,7 +51,7 @@ public class FoodTracker {
 					0.0F
 			);
 			
-			ProgressInfo progressInfo = ProgressInfo.getProgressInfo(player);
+			ProgressInfo progressInfo = foodCapability.getProgressInfo();
 			
 			ITextComponent heartsDescription = localizedQuantityComponent("message", "milestone_achieved.hearts", SOLCarrotConfig.heartsPerMilestone);
 			ITextComponent milestoneAchievedMessage = localizedComponent("message", "milestone_achieved", heartsDescription);

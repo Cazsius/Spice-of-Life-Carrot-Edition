@@ -20,7 +20,7 @@ message.solcarrot.prefix=[SoL: Carrot]
 message.solcarrot.milestone_achieved=What a unique flavor! You've gained %s!
 message.solcarrot.milestone_achieved.hearts.singular=a heart
 message.solcarrot.milestone_achieved.hearts.plural=%s hearts
-message.solcarrot.desire.continues=Sample another %s varieties of food to gain another %s!
+message.solcarrot.desire.continues=Sample another %1$s varieties of food to gain another %2$s!
 message.solcarrot.desire.finished=Your desire to seek unique foods is finally satisfied.
 
 # Items
@@ -28,5 +28,8 @@ item.solcarrot.food_book.name=Food Book
 
 # GUIs
 gui.solcarrot.food_book.title=My Food Log
+gui.solcarrot.food_book.stats=Statistics
 gui.solcarrot.food_book.eaten_foods=Already Tasted: %s
 gui.solcarrot.food_book.uneaten_foods=Not Yet Tried: %s
+gui.solcarrot.food_book.stats.foods_tasted=%1$s/%2$s foods tasted
+gui.solcarrot.food_book.stats.hearts_gained=%1$s/%2$s hearts gained

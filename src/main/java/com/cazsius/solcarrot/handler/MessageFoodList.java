@@ -4,31 +4,30 @@ import com.cazsius.solcarrot.capability.FoodCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageFoodList extends NBTMessage {
-	private FoodCapability foodCapability;
+	private NBTTagCompound capabilityNBT;
 	
 	public MessageFoodList(FoodCapability foodCapability) {
-		this.foodCapability = foodCapability;
+		this.capabilityNBT = foodCapability.serializeFullNBT();
 	}
 	
-	/** forge needs this */
-	public MessageFoodList() {
-		this.foodCapability = new FoodCapability();
-	}
+	/** this is used when receiving, followed by a call to deserializeNBT */
+	public MessageFoodList() {}
 	
 	@Override
 	public NBTBase serializeNBT() {
-		return foodCapability.serializeNBT();
+		return capabilityNBT;
 	}
 	
 	@Override
 	public void deserializeNBT(NBTBase tag) {
-		foodCapability.deserializeNBT(tag);
+		capabilityNBT = (NBTTagCompound) tag;
 	}
 	
 	// message is only ever sent from server to client, so everything inside can use client-only methods just fine.
@@ -48,7 +47,7 @@ public class MessageFoodList extends NBTMessage {
 		@SideOnly(Side.CLIENT)
 		private void handle(MessageFoodList message, MessageContext ctx) {
 			EntityPlayer player = Minecraft.getMinecraft().player;
-			FoodCapability.get(player).copyFoods(message.foodCapability);
+			FoodCapability.get(player).deserializeFullNBT(message.capabilityNBT);
 		}
 	}
 }
