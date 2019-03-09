@@ -24,8 +24,6 @@ final class ProgressGraph extends UIElement {
 	public ProgressGraph(ProgressInfo progressInfo, int centerX, int lineY) {
 		super(new Rectangle(centerX, lineY, 1, 1)); // kinda wrong but doesn't matter
 		
-		System.out.println("creating progress graph at " + centerX + ", " + lineY);
-		
 		this.progressInfo = progressInfo;
 		
 		int segmentLength = 48;
