@@ -29,17 +29,17 @@ public class FoodItemStacks {
 	@SubscribeEvent
 	public static void init(SOLCarrot.InitializationEvent event) {
 		foods = ForgeRegistries.ITEMS.getValuesCollection().stream()
-				.flatMap(FoodItemStacks::getSubItems)
-				.filter(itemStack -> AppleCoreAPI.accessor.isFood(itemStack))
-				.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
-				.collect(Collectors.toList());
+			.flatMap(FoodItemStacks::getSubItems)
+			.filter(itemStack -> AppleCoreAPI.accessor.isFood(itemStack))
+			.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
+			.collect(Collectors.toList());
 	}
 	
 	private static Stream<ItemStack> getSubItems(Item item) {
 		NonNullList<ItemStack> subItems = NonNullList.create();
 		Arrays.stream(item.getCreativeTabs())
-				.filter(Objects::nonNull)
-				.forEach(creativeTab -> item.getSubItems(creativeTab, subItems));
+			.filter(Objects::nonNull)
+			.forEach(creativeTab -> item.getSubItems(creativeTab, subItems));
 		return subItems.stream();
 	}
 }

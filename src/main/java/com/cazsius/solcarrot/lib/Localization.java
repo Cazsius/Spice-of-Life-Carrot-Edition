@@ -42,13 +42,13 @@ public class Localization {
 	@SideOnly(Side.CLIENT)
 	public static String localizedQuantity(String domain, String path, int number) {
 		return number == 1
-				? I18n.format(keyString(domain, path + ".singular"))
-				: I18n.format(keyString(domain, path + ".plural"), number);
+			? I18n.format(keyString(domain, path + ".singular"))
+			: I18n.format(keyString(domain, path + ".plural"), number);
 	}
 	
 	public static ITextComponent localizedQuantityComponent(String domain, String path, int number) {
 		return number == 1
-				? new TextComponentTranslation(keyString(domain, path + ".singular"))
-				: new TextComponentTranslation(keyString(domain, path + ".plural"), number);
+			? new TextComponentTranslation(keyString(domain, path + ".singular"))
+			: new TextComponentTranslation(keyString(domain, path + ".plural"), number);
 	}
 }

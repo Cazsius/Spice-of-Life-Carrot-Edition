@@ -54,10 +54,10 @@ public class MaxHealthHandler {
 		
 		if (prevModifier == null || prevModifier.getAmount() != totalHealthModifier) {
 			AttributeModifier modifier = new AttributeModifier(
-					MILESTONE_HEALTH_MODIFIER_ID,
-					"Health Gained from Trying New Foods",
-					totalHealthModifier,
-					0
+				MILESTONE_HEALTH_MODIFIER_ID,
+				"Health Gained from Trying New Foods",
+				totalHealthModifier,
+				0
 			);
 			
 			float oldMax = player.getMaxHealth();

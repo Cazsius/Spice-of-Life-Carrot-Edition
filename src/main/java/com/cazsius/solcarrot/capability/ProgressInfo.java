@@ -52,7 +52,7 @@ public class ProgressInfo {
 	/** the number of milestones achieved, doubling as the index of the next milestone */
 	public int milestonesAchieved() {
 		return (int) Arrays.stream(milestones)
-				.filter(milestone -> foodsEaten >= milestone).count();
+			.filter(milestone -> foodsEaten >= milestone).count();
 	}
 	
 	public NBTTagCompound getNBT() {

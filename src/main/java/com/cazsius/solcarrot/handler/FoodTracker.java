@@ -38,17 +38,17 @@ public class FoodTracker {
 		if (newMilestoneReached) {
 			// passing the player makes it not play for some reason
 			world.playSound(null,
-					player.posX, player.posY, player.posZ,
-					SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
-					1.0F, 1.0F
+				player.posX, player.posY, player.posZ,
+				SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
+				1.0F, 1.0F
 			);
 			
 			// this overload sends a packet to the client
 			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY,
-					player.posX, player.posY + player.getEyeHeight(), player.posZ,
-					16,
-					0.5F, 0.5F, 0.5F,
-					0.0F
+				player.posX, player.posY + player.getEyeHeight(), player.posZ,
+				16,
+				0.5F, 0.5F, 0.5F,
+				0.0F
 			);
 			
 			ProgressInfo progressInfo = foodCapability.getProgressInfo();
@@ -70,12 +70,12 @@ public class FoodTracker {
 		boolean showAboveHotbar = SOLCarrotConfig.shouldShowProgressAboveHotbar;
 		String separator = showAboveHotbar ? " " : "\n"; // above-hotbar mode is single-line only :(
 		Optional<ITextComponent> combinedMessage = Arrays.stream(message)
-				.reduce((acc, next) -> acc.appendText(separator).appendSibling(next));
+			.reduce((acc, next) -> acc.appendText(separator).appendSibling(next));
 		assert combinedMessage.isPresent(); // at least one message to send
 		
 		ITextComponent prefix = showAboveHotbar
-				? new TextComponentString("")
-				: localizedComponent("message", "prefix").appendText(" ");
+			? new TextComponentString("")
+			: localizedComponent("message", "prefix").appendText(" ");
 		ITextComponent component = prefix.appendSibling(combinedMessage.get());
 		component.setStyle(new Style().setColor(TextFormatting.DARK_AQUA));
 		player.sendStatusMessage(component, showAboveHotbar);
