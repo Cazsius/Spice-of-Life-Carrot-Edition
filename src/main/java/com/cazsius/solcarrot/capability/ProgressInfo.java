@@ -11,6 +11,7 @@ public class ProgressInfo {
 	private static final String NBT_KEY_MILESTONES = "milestones";
 	private static final String NBT_KEY_HEARTS_PER_MILESTONE = "heartsPerMilestone";
 	private static final String NBT_KEY_BASE_HEARTS = "baseHearts";
+	private static final String NBT_KEY_SHOW_UNEATEN_FOODS = "showUneatenFoods";
 	
 	/** the number of unique foods eaten */
 	public final int foodsEaten;
@@ -20,12 +21,15 @@ public class ProgressInfo {
 	public final int baseHearts;
 	/** the number of hearts you get for each milestone */
 	public final int heartsPerMilestone;
+	/** whether or not to also show information about the foods left to try */
+	public final boolean showUneatenFoods;
 	
 	ProgressInfo(NBTTagCompound tag) {
 		foodsEaten = tag.getInteger(NBT_KEY_FOODS_EATEN);
 		milestones = tag.getIntArray(NBT_KEY_MILESTONES);
 		baseHearts = tag.getInteger(NBT_KEY_BASE_HEARTS);
 		heartsPerMilestone = tag.getInteger(NBT_KEY_HEARTS_PER_MILESTONE);
+		showUneatenFoods = tag.getBoolean(NBT_KEY_SHOW_UNEATEN_FOODS);
 	}
 	
 	ProgressInfo(int foodsEaten) {
@@ -33,6 +37,7 @@ public class ProgressInfo {
 		this.milestones = SOLCarrotConfig.milestones;
 		this.baseHearts = SOLCarrotConfig.baseHearts;
 		this.heartsPerMilestone = SOLCarrotConfig.heartsPerMilestone;
+		this.showUneatenFoods = SOLCarrotConfig.showUneatenFoods;
 	}
 	
 	public boolean hasReachedMax() {
@@ -55,12 +60,13 @@ public class ProgressInfo {
 			.filter(milestone -> foodsEaten >= milestone).count();
 	}
 	
-	public NBTTagCompound getNBT() {
+	NBTTagCompound getNBT() {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setInteger(NBT_KEY_FOODS_EATEN, foodsEaten);
 		tag.setIntArray(NBT_KEY_MILESTONES, milestones);
 		tag.setInteger(NBT_KEY_BASE_HEARTS, baseHearts);
 		tag.setInteger(NBT_KEY_HEARTS_PER_MILESTONE, heartsPerMilestone);
+		tag.setBoolean(NBT_KEY_SHOW_UNEATEN_FOODS, showUneatenFoods);
 		return tag;
 	}
 }

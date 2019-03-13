@@ -7,6 +7,7 @@ import com.cazsius.solcarrot.lib.FoodItemStacks;
 import java.awt.*;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
+import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
 
 class StatListPage extends Page {
 	StatListPage(Rectangle frame, ProgressInfo progressInfo) {
@@ -15,10 +16,18 @@ class StatListPage extends Page {
 		ProgressGraph progressGraph = new ProgressGraph(progressInfo, getCenterX(), getMinY() + 72);
 		children.add(progressGraph);
 		
-		UILabel foodsTastedLabel = new UILabel(localized("gui", "food_book.stats.foods_tasted",
-			progressInfo.foodsEaten,
-			FoodItemStacks.getAllFoods().size()
-		));
+		String foodsTastedDescription;
+		if (progressInfo.showUneatenFoods) {
+			foodsTastedDescription = localized("gui", "food_book.stats.foods_tasted.fraction",
+				progressInfo.foodsEaten,
+				FoodItemStacks.getAllFoods().size()
+			);
+		} else {
+			foodsTastedDescription = localizedQuantity("gui", "food_book.stats.foods_tasted",
+				progressInfo.foodsEaten
+			);
+		}
+		UILabel foodsTastedLabel = new UILabel(foodsTastedDescription);
 		foodsTastedLabel.setCenterX(getCenterX());
 		foodsTastedLabel.setCenterY(getMinY() + 100);
 		children.add(foodsTastedLabel);

@@ -45,6 +45,10 @@ public class SOLCarrotConfig {
 	@Config.Comment("Whether the messages notifying you of reaching new milestones should be displayed above the hotbar or in chat.")
 	public static boolean shouldShowProgressAboveHotbar = true;
 	
+	@Config.Name("Show Uneaten Foods")
+	@Config.Comment("If true, the food book also lists foods that you haven't eaten, in addition to the ones you have.")
+	public static boolean showUneatenFoods = true;
+	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (!event.getModID().equals(SOLCarrot.MOD_ID)) return;

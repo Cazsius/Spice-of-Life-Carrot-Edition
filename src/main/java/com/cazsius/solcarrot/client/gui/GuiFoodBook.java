@@ -1,8 +1,7 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.FoodInstance;
+import com.cazsius.solcarrot.capability.*;
 import com.cazsius.solcarrot.client.gui.elements.*;
 import com.cazsius.solcarrot.lib.FoodItemStacks;
 import net.minecraft.client.gui.GuiButton;
@@ -81,7 +80,8 @@ public final class GuiFoodBook extends GuiScreen {
 	private void initPages() {
 		pages.clear();
 		
-		pages.add(new StatListPage(background.frame, foodCapability.getProgressInfo()));
+		ProgressInfo progressInfo = foodCapability.getProgressInfo();
+		pages.add(new StatListPage(background.frame, progressInfo));
 		
 		List<ItemStack> eatenFoods = foodCapability.getEatenFoods().stream()
 			.map(FoodInstance::getItemStack)
@@ -92,11 +92,13 @@ public final class GuiFoodBook extends GuiScreen {
 		String eatenFoodsHeader = localized("gui", "food_book.eaten_foods", eatenFoods.size());
 		pages.addAll(ItemListPage.pages(background.frame, eatenFoodsHeader, eatenFoods));
 		
-		List<ItemStack> uneatenFoods = FoodItemStacks.getAllFoods().stream()
-			.filter(food -> !foodCapability.hasEaten(food))
-			.collect(Collectors.toList());
-		String uneatenFoodsHeader = localized("gui", "food_book.uneaten_foods", uneatenFoods.size());
-		pages.addAll(ItemListPage.pages(background.frame, uneatenFoodsHeader, uneatenFoods));
+		if (progressInfo.showUneatenFoods) {
+			List<ItemStack> uneatenFoods = FoodItemStacks.getAllFoods().stream()
+				.filter(food -> !foodCapability.hasEaten(food))
+				.collect(Collectors.toList());
+			String uneatenFoodsHeader = localized("gui", "food_book.uneaten_foods", uneatenFoods.size());
+			pages.addAll(ItemListPage.pages(background.frame, uneatenFoodsHeader, uneatenFoods));
+		}
 	}
 	
 	private void updateButtonVisibility() {
