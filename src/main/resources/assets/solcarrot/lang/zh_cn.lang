@@ -16,7 +16,7 @@ command.solcarrot.foodlist.clear.success=食物清单已重置!
 command.solcarrot.foodlist.sync.success=食物清单已同步!
 
 # Messages
-message.solcarrot.prefix=[SoL: Carrot] 
+message.solcarrot.chat_wrapper=[SoL: Carrot] %s
 message.solcarrot.milestone_achieved=多么独特的味道! 你已经获得了%s!
 message.solcarrot.milestone_achieved.hearts.singular=1颗心
 message.solcarrot.milestone_achieved.hearts.plural=%s颗心
