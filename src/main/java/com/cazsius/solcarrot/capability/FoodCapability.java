@@ -107,10 +107,8 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		updateProgressInfo();
 	}
 	
-	public void copyFoods(FoodCapability food) {
-		foods.clear();
-		foods.addAll(food.foods);
-		updateProgressInfo();
+	public int getFoodCount() {
+		return foods.size()
 	}
 	
 	public List<FoodInstance> getEatenFoods() {

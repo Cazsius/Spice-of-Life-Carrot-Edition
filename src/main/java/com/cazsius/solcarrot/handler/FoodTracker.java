@@ -28,7 +28,9 @@ public class FoodTracker {
 		EntityPlayer player = event.player;
 		
 		FoodCapability foodCapability = FoodCapability.get(player);
+		int oldFoodCount = foodCapability.getFoodCount();
 		foodCapability.addFood(event.food);
+		boolean hasTriedNewFood = foodCapability.getFoodCount() > oldFoodCount;
 		CapabilityHandler.syncFoodList(player);
 		ProgressInfo progressInfo = foodCapability.getProgressInfo();
 		
@@ -59,7 +61,7 @@ public class FoodTracker {
 					showChatMessage(player, TextFormatting.GOLD, localizedComponent("message", "finished.chat"));
 				}
 			}
-		} else {
+		} else if (hasTriedNewFood) {
 			spawnParticles(world, player, EnumParticleTypes.END_ROD, 12);
 		}
 	}
