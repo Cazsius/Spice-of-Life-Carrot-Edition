@@ -17,7 +17,7 @@ class StatListPage extends Page {
 		children.add(progressGraph);
 		
 		String foodsTastedDescription;
-		if (progressInfo.showUneatenFoods) {
+		if (progressInfo.shouldShowUneatenFoods) {
 			foodsTastedDescription = localized("gui", "food_book.stats.foods_tasted.fraction",
 				progressInfo.foodsEaten,
 				FoodItemStacks.getAllFoods().size()

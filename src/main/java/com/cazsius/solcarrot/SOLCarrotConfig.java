@@ -54,7 +54,7 @@ public class SOLCarrotConfig {
 	@Config.Name("Show Uneaten Foods")
 	@Config.LangKey("config.solcarrot.should_show_uneaten_foods")
 	@Config.Comment("If true, the food book also lists foods that you haven't eaten, in addition to the ones you have.")
-	public static boolean showUneatenFoods = true;
+	public static boolean shouldShowUneatenFoods = true;
 	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {

@@ -92,7 +92,7 @@ public final class GuiFoodBook extends GuiScreen {
 		String eatenFoodsHeader = localized("gui", "food_book.eaten_foods", eatenFoods.size());
 		pages.addAll(ItemListPage.pages(background.frame, eatenFoodsHeader, eatenFoods));
 		
-		if (progressInfo.showUneatenFoods) {
+		if (progressInfo.shouldShowUneatenFoods) {
 			List<ItemStack> uneatenFoods = FoodItemStacks.getAllFoods().stream()
 				.filter(food -> !foodCapability.hasEaten(food))
 				.collect(Collectors.toList());
