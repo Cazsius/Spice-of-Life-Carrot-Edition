@@ -14,9 +14,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import squeek.applecore.api.food.FoodEvent;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 import static com.cazsius.solcarrot.lib.Localization.localizedQuantityComponent;
 
@@ -52,32 +49,23 @@ public class FoodTracker {
 			);
 			
 			ProgressInfo progressInfo = foodCapability.getProgressInfo();
+			ITextComponent heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.heartsPerMilestone);
 			
-			ITextComponent heartsDescription = localizedQuantityComponent("message", "milestone_achieved.hearts", SOLCarrotConfig.heartsPerMilestone);
-			ITextComponent milestoneAchievedMessage = localizedComponent("message", "milestone_achieved", heartsDescription);
-			ITextComponent nextMilestoneMessage;
-			if (progressInfo.hasReachedMax()) {
-				nextMilestoneMessage = localizedComponent("message", "desire.finished");
+			if (SOLCarrotConfig.shouldShowProgressAboveHotbar) {
+				String messageKey = progressInfo.hasReachedMax() ? "finished.hotbar" : "milestone_achieved";
+				player.sendStatusMessage(localizedComponent("message", messageKey, heartsDescription), true);
 			} else {
-				nextMilestoneMessage = localizedComponent("message", "desire.continues", progressInfo.foodsUntilNextMilestone(), heartsDescription);
+				showChatMessage(player, TextFormatting.DARK_AQUA, localizedComponent("message", "milestone_achieved", heartsDescription));
+				if (progressInfo.hasReachedMax()) {
+					showChatMessage(player, TextFormatting.GOLD, localizedComponent("message", "finished.chat"));
+				}
 			}
-			
-			showMessage(player, milestoneAchievedMessage, nextMilestoneMessage);
 		}
 	}
 	
-	private static void showMessage(EntityPlayer player, ITextComponent... message) {
-		boolean showAboveHotbar = SOLCarrotConfig.shouldShowProgressAboveHotbar;
-		String separator = showAboveHotbar ? " " : "\n"; // above-hotbar mode is single-line only :(
-		Optional<ITextComponent> combinedMessage = Arrays.stream(message)
-			.reduce((acc, next) -> acc.appendText(separator).appendSibling(next));
-		assert combinedMessage.isPresent(); // at least one message to send
-		
-		ITextComponent prefix = showAboveHotbar
-			? new TextComponentString("")
-			: localizedComponent("message", "prefix").appendText(" ");
-		ITextComponent component = prefix.appendSibling(combinedMessage.get());
-		component.setStyle(new Style().setColor(TextFormatting.DARK_AQUA));
-		player.sendStatusMessage(component, showAboveHotbar);
+	private static void showChatMessage(EntityPlayer player, TextFormatting color, ITextComponent message) {
+		ITextComponent component = localizedComponent("message", "chat_wrapper", message);
+		component.setStyle(new Style().setColor(color));
+		player.sendStatusMessage(component, false);
 	}
 }
