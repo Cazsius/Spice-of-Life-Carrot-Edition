@@ -108,7 +108,7 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	}
 	
 	public int getFoodCount() {
-		return foods.size()
+		return foods.size();
 	}
 	
 	public List<FoodInstance> getEatenFoods() {
