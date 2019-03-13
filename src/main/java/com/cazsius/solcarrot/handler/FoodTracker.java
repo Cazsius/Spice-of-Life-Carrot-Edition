@@ -30,25 +30,24 @@ public class FoodTracker {
 		FoodCapability foodCapability = FoodCapability.get(player);
 		foodCapability.addFood(event.food);
 		CapabilityHandler.syncFoodList(player);
+		ProgressInfo progressInfo = foodCapability.getProgressInfo();
 		
 		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
 		if (newMilestoneReached) {
 			// passing the player makes it not play for some reason
-			world.playSound(null,
+			world.playSound(
+				null,
 				player.posX, player.posY, player.posZ,
 				SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
 				1.0F, 1.0F
 			);
 			
-			// this overload sends a packet to the client
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY,
-				player.posX, player.posY + player.getEyeHeight(), player.posZ,
-				16,
-				0.5F, 0.5F, 0.5F,
-				0.0F
-			);
+			spawnParticles(world, player, EnumParticleTypes.HEART, 12);
 			
-			ProgressInfo progressInfo = foodCapability.getProgressInfo();
+			if (progressInfo.hasReachedMax()) {
+				spawnParticles(world, player, EnumParticleTypes.VILLAGER_HAPPY, 16);
+			}
+			
 			ITextComponent heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.heartsPerMilestone);
 			
 			if (SOLCarrotConfig.shouldShowProgressAboveHotbar) {
@@ -60,7 +59,20 @@ public class FoodTracker {
 					showChatMessage(player, TextFormatting.GOLD, localizedComponent("message", "finished.chat"));
 				}
 			}
+		} else {
+			spawnParticles(world, player, EnumParticleTypes.END_ROD, 12);
 		}
+	}
+	
+	private static void spawnParticles(WorldServer world, EntityPlayer player, EnumParticleTypes type, int count) {
+		// this overload sends a packet to the client
+		world.spawnParticle(
+			type,
+			player.posX, player.posY + player.getEyeHeight(), player.posZ,
+			count,
+			0.5F, 0.5F, 0.5F,
+			0.0F
+		);
 	}
 	
 	private static void showChatMessage(EntityPlayer player, TextFormatting color, ITextComponent message) {
