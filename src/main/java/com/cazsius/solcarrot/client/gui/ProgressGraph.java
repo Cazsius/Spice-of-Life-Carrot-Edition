@@ -43,7 +43,12 @@ final class ProgressGraph extends UIElement {
 		
 		UIImage carrotIcon = new UIImage(carrot);
 		carrotIcon.setCenterY(lineY);
-		carrotIcon.setMaxX(leftEdge - padding);
+		if (milestonesAchieved > 0) {
+			carrotIcon.setMaxX(leftEdge - padding);
+		} else {
+			int distanceToLeftBookEdge = 36;
+			carrotIcon.setCenterX(leftPoint - distanceToLeftBookEdge / 2);
+		}
 		children.add(carrotIcon);
 		
 		children.add(UIBox.horizontalLine(leftPoint, progressX, lineY, fullBlack));
