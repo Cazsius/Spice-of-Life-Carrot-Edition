@@ -3,6 +3,7 @@ package com.cazsius.solcarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.handler.CapabilityHandler;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
+import com.cazsius.solcarrot.lib.Localization;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.config.Config;
@@ -22,30 +23,36 @@ public class SOLCarrotConfig {
 	
 	//@Config.Name("Base Hearts")
 	@Config.Name("defaultHeartCount")
+	@Config.LangKey("config.solcarrot.base_hearts")
 	@Config.Comment("Number of hearts you start out with.")
 	public static int baseHearts = 10;
 	
 	//@Config.Name("Hearts per Milestone")
 	@Config.Name("heartsPerMilestone")
+	@Config.LangKey("config.solcarrot.hearts_per_milestone")
 	@Config.Comment("Number of hearts you gain for reaching a new milestone.")
 	public static int heartsPerMilestone = 2;
 	
 	//@Config.Name("Milestones")
 	@Config.Name("Milestone amounts")
+	@Config.LangKey("config.solcarrot.milestones")
 	@Config.Comment("A list of numbers of unique foods you need to eat to unlock each milestone, in ascending order.")
 	public static int[] milestones = {5, 10, 15, 20, 25};
 	
 	//@Config.Name("Enable Food Status Tooltip")
 	@Config.Name("isFoodTooltipEnabled")
+	@Config.LangKey("config.solcarrot.is_food_tooltip_enabled")
 	@Config.Comment("If true, foods indicate in their tooltips whether or not they have been eaten.")
 	public static boolean isFoodTooltipEnabled = true;
 	
 	//@Config.Name("Show Progress Above Hotbar")
 	@Config.Name("shouldShowProgressAboveHotbar")
+	@Config.LangKey("config.solcarrot.should_show_progress_above_hotbar")
 	@Config.Comment("Whether the messages notifying you of reaching new milestones should be displayed above the hotbar or in chat.")
 	public static boolean shouldShowProgressAboveHotbar = true;
 	
 	@Config.Name("Show Uneaten Foods")
+	@Config.LangKey("config.solcarrot.should_show_uneaten_foods")
 	@Config.Comment("If true, the food book also lists foods that you haven't eaten, in addition to the ones you have.")
 	public static boolean showUneatenFoods = true;
 	
