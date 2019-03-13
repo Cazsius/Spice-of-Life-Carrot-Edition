@@ -56,6 +56,21 @@ public class SOLCarrotConfig {
 	@Config.Comment("If true, the food book also lists foods that you haven't eaten, in addition to the ones you have.")
 	public static boolean shouldShowUneatenFoods = true;
 	
+	@Config.Name("Enable Milestone Sounds")
+	@Config.LangKey("config.solcarrot.should_play_milestone_sounds")
+	@Config.Comment("If true, reaching a new milestone plays a ding sound.")
+	public static boolean shouldPlayMilestoneSounds = true;
+	
+	@Config.Name("Enable Intermediate Particles")
+	@Config.LangKey("config.solcarrot.should_spawn_intermediate_particles")
+	@Config.Comment("If true, trying a new food spawns particles.")
+	public static boolean shouldSpawnIntermediateParticles = true;
+	
+	@Config.Name("Enable Milestone Particles")
+	@Config.LangKey("config.solcarrot.should_spawn_milestone_particles")
+	@Config.Comment("If true, reaching a new milestone spawns particles.")
+	public static boolean shouldSpawnMilestoneParticles = true;
+	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (!event.getModID().equals(SOLCarrot.MOD_ID)) return;

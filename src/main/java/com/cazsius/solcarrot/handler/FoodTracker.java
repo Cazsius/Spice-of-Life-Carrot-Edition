@@ -36,18 +36,22 @@ public class FoodTracker {
 		
 		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
 		if (newMilestoneReached) {
-			// passing the player makes it not play for some reason
-			world.playSound(
-				null,
-				player.posX, player.posY, player.posZ,
-				SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
-				1.0F, 1.0F
-			);
+			if (SOLCarrotConfig.shouldPlayMilestoneSounds) {
+				// passing the player makes it not play for some reason
+				world.playSound(
+					null,
+					player.posX, player.posY, player.posZ,
+					SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
+					1.0F, 1.0F
+				);
+			}
 			
-			spawnParticles(world, player, EnumParticleTypes.HEART, 12);
-			
-			if (progressInfo.hasReachedMax()) {
-				spawnParticles(world, player, EnumParticleTypes.VILLAGER_HAPPY, 16);
+			if (SOLCarrotConfig.shouldSpawnMilestoneParticles) {
+				spawnParticles(world, player, EnumParticleTypes.HEART, 12);
+				
+				if (progressInfo.hasReachedMax()) {
+					spawnParticles(world, player, EnumParticleTypes.VILLAGER_HAPPY, 16);
+				}
 			}
 			
 			ITextComponent heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.heartsPerMilestone);
@@ -62,7 +66,9 @@ public class FoodTracker {
 				}
 			}
 		} else if (hasTriedNewFood) {
-			spawnParticles(world, player, EnumParticleTypes.END_ROD, 12);
+			if (SOLCarrotConfig.shouldSpawnIntermediateParticles) {
+				spawnParticles(world, player, EnumParticleTypes.END_ROD, 12);
+			}
 		}
 	}
 	
