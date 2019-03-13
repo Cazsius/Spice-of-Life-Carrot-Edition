@@ -3,7 +3,6 @@ package com.cazsius.solcarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.handler.CapabilityHandler;
 import com.cazsius.solcarrot.handler.MaxHealthHandler;
-import com.cazsius.solcarrot.lib.Localization;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.config.Config;
