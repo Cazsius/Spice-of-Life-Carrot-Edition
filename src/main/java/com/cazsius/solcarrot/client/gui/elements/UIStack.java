@@ -28,6 +28,9 @@ public class UIStack extends UIElement {
 				for (UIElement child : children) {
 					child.frame.x = frame.x + x;
 					child.frame.y = frame.y + (height - child.frame.height) / 2;
+					if (child instanceof UIStack) {
+						((UIStack) child).updateFrames();
+					}
 					x += child.frame.width;
 					x += spacing;
 				}
@@ -36,10 +39,13 @@ public class UIStack extends UIElement {
 				break;
 			case VERTICAL:
 				int y = 0;
-				int width = children.stream().mapToInt(child -> child.frame.height).max().orElse(0);
+				int width = children.stream().mapToInt(child -> child.frame.width).max().orElse(0);
 				for (UIElement child : children) {
 					child.frame.x = frame.x + (width - child.frame.width) / 2;
 					child.frame.y = frame.y + y;
+					if (child instanceof UIStack) {
+						((UIStack) child).updateFrames();
+					}
 					y += child.frame.height;
 					y += spacing;
 				}
@@ -49,7 +55,7 @@ public class UIStack extends UIElement {
 		}
 	}
 	
-	enum Axis {
+	public enum Axis {
 		HORIZONTAL, VERTICAL
 	}
 }
