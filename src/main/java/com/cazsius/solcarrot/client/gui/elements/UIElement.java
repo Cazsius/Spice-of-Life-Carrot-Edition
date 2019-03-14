@@ -72,6 +72,15 @@ public abstract class UIElement {
 		);
 	}
 	
+	/** calculates and sets the frame to the smallest rectangle enclosing all children's frames */
+	protected void calculateFrameFromChildren() {
+		setMinX(children.stream().mapToInt(UIElement::getMinX).min().orElse(getMinX()));
+		setWidth(children.stream().mapToInt(UIElement::getMaxX).max().orElse(getMaxX()) - getMinX());
+		
+		setMinY(children.stream().mapToInt(UIElement::getMinY).min().orElse(getMinY()));
+		setHeight(children.stream().mapToInt(UIElement::getMaxY).max().orElse(getMaxY()) - getMinY());
+	}
+	
 	public int getCenterX() {
 		return frame.x + frame.width / 2;
 	}
@@ -119,4 +128,12 @@ public abstract class UIElement {
 	public void setMaxY(int maxY) {
 		frame.setLocation(frame.x, maxY - frame.height);
 	}
+	
+	public int getWidth() { return frame.width; }
+	
+	public void setWidth(int width) { frame.width = width; }
+	
+	public int getHeight() { return frame.height; }
+	
+	public void setHeight(int height) { frame.height = height; }
 }
