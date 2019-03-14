@@ -27,15 +27,13 @@ message.solcarrot.finished.hotbar=You've gained %s. Your desire to seek unique f
 item.solcarrot.food_book.name=Food Book
 
 # GUIs
-gui.solcarrot.food_book.title=My Food Log
-gui.solcarrot.food_book.stats=Statistics
+gui.solcarrot.food_book.stats=Overview
 gui.solcarrot.food_book.eaten_foods=Already Tasted: %s
 gui.solcarrot.food_book.uneaten_foods=Not Yet Tried: %s
 
-gui.solcarrot.food_book.stats.foods_tasted.singular=1 food tasted
-gui.solcarrot.food_book.stats.foods_tasted.plural=%s foods tasted
-gui.solcarrot.food_book.stats.foods_tasted.fraction=%1$s/%2$s foods tasted
-gui.solcarrot.food_book.stats.hearts_gained=%1$s/%2$s hearts gained
+gui.solcarrot.food_book.stats.fraction=%1$s/%2$s
+gui.solcarrot.food_book.stats.foods_tasted=Foods Tasted
+gui.solcarrot.food_book.stats.hearts_gained=Hearts Gained
 gui.solcarrot.food_book.stats.tooltip.previous_milestone=Previous Milestone
 gui.solcarrot.food_book.stats.tooltip.next_milestone=Next Milestone
 gui.solcarrot.food_book.stats.tooltip.total_foods=Total Foods

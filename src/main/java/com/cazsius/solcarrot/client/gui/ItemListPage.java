@@ -26,7 +26,7 @@ class ItemListPage extends Page {
 		super(frame, header);
 		
 		int minX = (1 - itemsPerRow) * itemSpacing / 2;
-		int minY = (1 - rowsPerPage) * itemSpacing / 2;
+		int minY = (1 - rowsPerPage) * itemSpacing / 2 - 4;
 		
 		for (int i = 0; i < items.size(); i++) {
 			ItemStack itemStack = items.get(i);

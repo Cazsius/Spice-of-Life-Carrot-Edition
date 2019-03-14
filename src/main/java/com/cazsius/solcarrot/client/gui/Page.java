@@ -11,7 +11,7 @@ abstract class Page extends UIElement {
 		
 		UILabel headerLabel = new UILabel(header);
 		headerLabel.setCenterX(getCenterX());
-		headerLabel.setMinY(getMinY() + 30);
+		headerLabel.setMinY(getMinY() + 22);
 		children.add(headerLabel);
 	}
 }

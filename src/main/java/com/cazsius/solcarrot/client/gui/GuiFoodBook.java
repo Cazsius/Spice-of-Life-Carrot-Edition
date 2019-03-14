@@ -24,6 +24,12 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 public final class GuiFoodBook extends GuiScreen {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	private static final UIImage.Image bookImage = new UIImage.Image(texture, new Rectangle(0, 0, 186, 192));
+	static final UIImage.Image carrotImage = new UIImage.Image(texture, new Rectangle(0, 240, 16, 16));
+	static final UIImage.Image heartImage = new UIImage.Image(texture, new Rectangle(0, 224, 9, 9));
+	
+	static final int fullBlack = 0xFF_000000;
+	static final int lessBlack = 0x88_000000;
+	static final int leastBlack = 0x44_000000;
 	
 	private final List<UIElement> elements = new ArrayList<>();
 	private UIImage background;
@@ -54,16 +60,10 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		elements.clear();
 		
-		// book title
-		UILabel titleLabel = new UILabel(localized("gui", "food_book.title"));
-		titleLabel.setCenterX(background.getCenterX());
-		titleLabel.setMinY(background.getMinY() + 16);
-		elements.add(titleLabel);
-		
 		// page number
 		pageNumberLabel = new UILabel("1");
 		pageNumberLabel.setCenterX(background.getCenterX());
-		pageNumberLabel.setMinY(background.getMinY() + 154);
+		pageNumberLabel.setMinY(background.getMinY() + 156);
 		elements.add(pageNumberLabel);
 		
 		initPages();
@@ -71,8 +71,8 @@ public final class GuiFoodBook extends GuiScreen {
 		buttonList.clear();
 		
 		int pageFlipButtonSpacing = 50;
-		prevPageButton = addButton(new PageFlipButton(1, background.getCenterX() - pageFlipButtonSpacing / 2 - PageFlipButton.width, background.getMinY() + 150, PageFlipButton.Direction.BACKWARD));
-		nextPageButton = addButton(new PageFlipButton(2, background.getCenterX() + pageFlipButtonSpacing / 2, background.getMinY() + 150, PageFlipButton.Direction.FORWARD));
+		prevPageButton = addButton(new PageFlipButton(1, background.getCenterX() - pageFlipButtonSpacing / 2 - PageFlipButton.width, background.getMinY() + 152, PageFlipButton.Direction.BACKWARD));
+		nextPageButton = addButton(new PageFlipButton(2, background.getCenterX() + pageFlipButtonSpacing / 2, background.getMinY() + 152, PageFlipButton.Direction.FORWARD));
 		
 		updateButtonVisibility();
 	}
