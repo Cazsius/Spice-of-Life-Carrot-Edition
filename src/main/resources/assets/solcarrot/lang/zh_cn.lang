@@ -27,7 +27,7 @@ message.solcarrot.finished.hotbar=你已经获得了%s. 你寻找独特食物的
 item.solcarrot.food_book.name=食物清单
 
 # GUIs
-gui.solcarrot.food_book.title=我的食物日志
+gui.solcarrot.food_book.stats=概要
 gui.solcarrot.food_book.eaten_foods=已食用: %s
 gui.solcarrot.food_book.uneaten_foods=未食用: %s
 
