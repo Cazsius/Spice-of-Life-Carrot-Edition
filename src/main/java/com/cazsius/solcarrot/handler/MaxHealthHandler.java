@@ -28,9 +28,7 @@ public class MaxHealthHandler {
 	public static void onPlayerLogin(PlayerLoggedInEvent event) {
 		EntityPlayer player = event.player;
 		
-		if (!player.world.isRemote) {
-			updateFoodHPModifier(player);
-		}
+		updateFoodHPModifier(player);
 	}
 	
 	@SubscribeEvent
@@ -65,6 +63,7 @@ public class MaxHealthHandler {
 			
 			// adjust current health proportionally to increase in max health
 			player.setHealth(player.getHealth() * player.getMaxHealth() / oldMax);
+			
 			return true;
 		} else {
 			return false;
