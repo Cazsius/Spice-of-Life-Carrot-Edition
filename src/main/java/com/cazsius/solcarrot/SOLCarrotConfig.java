@@ -70,6 +70,11 @@ public class SOLCarrotConfig {
 	@Config.Comment("If true, reaching a new milestone spawns particles.")
 	public static boolean shouldSpawnMilestoneParticles = true;
 	
+	@Config.Name("Food Blacklist")
+	@Config.LangKey("config.solcarrot.food_blacklist")
+	@Config.Comment("Foods in this list won't show up in the food book, neither in the list nor in the total count.")
+	public static String[] foodBlacklist = {};
+	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (!event.getModID().equals(SOLCarrot.MOD_ID)) return;
