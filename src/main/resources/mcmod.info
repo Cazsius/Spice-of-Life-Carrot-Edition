@@ -2,14 +2,14 @@
 {
   "modid": "solcarrot",
   "name": "Spice of Life: Carrot Edition",
-  "description": "A food mod similar to spice of life, but uses the carrot instead of the stick!",
+  "description": "A mod designed to encourage dietary variety! It does so by rewarding the player for eating a variety of foods instead of punishing them for failing to diversify. Instead of using the stick we use the carrot!",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://minecraft.curseforge.com/projects/spice-of-life-carrot-edition",
   "updateUrl": "",
-  "authorList": ["Cazsius, Talonos"],
-  "logoFile": "",
+  "authorList": ["Cazsius", "Talonos", "juliand665"],
   "credits": "Lewis_McReu for some coding assistance",
+  "logoFile": "assets/solcarrot/textures/forge/logo.png",
   "screenshots": [],
   "dependencies": []
 }
