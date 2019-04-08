@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.capability;
 
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -7,9 +8,14 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.*;
+import squeek.applecore.api.AppleCoreAPI;
 
-import java.util.*;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
+import java.util.Set;
 
+@ParametersAreNonnullByDefault
 public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	private static final String NBT_KEY_FOOD_LIST = "foodList";
 	private static final String NBT_KEY_PROGRESS_INFO = "progressInfo";
@@ -29,12 +35,13 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	public FoodCapability() {}
 	
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == FOOD_CAPABILITY;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
 		return capability == FOOD_CAPABILITY ? (T) this : null;
 	}
 	
@@ -93,9 +100,11 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		progressInfo = new ProgressInfo(tag.getCompoundTag(NBT_KEY_PROGRESS_INFO));
 	}
 	
-	public void addFood(ItemStack itemStack) {
-		foods.add(new FoodInstance(itemStack));
+	/** @return true if the food was not previously known, i.e. if a new food has been tried */
+	public boolean addFood(ItemStack food) {
+		boolean wasAdded = foods.add(new FoodInstance(food)) && shouldCount(food);
 		updateProgressInfo();
+		return wasAdded;
 	}
 	
 	public boolean hasEaten(ItemStack itemStack) {
@@ -107,12 +116,8 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		updateProgressInfo();
 	}
 	
-	public int getFoodCount() {
-		return foods.size();
-	}
-	
-	public List<FoodInstance> getEatenFoods() {
-		return new ArrayList<>(foods);
+	private boolean shouldCount(ItemStack food) {
+		return AppleCoreAPI.accessor.getFoodValues(food).hunger >= SOLCarrotConfig.minimumFoodValue;
 	}
 	
 	public ProgressInfo getProgressInfo() {
@@ -121,6 +126,10 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	
 	/** don't use this client-side! it'll overwrite it with client-side config values */
 	public void updateProgressInfo() {
-		progressInfo = new ProgressInfo(foods.size());
+		int foodsEaten = (int) foods.stream()
+			.map(FoodInstance::getItemStack)
+			.filter(this::shouldCount)
+			.count();
+		progressInfo = new ProgressInfo(foodsEaten);
 	}
 }

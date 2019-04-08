@@ -1,4 +1,4 @@
-package com.cazsius.solcarrot.lib;
+package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
@@ -35,6 +35,8 @@ public class FoodItemStacks {
 		foodsBeforeBlacklist = ForgeRegistries.ITEMS.getValuesCollection().stream()
 			.flatMap(FoodItemStacks::getSubItems)
 			.filter(itemStack -> AppleCoreAPI.accessor.isFood(itemStack))
+			// sort by name, using metadata as tiebreaker
+			.sorted(Comparator.comparing(ItemStack::getMetadata))
 			.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
 			.collect(Collectors.toList());
 		

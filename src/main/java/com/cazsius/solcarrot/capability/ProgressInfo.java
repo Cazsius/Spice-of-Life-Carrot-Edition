@@ -12,6 +12,7 @@ public class ProgressInfo {
 	private static final String NBT_KEY_HEARTS_PER_MILESTONE = "heartsPerMilestone";
 	private static final String NBT_KEY_BASE_HEARTS = "baseHearts";
 	private static final String NBT_KEY_SHOULD_SHOW_UNEATEN_FOODS = "shouldShowUneatenFoods";
+	private static final String NBT_KEY_MINIMUM_FOOD_VALUE = "minimumFoodValue";
 	
 	/** the number of unique foods eaten */
 	public final int foodsEaten;
@@ -23,6 +24,8 @@ public class ProgressInfo {
 	public final int heartsPerMilestone;
 	/** whether or not to also show information about the foods left to try */
 	public final boolean shouldShowUneatenFoods;
+	/** the minimum hunger value foods need to provide in order to count */
+	public final int minimumFoodValue;
 	
 	ProgressInfo(NBTTagCompound tag) {
 		foodsEaten = tag.getInteger(NBT_KEY_FOODS_EATEN);
@@ -30,6 +33,7 @@ public class ProgressInfo {
 		baseHearts = tag.getInteger(NBT_KEY_BASE_HEARTS);
 		heartsPerMilestone = tag.getInteger(NBT_KEY_HEARTS_PER_MILESTONE);
 		shouldShowUneatenFoods = tag.getBoolean(NBT_KEY_SHOULD_SHOW_UNEATEN_FOODS);
+		minimumFoodValue = tag.getInteger(NBT_KEY_MINIMUM_FOOD_VALUE);
 	}
 	
 	ProgressInfo(int foodsEaten) {
@@ -38,6 +42,7 @@ public class ProgressInfo {
 		this.baseHearts = SOLCarrotConfig.baseHearts;
 		this.heartsPerMilestone = SOLCarrotConfig.heartsPerMilestone;
 		this.shouldShowUneatenFoods = SOLCarrotConfig.shouldShowUneatenFoods;
+		this.minimumFoodValue = SOLCarrotConfig.minimumFoodValue;
 	}
 	
 	public boolean hasReachedMax() {
@@ -67,6 +72,7 @@ public class ProgressInfo {
 		tag.setInteger(NBT_KEY_BASE_HEARTS, baseHearts);
 		tag.setInteger(NBT_KEY_HEARTS_PER_MILESTONE, heartsPerMilestone);
 		tag.setBoolean(NBT_KEY_SHOULD_SHOW_UNEATEN_FOODS, shouldShowUneatenFoods);
+		tag.setInteger(NBT_KEY_MINIMUM_FOOD_VALUE, minimumFoodValue);
 		return tag;
 	}
 }

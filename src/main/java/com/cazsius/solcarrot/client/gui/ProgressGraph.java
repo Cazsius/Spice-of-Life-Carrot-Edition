@@ -2,7 +2,6 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.capability.ProgressInfo;
 import com.cazsius.solcarrot.client.gui.elements.*;
-import com.cazsius.solcarrot.lib.FoodItemStacks;
 
 import java.awt.*;
 
@@ -13,10 +12,10 @@ final class ProgressGraph extends UIElement {
 	
 	private ProgressInfo progressInfo;
 	
-	public ProgressGraph(ProgressInfo progressInfo, int centerX, int lineY) {
+	public ProgressGraph(FoodData foodData, int centerX, int lineY) {
 		super(new Rectangle(centerX, lineY, 2 * segmentLength, 1)); // kinda wrong; will adjust later
 		
-		this.progressInfo = progressInfo;
+		this.progressInfo = foodData.progressInfo;
 		
 		int leftEdge = centerX - segmentLength * 3 / 4;
 		int leftPoint = centerX - segmentLength / 2;
@@ -87,7 +86,7 @@ final class ProgressGraph extends UIElement {
 		// if the last milestone is visible, there are no more milestones beyond the right edge, so the line is fainter.
 		children.add(UIBox.horizontalLine(rightPoint + 1, rightEdge, lineY, isLastMilestoneVisible ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
 		
-		int totalFoodCount = FoodItemStacks.getAllFoods().size();
+		int totalFoodCount = foodData.validFoods.size();
 		if (progressInfo.foodsEaten < totalFoodCount) {
 			UILabel totalFoodsLabel = new UILabel("" + totalFoodCount);
 			totalFoodsLabel.color = GuiFoodBook.leastBlack;

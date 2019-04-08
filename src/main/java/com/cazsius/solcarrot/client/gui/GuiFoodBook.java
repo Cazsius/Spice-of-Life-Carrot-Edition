@@ -1,12 +1,11 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import com.cazsius.solcarrot.capability.*;
+import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.capability.ProgressInfo;
 import com.cazsius.solcarrot.client.gui.elements.*;
-import com.cazsius.solcarrot.lib.FoodItemStacks;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -14,9 +13,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
@@ -39,7 +37,7 @@ public final class GuiFoodBook extends GuiScreen {
 	private PageFlipButton prevPageButton;
 	
 	private EntityPlayer player;
-	private FoodCapability foodCapability;
+	private FoodData foodData;
 	
 	private final List<Page> pages = new ArrayList<>();
 	private int currentPageNumber = 0;
@@ -52,7 +50,7 @@ public final class GuiFoodBook extends GuiScreen {
 	public void initGui() {
 		super.initGui();
 		
-		foodCapability = FoodCapability.get(player);
+		foodData = new FoodData(FoodCapability.get(player));
 		
 		background = new UIImage(bookImage);
 		background.setCenterX(width / 2);
@@ -80,25 +78,19 @@ public final class GuiFoodBook extends GuiScreen {
 	private void initPages() {
 		pages.clear();
 		
-		ProgressInfo progressInfo = foodCapability.getProgressInfo();
-		pages.add(new StatListPage(background.frame, progressInfo));
+		ProgressInfo progressInfo = foodData.progressInfo;
+		pages.add(new StatListPage(foodData, background.frame));
 		
-		List<ItemStack> eatenFoods = foodCapability.getEatenFoods().stream()
-			.map(FoodInstance::getItemStack)
-			// sort by name, using metadata as tiebreaker
-			.sorted(Comparator.comparing(ItemStack::getMetadata))
-			.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
-			.collect(Collectors.toList());
-		String eatenFoodsHeader = localized("gui", "food_book.eaten_foods", eatenFoods.size());
-		pages.addAll(ItemListPage.pages(background.frame, eatenFoodsHeader, eatenFoods));
+		addPages("eaten_foods", foodData.eatenFoods);
 		
 		if (progressInfo.shouldShowUneatenFoods) {
-			List<ItemStack> uneatenFoods = FoodItemStacks.getAllFoods().stream()
-				.filter(food -> !foodCapability.hasEaten(food))
-				.collect(Collectors.toList());
-			String uneatenFoodsHeader = localized("gui", "food_book.uneaten_foods", uneatenFoods.size());
-			pages.addAll(ItemListPage.pages(background.frame, uneatenFoodsHeader, uneatenFoods));
+			addPages("uneaten_foods", foodData.uneatenFoods);
 		}
+	}
+	
+	private void addPages(String headerLocalizationPath, List<ItemStack> items) {
+		String header = localized("gui", "food_book." + headerLocalizationPath, items.size());
+		pages.addAll(ItemListPage.pages(background.frame, header, items));
 	}
 	
 	private void updateButtonVisibility() {

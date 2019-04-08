@@ -2,17 +2,17 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.capability.ProgressInfo;
 import com.cazsius.solcarrot.client.gui.elements.*;
-import com.cazsius.solcarrot.lib.FoodItemStacks;
 
 import java.awt.*;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
 class StatListPage extends Page {
-	StatListPage(Rectangle frame, ProgressInfo progressInfo) {
+	StatListPage(FoodData foodData, Rectangle frame) {
 		super(frame, localized("gui", "food_book.stats"));
 		
-		ProgressGraph progressGraph = new ProgressGraph(progressInfo, getCenterX(), getMinY() + 64);
+		ProgressInfo progressInfo = foodData.progressInfo;
+		ProgressGraph progressGraph = new ProgressGraph(foodData, getCenterX(), getMinY() + 64);
 		children.add(progressGraph);
 		
 		int majorSpacing = 6;
@@ -31,7 +31,7 @@ class StatListPage extends Page {
 		if (progressInfo.shouldShowUneatenFoods) {
 			foodsTasted = localized("gui", "food_book.stats.fraction",
 				progressInfo.foodsEaten,
-				FoodItemStacks.getAllFoods().size()
+				foodData.validFoods.size()
 			);
 		} else {
 			foodsTasted = "" + progressInfo.foodsEaten;

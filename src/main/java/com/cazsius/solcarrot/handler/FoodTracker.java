@@ -28,9 +28,7 @@ public class FoodTracker {
 		EntityPlayer player = event.player;
 		
 		FoodCapability foodCapability = FoodCapability.get(player);
-		int oldFoodCount = foodCapability.getFoodCount();
-		foodCapability.addFood(event.food);
-		boolean hasTriedNewFood = foodCapability.getFoodCount() > oldFoodCount;
+		boolean hasTriedNewFood = foodCapability.addFood(event.food);
 		CapabilityHandler.syncFoodList(player);
 		ProgressInfo progressInfo = foodCapability.getProgressInfo();
 		
