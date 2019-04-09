@@ -2,18 +2,16 @@ package com.cazsius.solcarrot.capability;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.*;
 import squeek.applecore.api.AppleCoreAPI;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.StreamSupport;
 
 @ParametersAreNonnullByDefault
 public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
@@ -49,40 +47,28 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	@Override
 	public NBTBase serializeNBT() {
 		NBTTagList list = new NBTTagList();
-		for (FoodInstance food : foods) {
-			ResourceLocation location = Item.REGISTRY.getNameForObject(food.item);
-			if (location == null)
-				continue;
-			
-			String toWrite = location + "@" + food.metadata;
-			list.appendTag(new NBTTagString(toWrite));
-		}
+		foods.stream()
+			.map(FoodInstance::encode)
+			.filter(Objects::nonNull)
+			.map(NBTTagString::new)
+			.forEach(list::appendTag);
+		
 		return list;
 	}
 	
 	/** used for persistent storage */
 	@Override
 	public void deserializeNBT(NBTBase nbt) {
-		foods.clear();
 		NBTTagList list = (NBTTagList) nbt;
-		for (int i = 0; i < list.tagCount(); i++) {
-			String toDecompose = ((NBTTagString) list.get(i)).getString();
-			
-			String[] parts = toDecompose.split("@");
-			String name = parts[0];
-			int meta;
-			if (parts.length > 1) {
-				meta = Integer.decode(parts[1]);
-			} else {
-				meta = 0;
-			}
-			
-			Item item = Item.getByNameOrId(name);
-			if (item == null)
-				continue; // TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
-			
-			foods.add(new FoodInstance(item, meta));
-		}
+		
+		foods.clear();
+		StreamSupport.stream(list.spliterator(), false)
+			.map(tag -> (NBTTagString) tag)
+			.map(NBTTagString::getString)
+			.map(FoodInstance::decode)
+			.filter(Objects::nonNull)
+			.forEach(foods::add);
+		
 		updateProgressInfo();
 	}
 	
