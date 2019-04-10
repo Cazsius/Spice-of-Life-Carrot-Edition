@@ -28,7 +28,7 @@ public abstract class UIElement {
 		elements.stream()
 			.flatMap(UIElement::getRecursiveChildren)
 			.filter(element -> element.hasTooltip() && element.frame.contains(mouseX, mouseY))
-			.findFirst()
+			.reduce((one, two) -> two) // last element was rendered last and is thus visually on top
 			.ifPresent(element -> element.renderTooltip(mouseX, mouseY));
 	}
 	
