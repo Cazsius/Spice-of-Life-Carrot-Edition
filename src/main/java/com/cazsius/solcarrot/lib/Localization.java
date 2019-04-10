@@ -51,4 +51,14 @@ public class Localization {
 			? new TextComponentTranslation(keyString(domain, path + ".singular"))
 			: new TextComponentTranslation(keyString(domain, path + ".plural"), number);
 	}
+	
+	public static String formatBigNumber(int number) {
+		if (number < 1000) {
+			return "" + number;
+		} else if (number < 10_000) {
+			return Math.round(number / 1000F) + "." + Math.round((number % 1000) / 100F) + "k";
+		} else {
+			return Math.round(number / 1000F) + "k";
+		}
+	}
 }

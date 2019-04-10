@@ -5,6 +5,7 @@ import com.cazsius.solcarrot.client.gui.elements.*;
 
 import java.awt.*;
 
+import static com.cazsius.solcarrot.lib.Localization.formatBigNumber;
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
 final class ProgressGraph extends UIElement {
@@ -88,9 +89,9 @@ final class ProgressGraph extends UIElement {
 		
 		int totalFoodCount = foodData.validFoods.size();
 		if (progressInfo.foodsEaten < totalFoodCount) {
-			UILabel totalFoodsLabel = new UILabel("" + totalFoodCount);
+			UILabel totalFoodsLabel = new UILabel(formatBigNumber(totalFoodCount));
 			totalFoodsLabel.color = GuiFoodBook.leastBlack;
-			totalFoodsLabel.tooltip = localized("gui", "food_book.stats.tooltip.total_foods");
+			totalFoodsLabel.tooltip = localized("gui", "food_book.stats.tooltip.total_foods", totalFoodCount);
 			totalFoodsLabel.setMinX(rightEdge + padding);
 			totalFoodsLabel.setCenterY(lineY);
 			children.add(totalFoodsLabel);
