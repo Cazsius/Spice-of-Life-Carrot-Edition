@@ -32,12 +32,6 @@ final class ProgressGraph extends UIElement {
 		int progress = segmentLength * (progressInfo.foodsEaten - previousMilestone) / (nextMilestone - previousMilestone);
 		int progressX = leftPoint + (hasSurpassedMax ? segmentLength : progress);
 		
-		if (hasReachedMax) {
-			tooltip = localized("gui", "food_book.stats.tooltip.progress.max");
-		} else {
-			tooltip = localized("gui", "food_book.stats.tooltip.progress", progressInfo.foodsUntilNextMilestone());
-		}
-		
 		UIImage carrotIcon = new UIImage(GuiFoodBook.carrotImage);
 		carrotIcon.setCenterY(lineY);
 		if (milestonesAchieved > 0) {
@@ -45,6 +39,11 @@ final class ProgressGraph extends UIElement {
 		} else {
 			int distanceToLeftBookEdge = 36;
 			carrotIcon.setCenterX(leftPoint - distanceToLeftBookEdge / 2);
+		}
+		if (hasReachedMax) {
+			carrotIcon.tooltip = localized("gui", "food_book.stats.tooltip.progress.max");
+		} else {
+			carrotIcon.tooltip = localized("gui", "food_book.stats.tooltip.progress", progressInfo.foodsUntilNextMilestone());
 		}
 		children.add(carrotIcon);
 		
