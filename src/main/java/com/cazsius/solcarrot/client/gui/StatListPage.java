@@ -1,7 +1,8 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.capability.ProgressInfo;
-import com.cazsius.solcarrot.client.gui.elements.*;
+import com.cazsius.solcarrot.client.gui.elements.UIBox;
+import com.cazsius.solcarrot.client.gui.elements.UIImage;
 
 import java.awt.*;
 

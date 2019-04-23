@@ -1,7 +1,8 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.client.FoodItemStacks;
-import com.cazsius.solcarrot.client.gui.elements.*;
+import com.cazsius.solcarrot.client.gui.elements.UIElement;
+import com.cazsius.solcarrot.client.gui.elements.UIImage;
 
 import java.awt.*;
 
