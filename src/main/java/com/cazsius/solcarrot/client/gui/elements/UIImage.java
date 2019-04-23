@@ -31,8 +31,8 @@ public class UIImage extends UIElement {
 		GlStateManager.color(1, 1, 1, alpha);
 		mc.getTextureManager().bindTexture(image.textureLocation);
 		GuiUtils.drawTexturedModalRect(
-			frame.x + (frame.width - imageWidth) / 2,
-			frame.y + (frame.height - imageHeight) / 2,
+			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),
+			frame.y + (int) Math.floor((frame.height - imageHeight) / 2d),
 			image.partOfTexture.x, image.partOfTexture.y,
 			image.partOfTexture.width, image.partOfTexture.height,
 			0
