@@ -12,74 +12,41 @@ final class StatListPage extends Page {
 		super(frame, localized("gui", "food_book.stats"));
 		
 		ProgressInfo progressInfo = foodData.progressInfo;
-		ProgressGraph progressGraph = new ProgressGraph(foodData, getCenterX(), getMinY() + 64);
+		ProgressGraph progressGraph = new ProgressGraph(foodData, getCenterX(), getMinY() + 60);
 		children.add(progressGraph);
 		
-		int majorSpacing = 6;
-		int iconHeight = 10;
+		int iconHeight = 11;
 		
-		UIStack overallStack = new UIStack();
-		overallStack.axis = UIStack.Axis.VERTICAL;
-		overallStack.spacing = majorSpacing;
+		mainStack.addChild(new UIBox(progressGraph.frame, 0x00000000)); // invisible placeholder box
 		
-		overallStack.addChild(makeSeparatorLine());
+		mainStack.addChild(makeSeparatorLine());
 		
 		UIImage carrotIcon = new UIImage(GuiFoodBook.carrotImage);
 		carrotIcon.setHeight(iconHeight);
 		
 		String foodsTasted;
 		if (progressInfo.shouldShowUneatenFoods) {
-			foodsTasted = localized("gui", "food_book.stats.fraction",
-				progressInfo.foodsEaten,
-				foodData.validFoods.size()
-			);
+			foodsTasted = fraction(progressInfo.foodsEaten, foodData.validFoods.size());
 		} else {
 			foodsTasted = "" + progressInfo.foodsEaten;
 		}
 		
-		overallStack.addChild(statWithIcon(carrotIcon, foodsTasted, localized("gui", "food_book.stats.foods_tasted")));
+		mainStack.addChild(statWithIcon(carrotIcon, foodsTasted, localized("gui", "food_book.stats.foods_tasted")));
 		
-		overallStack.addChild(makeSeparatorLine());
+		mainStack.addChild(makeSeparatorLine());
 		
 		UIImage heartIcon = new UIImage(GuiFoodBook.heartImage);
 		heartIcon.setHeight(iconHeight);
 		
-		String heartsGained = localized("gui", "food_book.stats.fraction",
+		String heartsGained = fraction(
 			progressInfo.heartsPerMilestone * progressInfo.milestonesAchieved(),
 			progressInfo.heartsPerMilestone * progressInfo.milestones.length
 		);
 		
-		overallStack.addChild(statWithIcon(heartIcon, heartsGained, localized("gui", "food_book.stats.hearts_gained")));
+		mainStack.addChild(statWithIcon(heartIcon, heartsGained, localized("gui", "food_book.stats.hearts_gained")));
 		
-		overallStack.addChild(makeSeparatorLine());
+		mainStack.addChild(makeSeparatorLine());
 		
-		overallStack.setCenterX(getCenterX());
-		overallStack.setMinY(progressGraph.getMaxY() + majorSpacing);
-		overallStack.updateFrames();
-		children.add(overallStack);
-	}
-	
-	private UIBox makeSeparatorLine() {
-		return UIBox.horizontalLine(0, getWidth() / 2, 0, GuiFoodBook.leastBlack);
-	}
-	
-	private UIStack statWithIcon(UIImage icon, String value, String name) {
-		UIStack valueStack = new UIStack();
-		valueStack.axis = UIStack.Axis.HORIZONTAL;
-		valueStack.spacing = 3;
-		
-		valueStack.addChild(icon);
-		valueStack.addChild(new UILabel(value));
-		
-		UIStack fullStack = new UIStack();
-		fullStack.axis = UIStack.Axis.VERTICAL;
-		fullStack.spacing = 2;
-		
-		fullStack.addChild(valueStack);
-		UILabel nameLabel = new UILabel(name);
-		nameLabel.color = GuiFoodBook.lessBlack;
-		fullStack.addChild(nameLabel);
-		
-		return fullStack;
+		updateMainStack();
 	}
 }

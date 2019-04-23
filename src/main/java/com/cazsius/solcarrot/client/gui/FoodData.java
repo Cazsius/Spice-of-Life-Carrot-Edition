@@ -14,12 +14,14 @@ import java.util.stream.Collectors;
 /** collects the information the food book needs in a convenient single location */
 @SideOnly(Side.CLIENT)
 class FoodData {
+	public final FoodCapability foodCapability;
 	public final ProgressInfo progressInfo;
 	public final List<ItemStack> validFoods;
 	public final List<ItemStack> eatenFoods;
 	public final List<ItemStack> uneatenFoods;
 	
 	FoodData(FoodCapability foodCapability) {
+		this.foodCapability = foodCapability;
 		this.progressInfo = foodCapability.getProgressInfo();
 		this.validFoods = FoodItemStacks.getAllFoods().stream()
 			.filter(progressInfo::shouldCount)

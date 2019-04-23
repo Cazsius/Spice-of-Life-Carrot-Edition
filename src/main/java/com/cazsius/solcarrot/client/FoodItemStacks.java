@@ -25,9 +25,14 @@ public class FoodItemStacks {
 	private static List<ItemStack> foodsBeforeBlacklist;
 	private static List<ItemStack> foods;
 	
+	/** @return a list of all item stacks that can be eaten, including blacklisted/hidden ones */
+	public static List<ItemStack> getAllFoodsIgnoringBlacklist() {
+		return new ArrayList<>(foodsBeforeBlacklist);
+	}
+	
 	/** @return a list of all item stacks that can be eaten */
 	public static List<ItemStack> getAllFoods() {
-		return foods;
+		return new ArrayList<>(foods);
 	}
 	
 	@SubscribeEvent

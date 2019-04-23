@@ -9,7 +9,7 @@ import java.util.List;
 
 class ItemListPage extends Page {
 	private static final int itemsPerRow = 5;
-	private static final int rowsPerPage = 5;
+	private static final int rowsPerPage = 6;
 	private static final int itemsPerPage = itemsPerRow * rowsPerPage;
 	private static final int itemSpacing = UIItemStack.size + 4;
 	

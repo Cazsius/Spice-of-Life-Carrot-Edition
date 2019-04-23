@@ -23,7 +23,10 @@ public final class GuiFoodBook extends GuiScreen {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	private static final UIImage.Image bookImage = new UIImage.Image(texture, new Rectangle(0, 0, 186, 192));
 	static final UIImage.Image carrotImage = new UIImage.Image(texture, new Rectangle(0, 240, 16, 16));
+	static final UIImage.Image spiderEyeImage = new UIImage.Image(texture, new Rectangle(16, 240, 16, 16));
 	static final UIImage.Image heartImage = new UIImage.Image(texture, new Rectangle(0, 224, 9, 9));
+	static final UIImage.Image drumstickImage = new UIImage.Image(texture, new Rectangle(16, 224, 9, 9));
+	static final UIImage.Image blacklistImage = new UIImage.Image(texture, new Rectangle(32, 224, 15, 11));
 	
 	static final int fullBlack = 0xFF_000000;
 	static final int lessBlack = 0x88_000000;
@@ -78,12 +81,13 @@ public final class GuiFoodBook extends GuiScreen {
 	private void initPages() {
 		pages.clear();
 		
-		ProgressInfo progressInfo = foodData.progressInfo;
 		pages.add(new StatListPage(foodData, background.frame));
+		
+		pages.add(new ConfigInfoPage(foodData, background.frame));
 		
 		addPages("eaten_foods", foodData.eatenFoods);
 		
-		if (progressInfo.shouldShowUneatenFoods) {
+		if (foodData.progressInfo.shouldShowUneatenFoods) {
 			addPages("uneaten_foods", foodData.uneatenFoods);
 		}
 	}
