@@ -6,7 +6,6 @@ import com.cazsius.solcarrot.client.FoodItemStacks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import squeek.applecore.api.AppleCoreAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ class FoodData {
 	FoodData(FoodCapability foodCapability) {
 		this.progressInfo = foodCapability.getProgressInfo();
 		this.validFoods = FoodItemStacks.getAllFoods().stream()
-			.filter(food -> AppleCoreAPI.accessor.getFoodValues(food).hunger >= progressInfo.minimumFoodValue)
+			.filter(progressInfo::shouldCount)
 			.collect(Collectors.toList());
 		this.eatenFoods = new ArrayList<>();
 		this.uneatenFoods = new ArrayList<>();

@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
-class StatListPage extends Page {
+final class StatListPage extends Page {
 	StatListPage(FoodData foodData, Rectangle frame) {
 		super(frame, localized("gui", "food_book.stats"));
 		

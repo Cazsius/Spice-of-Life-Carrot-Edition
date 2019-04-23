@@ -32,17 +32,28 @@ public class TooltipHandler {
 		if (event.getEntityPlayer() == null) return;
 		EntityPlayer player = event.getEntityPlayer();
 		
-		if (!isValidFood(event.getItemStack())) return;
-		boolean hasBeenEaten = FoodCapability.get(player).hasEaten(event.getItemStack());
+		ItemStack food = event.getItemStack();
+		if (!isValidFood(food)) return;
+		
+		FoodCapability foodCapability = FoodCapability.get(player);
+		boolean hasBeenEaten = foodCapability.hasEaten(food);
+		boolean shouldCount = foodCapability.getProgressInfo().shouldCount(food);
+		
+		String darkGray = "" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC;
+		String darkAqua = "" + TextFormatting.DARK_AQUA + TextFormatting.ITALIC;
 		
 		List<String> tooltip = event.getToolTip();
 		if (hasBeenEaten) {
-			String formatting = "" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC;
-			tooltip.add(formatting + localized("tooltip", "eaten"));
+			tooltip.add(darkGray + localized("tooltip", "eaten." + (shouldCount ? "hearty" : "cheap")));
 		} else {
-			String formatting = "" + TextFormatting.DARK_AQUA + TextFormatting.ITALIC;
-			tooltip.add(formatting + localized("tooltip", "not_eaten_1"));
-			tooltip.add(formatting + localized("tooltip", "not_eaten_2"));
+			
+			tooltip.add(darkAqua + localized("tooltip", "not_eaten.common"));
+			if (shouldCount) {
+				tooltip.add(darkAqua + localized("tooltip", "not_eaten.hearty"));
+			}
+		}
+		if (!shouldCount) {
+			tooltip.add(darkGray + localized("tooltip", "cheap"));
 		}
 	}
 }

@@ -5,8 +5,7 @@ import com.cazsius.solcarrot.client.gui.elements.*;
 
 import java.awt.*;
 
-import static com.cazsius.solcarrot.lib.Localization.formatBigNumber;
-import static com.cazsius.solcarrot.lib.Localization.localized;
+import static com.cazsius.solcarrot.lib.Localization.*;
 
 final class ProgressGraph extends UIElement {
 	private static final int segmentLength = 48;
@@ -51,7 +50,7 @@ final class ProgressGraph extends UIElement {
 		
 		UILabel previousMilestoneLabel = new UILabel("" + previousMilestone);
 		previousMilestoneLabel.color = GuiFoodBook.fullBlack;
-		previousMilestoneLabel.tooltip = localized("gui", "food_book.stats.tooltip.previous_milestone");
+		previousMilestoneLabel.tooltip = localized("gui", "food_book.stats.tooltip.previous_milestone", previousMilestone);
 		previousMilestoneLabel.setCenterX(leftPoint);
 		previousMilestoneLabel.setMaxY(lineY - 3);
 		children.add(previousMilestoneLabel);
@@ -65,7 +64,7 @@ final class ProgressGraph extends UIElement {
 		
 		UILabel foodsEatenLabel = new UILabel("" + progressInfo.foodsEaten);
 		foodsEatenLabel.color = GuiFoodBook.fullBlack;
-		foodsEatenLabel.tooltip = localized("gui", "food_book.stats.tooltip.foods_tasted");
+		foodsEatenLabel.tooltip = localized("gui", "food_book.stats.tooltip.foods_tasted", progressInfo.foodsEaten);
 		foodsEatenLabel.setCenterX(progressX);
 		foodsEatenLabel.setMinY(lineY + 7);
 		children.add(foodsEatenLabel);
@@ -74,7 +73,7 @@ final class ProgressGraph extends UIElement {
 		if (!hasReachedMax) {
 			UILabel nextMilestoneLabel = new UILabel("" + nextMilestone);
 			nextMilestoneLabel.color = GuiFoodBook.lessBlack;
-			nextMilestoneLabel.tooltip = localized("gui", "food_book.stats.tooltip.next_milestone");
+			nextMilestoneLabel.tooltip = localized("gui", "food_book.stats.tooltip.next_milestone", nextMilestone);
 			nextMilestoneLabel.setCenterX(rightPoint);
 			nextMilestoneLabel.setMaxY(lineY - 3);
 			children.add(nextMilestoneLabel);
@@ -108,7 +107,7 @@ final class ProgressGraph extends UIElement {
 	private void addHeartsView(int centerX, int maxY, boolean isOpaque) {
 		UIStack heartsView = new UIStack();
 		
-		heartsView.tooltip = localized("gui", "food_book.stats.tooltip.hearts_per_milestone");
+		heartsView.tooltip = localizedQuantity("gui", "food_book.stats.tooltip.hearts_per_milestone", progressInfo.heartsPerMilestone);
 		
 		int hearts = progressInfo.heartsPerMilestone;
 		if (hearts <= 3) {

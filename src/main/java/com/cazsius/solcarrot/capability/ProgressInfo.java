@@ -1,7 +1,9 @@
 package com.cazsius.solcarrot.capability;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import squeek.applecore.api.AppleCoreAPI;
 
 import java.util.Arrays;
 
@@ -36,13 +38,18 @@ public class ProgressInfo {
 		minimumFoodValue = tag.getInteger(NBT_KEY_MINIMUM_FOOD_VALUE);
 	}
 	
-	ProgressInfo(int foodsEaten) {
-		this.foodsEaten = foodsEaten;
+	ProgressInfo(FoodCapability foodCapability) {
 		this.milestones = SOLCarrotConfig.milestones;
 		this.baseHearts = SOLCarrotConfig.baseHearts;
 		this.heartsPerMilestone = SOLCarrotConfig.heartsPerMilestone;
 		this.shouldShowUneatenFoods = SOLCarrotConfig.shouldShowUneatenFoods;
 		this.minimumFoodValue = SOLCarrotConfig.minimumFoodValue;
+		
+		this.foodsEaten = (int) foodCapability.getFoodList().stream()
+			.map(FoodInstance::getItemStack)
+			.filter(this::shouldCount)
+			.count();
+		;
 	}
 	
 	public boolean hasReachedMax() {
@@ -74,5 +81,9 @@ public class ProgressInfo {
 		tag.setBoolean(NBT_KEY_SHOULD_SHOW_UNEATEN_FOODS, shouldShowUneatenFoods);
 		tag.setInteger(NBT_KEY_MINIMUM_FOOD_VALUE, minimumFoodValue);
 		return tag;
+	}
+	
+	public boolean shouldCount(ItemStack food) {
+		return AppleCoreAPI.accessor.getFoodValues(food).hunger >= minimumFoodValue;
 	}
 }

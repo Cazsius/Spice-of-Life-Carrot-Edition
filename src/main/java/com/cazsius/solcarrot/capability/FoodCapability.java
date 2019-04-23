@@ -1,12 +1,10 @@
 package com.cazsius.solcarrot.capability;
 
-import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.*;
-import squeek.applecore.api.AppleCoreAPI;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -28,7 +26,7 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	public static Capability<FoodCapability> FOOD_CAPABILITY;
 	
 	private final Set<FoodInstance> foods = new HashSet<>();
-	private ProgressInfo progressInfo = new ProgressInfo(0);
+	private ProgressInfo progressInfo = new ProgressInfo(this);
 	
 	public FoodCapability() {}
 	
@@ -88,7 +86,7 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	
 	/** @return true if the food was not previously known, i.e. if a new food has been tried */
 	public boolean addFood(ItemStack food) {
-		boolean wasAdded = foods.add(new FoodInstance(food)) && shouldCount(food);
+		boolean wasAdded = foods.add(new FoodInstance(food)) && progressInfo.shouldCount(food);
 		updateProgressInfo();
 		return wasAdded;
 	}
@@ -102,8 +100,8 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		updateProgressInfo();
 	}
 	
-	private boolean shouldCount(ItemStack food) {
-		return AppleCoreAPI.accessor.getFoodValues(food).hunger >= SOLCarrotConfig.minimumFoodValue;
+	public Set<FoodInstance> getFoodList() {
+		return new HashSet<>(foods);
 	}
 	
 	public ProgressInfo getProgressInfo() {
@@ -112,10 +110,6 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	
 	/** don't use this client-side! it'll overwrite it with client-side config values */
 	public void updateProgressInfo() {
-		int foodsEaten = (int) foods.stream()
-			.map(FoodInstance::getItemStack)
-			.filter(this::shouldCount)
-			.count();
-		progressInfo = new ProgressInfo(foodsEaten);
+		progressInfo = new ProgressInfo(this);
 	}
 }
