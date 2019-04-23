@@ -17,7 +17,7 @@ final class StatListPage extends Page {
 		
 		int iconHeight = 11;
 		
-		mainStack.addChild(new UIBox(progressGraph.frame, 0x00000000)); // invisible placeholder box
+		mainStack.addChild(new UIBox(progressGraph.frame, new Color(0, 0, 0, 0))); // invisible placeholder box
 		
 		mainStack.addChild(makeSeparatorLine());
 		

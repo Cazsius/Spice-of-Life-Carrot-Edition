@@ -2,7 +2,6 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.ProgressInfo;
 import com.cazsius.solcarrot.client.gui.elements.*;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -28,9 +27,9 @@ public final class GuiFoodBook extends GuiScreen {
 	static final UIImage.Image drumstickImage = new UIImage.Image(texture, new Rectangle(16, 224, 9, 9));
 	static final UIImage.Image blacklistImage = new UIImage.Image(texture, new Rectangle(32, 224, 15, 11));
 	
-	static final int fullBlack = 0xFF_000000;
-	static final int lessBlack = 0x88_000000;
-	static final int leastBlack = 0x44_000000;
+	static final Color fullBlack = Color.BLACK;
+	static final Color lessBlack = new Color(0, 0, 0, 128);
+	static final Color leastBlack = new Color(0, 0, 0, 64);
 	
 	private final List<UIElement> elements = new ArrayList<>();
 	private UIImage background;

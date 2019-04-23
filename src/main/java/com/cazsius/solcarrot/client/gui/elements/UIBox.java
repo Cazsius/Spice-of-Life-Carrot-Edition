@@ -6,17 +6,17 @@ import net.minecraft.client.renderer.GlStateManager;
 import java.awt.*;
 
 public class UIBox extends UIElement {
-	public static UIBox horizontalLine(int minX, int maxX, int y, int color) {
+	public static UIBox horizontalLine(int minX, int maxX, int y, Color color) {
 		return new UIBox(new Rectangle(minX, y, maxX + 1 - minX, 1), color);
 	}
 	
-	public static UIBox verticalLine(int x, int minY, int maxY, int color) {
+	public static UIBox verticalLine(int x, int minY, int maxY, Color color) {
 		return new UIBox(new Rectangle(x, minY, 1, maxY + 1 - minY), color);
 	}
 	
-	public int color;
+	public Color color;
 	
-	public UIBox(Rectangle frame, int color) {
+	public UIBox(Rectangle frame, Color color) {
 		super(frame);
 		
 		this.color = color;
@@ -26,13 +26,8 @@ public class UIBox extends UIElement {
 	protected void render() {
 		super.render();
 		
-		float a = (color >> 24 & 0xFF) / 255f;
-		float r = (color >> 16 & 0xFF) / 255f;
-		float g = (color >> 8 & 0xFF) / 255f;
-		float b = (color & 0xFF) / 255f;
-		
 		GlStateManager.enableBlend();
-		GlStateManager.color(r, g, b, a);
-		Gui.drawRect(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color);
+		GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		Gui.drawRect(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
 	}
 }
