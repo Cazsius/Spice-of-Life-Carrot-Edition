@@ -119,12 +119,12 @@ final class ProgressGraph extends UIElement {
 			}
 		} else {
 			heartsView.spacing = 1;
-			UILabel label = new UILabel("" + hearts);
-			label.color = isOpaque ? GuiFoodBook.fullBlack : GuiFoodBook.lessBlack;
-			heartsView.addChild(label);
 			UIImage heartImage = new UIImage(GuiFoodBook.heartImage);
 			heartImage.alpha = isOpaque ? 1f : 0.5f;
 			heartsView.addChild(heartImage);
+			UILabel label = new UILabel("×" + hearts);
+			label.color = isOpaque ? GuiFoodBook.fullBlack : GuiFoodBook.lessBlack;
+			heartsView.addChild(label);
 		}
 		
 		heartsView.setCenterX(centerX);
