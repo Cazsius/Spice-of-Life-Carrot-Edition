@@ -36,7 +36,7 @@ public class FoodItemStacks {
 	}
 	
 	@SubscribeEvent
-	public static void init(SOLCarrot.InitializationEvent event) {
+	public static void postInit(SOLCarrot.PostInitializationEvent event) {
 		foodsBeforeBlacklist = ForgeRegistries.ITEMS.getValuesCollection().stream()
 			.flatMap(FoodItemStacks::getSubItems)
 			.filter(itemStack -> AppleCoreAPI.accessor.isFood(itemStack))

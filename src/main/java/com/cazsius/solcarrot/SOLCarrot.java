@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-@Mod(modid = SOLCarrot.MOD_ID, version = "__VERSION_FROM_GRADLE__", dependencies = "required-after:applecore")
+@Mod(modid = SOLCarrot.MOD_ID, version = "__VERSION_FROM_GRADLE__", dependencies = "required-after:applecore;after:harshenuniverse")
 public class SOLCarrot {
 	
 	public static final String MOD_ID = "solcarrot";
@@ -43,9 +43,15 @@ public class SOLCarrot {
 	}
 	
 	@EventHandler
+	public void postInit(FMLPostInitializationEvent e) {
+		MinecraftForge.EVENT_BUS.post(new PostInitializationEvent());
+	}
+	
+	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandFoodList());
 	}
 	
 	public static class InitializationEvent extends Event {}
+	public static class PostInitializationEvent extends Event {}
 }
