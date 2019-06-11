@@ -37,19 +37,6 @@ final class ConfigInfoPage extends Page {
 		}
 		
 		{
-			UIImage carrotIcon = new UIImage(GuiFoodBook.carrotImage);
-			carrotIcon.setHeight(iconHeight);
-			
-			UIElement nourishingStat = statWithIcon(
-				carrotIcon,
-				fraction(validFoods, totalFoods),
-				localized("gui", "food_book.config.hearty_fraction")
-			);
-			nourishingStat.tooltip = localized("gui", "food_book.config.tooltip.hearty_fraction", totalFoods, validFoods);
-			mainStack.addChild(nourishingStat);
-		}
-		
-		{
 			UIImage cheapIcon = new UIImage(GuiFoodBook.spiderEyeImage);
 			cheapIcon.setWidth(12);
 			cheapIcon.setHeight(iconHeight);
