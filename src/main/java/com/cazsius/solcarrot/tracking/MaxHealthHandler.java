@@ -3,12 +3,10 @@
  * nails" mod taught me to change player's max health. Below is a heavily
  * modified version of their code. 
  ******************************************************************************/
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.ProgressInfo;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;

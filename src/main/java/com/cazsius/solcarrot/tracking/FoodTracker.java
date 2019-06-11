@@ -1,9 +1,7 @@
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
@@ -19,7 +17,6 @@ import static com.cazsius.solcarrot.lib.Localization.localizedQuantityComponent;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public class FoodTracker {
-	
 	@SubscribeEvent
 	public static void onFoodEaten(FoodEvent.FoodEaten event) {
 		if (event.player.world.isRemote) return;

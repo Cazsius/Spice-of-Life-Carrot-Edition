@@ -1,8 +1,8 @@
 package com.cazsius.solcarrot.client.gui;
 
-import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.ProgressInfo;
 import com.cazsius.solcarrot.client.FoodItemStacks;
+import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

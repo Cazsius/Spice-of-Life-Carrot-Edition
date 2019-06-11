@@ -1,14 +1,13 @@
 package com.cazsius.solcarrot.command;
 
-import com.cazsius.solcarrot.capability.FoodCapability;
-import com.cazsius.solcarrot.capability.ProgressInfo;
+import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 
 final class CommandSizeFoodList extends CommandFoodList.SubCommand {
-	
 	@Override
 	public String getName() {
 		return "size";

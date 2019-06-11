@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.command;
 
-import com.cazsius.solcarrot.capability.FoodCapability;
 import com.cazsius.solcarrot.lib.Localization;
+import com.cazsius.solcarrot.tracking.FoodCapability;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
@@ -11,7 +11,6 @@ import net.minecraftforge.server.command.CommandTreeBase;
 import static com.cazsius.solcarrot.lib.Localization.keyString;
 
 public class CommandFoodList extends CommandTreeBase {
-	
 	private static final String name = "foodlist";
 	
 	public CommandFoodList() {

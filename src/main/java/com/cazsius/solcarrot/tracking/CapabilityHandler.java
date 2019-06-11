@@ -1,7 +1,8 @@
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.communication.MessageFoodList;
+import com.cazsius.solcarrot.communication.PacketHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,7 +15,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public class CapabilityHandler {
-	
 	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("food");
 	
 	@SubscribeEvent
@@ -26,9 +26,11 @@ public class CapabilityHandler {
 	
 	@SubscribeEvent
 	public static void onPlayerLogin(EntityJoinWorldEvent event) {
+		if (event.getWorld().isRemote) return;
+		if (!(event.getEntity() instanceof EntityPlayer)) return;
+		
 		// server needs to send any loaded data to the client
-		if (event.getEntity() instanceof EntityPlayer && !event.getWorld().isRemote)
-			syncFoodList((EntityPlayer) event.getEntity());
+		syncFoodList((EntityPlayer) event.getEntity());
 	}
 	
 	@SubscribeEvent

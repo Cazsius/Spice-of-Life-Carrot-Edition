@@ -1,8 +1,8 @@
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -20,7 +20,6 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = SOLCarrot.MOD_ID)
 public class TooltipHandler {
-	
 	private static boolean isValidFood(ItemStack itemStack) {
 		return AppleCoreAPI.accessor.isFood(itemStack);
 	}
@@ -46,7 +45,6 @@ public class TooltipHandler {
 		if (hasBeenEaten) {
 			tooltip.add(darkGray + localized("tooltip", "eaten." + (shouldCount ? "hearty" : "cheap")));
 		} else {
-			
 			tooltip.add(darkAqua + localized("tooltip", "not_eaten.common"));
 			if (shouldCount) {
 				tooltip.add(darkAqua + localized("tooltip", "not_eaten.hearty"));

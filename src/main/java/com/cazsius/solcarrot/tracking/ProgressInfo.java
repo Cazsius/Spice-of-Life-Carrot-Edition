@@ -1,4 +1,4 @@
-package com.cazsius.solcarrot.capability;
+package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.item.ItemStack;

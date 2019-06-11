@@ -1,6 +1,6 @@
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.communication;
 
-import com.cazsius.solcarrot.capability.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;

@@ -1,4 +1,4 @@
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.communication;
 
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;

@@ -9,7 +9,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class ItemFoodBook extends Item {
-	
 	public static final int GUI_ID = 1;
 	
 	public ItemFoodBook() {

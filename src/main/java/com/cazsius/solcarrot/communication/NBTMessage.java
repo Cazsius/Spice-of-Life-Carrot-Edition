@@ -1,4 +1,4 @@
-package com.cazsius.solcarrot.handler;
+package com.cazsius.solcarrot.communication;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTBase;
@@ -13,7 +13,6 @@ public abstract class NBTMessage implements IMessage {
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		PacketBuffer pb = new PacketBuffer(buf);
 		try {
 			NBTTagCompound tag = new PacketBuffer(buf).readCompoundTag();
 			assert tag != null;

@@ -1,10 +1,9 @@
 package com.cazsius.solcarrot.command;
 
-import com.cazsius.solcarrot.handler.CapabilityHandler;
+import com.cazsius.solcarrot.tracking.CapabilityHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
 final class CommandSyncFoodList extends CommandFoodList.SubCommand {
-	
 	@Override
 	public String getName() {
 		return "sync";

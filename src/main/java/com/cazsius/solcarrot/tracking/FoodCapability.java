@@ -1,4 +1,4 @@
-package com.cazsius.solcarrot.capability;
+package com.cazsius.solcarrot.tracking;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -111,5 +111,17 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	/** don't use this client-side! it'll overwrite it with client-side config values */
 	public void updateProgressInfo() {
 		progressInfo = new ProgressInfo(this);
+	}
+	
+	public static class Storage implements Capability.IStorage<FoodCapability> {
+		@Override
+		public NBTBase writeNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side) {
+			return instance.serializeNBT();
+		}
+		
+		@Override
+		public void readNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side, NBTBase nbt) {
+			instance.deserializeNBT(nbt);
+		}
 	}
 }
