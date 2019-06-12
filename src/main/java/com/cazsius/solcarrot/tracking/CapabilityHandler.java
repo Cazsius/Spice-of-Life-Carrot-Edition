@@ -19,9 +19,9 @@ public class CapabilityHandler {
 	
 	@SubscribeEvent
 	public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof EntityPlayer) {
-			event.addCapability(FOOD, new FoodCapability());
-		}
+		if (!(event.getObject() instanceof EntityPlayer)) return;
+		
+		event.addCapability(FOOD, new FoodCapability());
 	}
 	
 	@SubscribeEvent
@@ -41,7 +41,8 @@ public class CapabilityHandler {
 	}
 	
 	public static void syncFoodList(EntityPlayer player) {
-		FoodCapability food = FoodCapability.get(player);
-		PacketHandler.INSTANCE.sendTo(new MessageFoodList(food), (EntityPlayerMP) player);
+		FoodCapability foodCapability = FoodCapability.get(player);
+		PacketHandler.INSTANCE.sendTo(new MessageFoodList(foodCapability), (EntityPlayerMP) player);
+		MaxHealthHandler.updateFoodHPModifier(player);
 	}
 }

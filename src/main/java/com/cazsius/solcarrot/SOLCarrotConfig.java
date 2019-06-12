@@ -1,6 +1,7 @@
 package com.cazsius.solcarrot;
 
-import com.cazsius.solcarrot.tracking.*;
+import com.cazsius.solcarrot.tracking.CapabilityHandler;
+import com.cazsius.solcarrot.tracking.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.config.Config;
@@ -90,7 +91,6 @@ public class SOLCarrotConfig {
 			for (EntityPlayer player : players.getPlayers()) {
 				FoodCapability.get(player).updateProgressInfo();
 				CapabilityHandler.syncFoodList(player);
-				MaxHealthHandler.updateFoodHPModifier(player);
 			}
 		}
 	}
