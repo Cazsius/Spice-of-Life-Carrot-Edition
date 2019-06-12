@@ -38,20 +38,22 @@ public class TooltipHandler {
 		boolean hasBeenEaten = foodCapability.hasEaten(food);
 		boolean shouldCount = foodCapability.getProgressInfo().shouldCount(food);
 		
-		String darkGray = "" + TextFormatting.DARK_GRAY + TextFormatting.ITALIC;
-		String darkAqua = "" + TextFormatting.DARK_AQUA + TextFormatting.ITALIC;
-		
 		List<String> tooltip = event.getToolTip();
-		if (hasBeenEaten) {
-			tooltip.add(darkGray + localized("tooltip", "eaten." + (shouldCount ? "hearty" : "cheap")));
-		} else {
-			tooltip.add(darkAqua + localized("tooltip", "not_eaten.common"));
-			if (shouldCount) {
-				tooltip.add(darkAqua + localized("tooltip", "not_eaten.hearty"));
+		if (shouldCount) {
+			if (hasBeenEaten) {
+				tooltip.add(TextFormatting.DARK_GREEN + localizedTooltip("hearty.eaten"));
+			} else {
+				tooltip.add(TextFormatting.DARK_AQUA + localizedTooltip("hearty.not_eaten"));
 			}
+		} else {
+			if (hasBeenEaten) {
+				tooltip.add(TextFormatting.DARK_RED + localizedTooltip("cheap.eaten"));
+			}
+			tooltip.add(TextFormatting.DARK_GRAY + localizedTooltip("cheap"));
 		}
-		if (!shouldCount) {
-			tooltip.add(darkGray + localized("tooltip", "cheap"));
-		}
+	}
+	
+	private static String localizedTooltip(String path) {
+		return localized("tooltip", path);
 	}
 }

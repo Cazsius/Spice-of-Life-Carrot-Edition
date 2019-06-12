@@ -1,8 +1,7 @@
 # Tooltips
-tooltip.solcarrot.not_eaten.common=Not yet eaten!
-tooltip.solcarrot.not_eaten.hearty=What does it taste like?
-tooltip.solcarrot.eaten.hearty=Eaten: Assisted in adding hearts
-tooltip.solcarrot.eaten.cheap=Eaten: No noticeable effect
+tooltip.solcarrot.hearty.not_eaten=Not yet eaten! What does it taste like?
+tooltip.solcarrot.hearty.eaten=Eaten: Assisted in adding hearts
+tooltip.solcarrot.cheap.eaten=Eaten: No noticeable effect
 tooltip.solcarrot.cheap=This food is not nourishing enough to improve your health.
 
 # Commands
