@@ -43,6 +43,13 @@ abstract class Page extends UIElement {
 		return UIBox.horizontalLine(0, getWidth() / 2, 0, GuiFoodBook.leastBlack);
 	}
 	
+	UIImage icon(UIImage.Image image) {
+		UIImage icon = new UIImage(image);
+		icon.setWidth(11);
+		icon.setHeight(11);
+		return icon;
+	}
+	
 	UIElement statWithIcon(UIImage icon, String value, String name) {
 		UIStack valueStack = new UIStack();
 		valueStack.axis = UIStack.Axis.HORIZONTAL;

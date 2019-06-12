@@ -86,7 +86,7 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	
 	/** @return true if the food was not previously known, i.e. if a new food has been tried */
 	public boolean addFood(ItemStack food) {
-		boolean wasAdded = foods.add(new FoodInstance(food)) && progressInfo.shouldCount(food);
+		boolean wasAdded = foods.add(new FoodInstance(food)) && getConfigInfo().shouldCount(food);
 		updateProgressInfo();
 		return wasAdded;
 	}
@@ -106,6 +106,10 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 	
 	public ProgressInfo getProgressInfo() {
 		return progressInfo;
+	}
+	
+	public ProgressInfo.ConfigInfo getConfigInfo() {
+		return progressInfo.configInfo;
 	}
 	
 	/** don't use this client-side! it'll overwrite it with client-side config values */

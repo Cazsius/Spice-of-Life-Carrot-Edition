@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
+import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -56,9 +57,9 @@ public class FoodItemStacks {
 	}
 	
 	private static void applyBlacklist() {
-		Set<String> foodBlacklist = new HashSet<>(Arrays.asList(SOLCarrotConfig.foodBlacklist));
+		ProgressInfo.ConfigInfo configInfo = new ProgressInfo.ConfigInfo();
 		foods = foodsBeforeBlacklist.stream()
-			.filter(itemStack -> !foodBlacklist.contains(getRegistryName(itemStack)))
+			.filter(configInfo::isAllowed)
 			.collect(Collectors.toList());
 	}
 	

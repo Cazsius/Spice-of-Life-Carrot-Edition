@@ -23,9 +23,10 @@ public final class GuiFoodBook extends GuiScreen {
 	private static final UIImage.Image bookImage = new UIImage.Image(texture, new Rectangle(0, 0, 186, 192));
 	static final UIImage.Image carrotImage = new UIImage.Image(texture, new Rectangle(0, 240, 16, 16));
 	static final UIImage.Image spiderEyeImage = new UIImage.Image(texture, new Rectangle(16, 240, 16, 16));
-	static final UIImage.Image heartImage = new UIImage.Image(texture, new Rectangle(0, 224, 9, 9));
-	static final UIImage.Image drumstickImage = new UIImage.Image(texture, new Rectangle(16, 224, 9, 9));
-	static final UIImage.Image blacklistImage = new UIImage.Image(texture, new Rectangle(32, 224, 15, 11));
+	static final UIImage.Image heartImage = new UIImage.Image(texture, new Rectangle(0, 224, 15, 15));
+	static final UIImage.Image drumstickImage = new UIImage.Image(texture, new Rectangle(16, 224, 15, 15));
+	static final UIImage.Image blacklistImage = new UIImage.Image(texture, new Rectangle(32, 224, 15, 15));
+	static final UIImage.Image whitelistImage = new UIImage.Image(texture, new Rectangle(48, 224, 15, 15));
 	
 	static final Color fullBlack = Color.BLACK;
 	static final Color lessBlack = new Color(0, 0, 0, 128);
@@ -86,7 +87,7 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		addPages("eaten_foods", foodData.eatenFoods);
 		
-		if (foodData.progressInfo.shouldShowUneatenFoods) {
+		if (foodData.progressInfo.configInfo.shouldShowUneatenFoods) {
 			addPages("uneaten_foods", foodData.uneatenFoods);
 		}
 	}

@@ -3,6 +3,9 @@ tooltip.solcarrot.hearty.not_eaten=Not yet eaten! What does it taste like?
 tooltip.solcarrot.hearty.eaten=Eaten: Assisted in adding hearts
 tooltip.solcarrot.cheap.eaten=Eaten: No noticeable effect
 tooltip.solcarrot.cheap=This food is not nourishing enough to improve your health.
+tooltip.solcarrot.disabled.blacklist=This food is in the blacklist and thus cannot improve your health.
+tooltip.solcarrot.disabled.whitelist=This food is not in the whitelist and thus cannot improve your health.
+tooltip.solcarrot.disabled.eaten=Eaten: No noticeable effect
 
 # Commands
 command.solcarrot.foodlist.usage=/foodlist <size|clear|sync>
@@ -52,8 +55,10 @@ gui.solcarrot.food_book.config.hearty_fraction=Nourishing Foods
 gui.solcarrot.food_book.config.tooltip.hearty_fraction=Out of %1$s foods, %2$s are nourishing enough to improve your health.
 gui.solcarrot.food_book.config.eaten_cheap_foods=Boring Foods Tasted
 gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods=Out of the %1$s foods that aren't nourishing enough to improve your health, you've eaten %2$s.
-gui.solcarrot.food_book.config.blacklist=Hidden Foods
-gui.solcarrot.food_book.config.tooltip.blacklist=These foods still count if you eat them, but aren't shown in the food book.
+gui.solcarrot.food_book.config.blacklist=Blacklisted Foods
+gui.solcarrot.food_book.config.whitelist=Whitelisted Foods
+gui.solcarrot.food_book.config.tooltip.blacklist=How many foods have been disabled by the blacklist.
+gui.solcarrot.food_book.config.tooltip.whitelist=How many foods the whitelist allows.
 
 # Config GUI
 config.solcarrot.base_hearts=Base Hearts
@@ -65,5 +70,6 @@ config.solcarrot.should_show_uneaten_foods=Show Uneaten Foods
 config.solcarrot.should_play_milestone_sounds=Enable Milestone Sounds
 config.solcarrot.should_spawn_intermediate_particles=Enable Intermediate Particles
 config.solcarrot.should_spawn_milestone_particles=Enable Milestone Particles
-config.solcarrot.food_blacklist=Hidden Foods
+config.solcarrot.food_blacklist=Blacklist
+config.solcarrot.food_whitelist=Whitelist (disables blacklist)
 config.solcarrot.minimum_food_value=Minimum Food Value

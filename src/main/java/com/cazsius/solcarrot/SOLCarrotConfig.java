@@ -72,8 +72,13 @@ public class SOLCarrotConfig {
 	
 	@Config.Name("Food Blacklist")
 	@Config.LangKey(langPath + "food_blacklist")
-	@Config.Comment("Foods in this list won't show up in the food book, neither in the list nor in the total count.")
+	@Config.Comment("Foods in this list won't affect the player's health nor show up in the food book.")
 	public static String[] foodBlacklist = {};
+	
+	@Config.Name("Food Whitelist")
+	@Config.LangKey(langPath + "food_whitelist")
+	@Config.Comment("When this list contains anything, the blacklist is ignored and instead only foods from here count.")
+	public static String[] foodWhitelist = {};
 	
 	@Config.Name("Minimum Food Value")
 	@Config.LangKey(langPath + "minimum_food_value")

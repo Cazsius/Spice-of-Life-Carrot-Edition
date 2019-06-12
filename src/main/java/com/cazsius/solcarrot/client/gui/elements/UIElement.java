@@ -136,4 +136,9 @@ public abstract class UIElement {
 	public int getHeight() { return frame.height; }
 	
 	public void setHeight(int height) { frame.height = height; }
+	
+	public void setSize(int width, int height) {
+		setWidth(width);
+		setHeight(height);
+	}
 }

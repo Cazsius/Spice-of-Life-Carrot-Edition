@@ -3,6 +3,8 @@ package com.cazsius.solcarrot.client.gui;
 import com.cazsius.solcarrot.client.FoodItemStacks;
 import com.cazsius.solcarrot.client.gui.elements.UIElement;
 import com.cazsius.solcarrot.client.gui.elements.UIImage;
+import com.cazsius.solcarrot.tracking.FoodInstance;
+import com.cazsius.solcarrot.tracking.ProgressInfo;
 
 import java.awt.*;
 
@@ -12,20 +14,20 @@ final class ConfigInfoPage extends Page {
 	ConfigInfoPage(FoodData foodData, Rectangle frame) {
 		super(frame, localized("gui", "food_book.config"));
 		
-		int iconHeight = 11;
+		ProgressInfo.ConfigInfo configInfo = foodData.progressInfo.configInfo;
 		
 		int totalFoods = FoodItemStacks.getAllFoods().size();
 		int validFoods = foodData.validFoods.size();
 		int cheapFoods = totalFoods - validFoods;
 		int eatenCheapFoods = (int) foodData.foodCapability.getFoodList().stream()
-			.filter(food -> !foodData.progressInfo.shouldCount(food.getItemStack()))
+			.map(FoodInstance::getItemStack)
+			.filter(food -> configInfo.isAllowed(food) && !configInfo.isHearty(food))
 			.count();
 		
 		{
-			UIImage drumstickIcon = new UIImage(GuiFoodBook.drumstickImage);
-			drumstickIcon.setHeight(iconHeight);
+			UIImage drumstickIcon = icon(GuiFoodBook.drumstickImage);
 			
-			int minValue = foodData.progressInfo.minimumFoodValue;
+			int minValue = configInfo.minimumFoodValue;
 			String minValueDesc = "" + (minValue / 2);
 			if (minValue % 2 == 1) {
 				minValueDesc += ".5";
@@ -37,9 +39,8 @@ final class ConfigInfoPage extends Page {
 		}
 		
 		{
-			UIImage cheapIcon = new UIImage(GuiFoodBook.spiderEyeImage);
+			UIImage cheapIcon = icon(GuiFoodBook.spiderEyeImage);
 			cheapIcon.setWidth(12);
-			cheapIcon.setHeight(iconHeight);
 			
 			UIElement cheapStat = statWithIcon(
 				cheapIcon,
@@ -52,13 +53,25 @@ final class ConfigInfoPage extends Page {
 		
 		mainStack.addChild(makeSeparatorLine());
 		
-		UIImage blacklistIcon = new UIImage(GuiFoodBook.blacklistImage);
-		blacklistIcon.setHeight(iconHeight);
-		
-		int blacklisted = FoodItemStacks.getAllFoodsIgnoringBlacklist().size() - totalFoods;
-		UIElement blacklistStat = statWithIcon(blacklistIcon, "" + blacklisted, localized("gui", "food_book.config.blacklist"));
-		blacklistStat.tooltip = localized("gui", "food_book.config.tooltip.blacklist");
-		mainStack.addChild(blacklistStat);
+		{
+			boolean hasWhitelist = configInfo.hasWhitelist();
+			String listKey = hasWhitelist ? "whitelist" : "blacklist";
+			
+			UIImage listIcon = icon(hasWhitelist ? GuiFoodBook.whitelistImage : GuiFoodBook.blacklistImage);
+			
+			int allFoods = FoodItemStacks.getAllFoodsIgnoringBlacklist().size();
+			int allowedFoods = FoodItemStacks.getAllFoods().size();
+			String fraction = hasWhitelist
+				? fraction(allowedFoods, allFoods)
+				: fraction(allFoods - allowedFoods, allFoods);
+			UIElement listStat = statWithIcon(
+				listIcon,
+				fraction,
+				localized("gui", "food_book.config." + listKey)
+			);
+			listStat.tooltip = localized("gui", "food_book.config.tooltip." + listKey);
+			mainStack.addChild(listStat);
+		}
 		
 		mainStack.addChild(makeSeparatorLine());
 		

@@ -3,6 +3,7 @@ package com.cazsius.solcarrot.client;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -35,11 +36,19 @@ public class TooltipHandler {
 		if (!isValidFood(food)) return;
 		
 		FoodCapability foodCapability = FoodCapability.get(player);
+		ProgressInfo.ConfigInfo configInfo = foodCapability.getConfigInfo();
 		boolean hasBeenEaten = foodCapability.hasEaten(food);
-		boolean shouldCount = foodCapability.getProgressInfo().shouldCount(food);
+		boolean isAllowed = configInfo.isAllowed(food);
+		boolean isHearty = configInfo.isHearty(food);
 		
 		List<String> tooltip = event.getToolTip();
-		if (shouldCount) {
+		if (!isAllowed) {
+			if (hasBeenEaten) {
+				tooltip.add(TextFormatting.DARK_RED + localizedTooltip("disabled.eaten"));
+			}
+			String key = configInfo.hasWhitelist() ? "whitelist" : "blacklist";
+			tooltip.add(TextFormatting.DARK_GRAY + localizedTooltip("disabled." + key));
+		} else if (isHearty) {
 			if (hasBeenEaten) {
 				tooltip.add(TextFormatting.DARK_GREEN + localizedTooltip("hearty.eaten"));
 			} else {

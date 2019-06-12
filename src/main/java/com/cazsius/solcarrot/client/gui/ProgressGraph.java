@@ -10,12 +10,13 @@ import static com.cazsius.solcarrot.lib.Localization.*;
 final class ProgressGraph extends UIElement {
 	private static final int segmentLength = 48;
 	
-	private ProgressInfo progressInfo;
+	private ProgressInfo.ConfigInfo configInfo;
 	
 	public ProgressGraph(FoodData foodData, int centerX, int lineY) {
 		super(new Rectangle(centerX, lineY, 2 * segmentLength, 1)); // kinda wrong; will adjust later
 		
-		this.progressInfo = foodData.progressInfo;
+		ProgressInfo progressInfo = foodData.progressInfo;
+		this.configInfo = progressInfo.configInfo;
 		
 		int leftEdge = centerX - segmentLength * 3 / 4;
 		int leftPoint = centerX - segmentLength / 2;
@@ -24,7 +25,7 @@ final class ProgressGraph extends UIElement {
 		int padding = 4;
 		
 		int milestonesAchieved = progressInfo.milestonesAchieved();
-		int previousMilestone = milestonesAchieved > 0 ? progressInfo.milestones[milestonesAchieved - 1] : 0;
+		int previousMilestone = milestonesAchieved > 0 ? configInfo.milestones[milestonesAchieved - 1] : 0;
 		int nextMilestone = progressInfo.nextMilestone();
 		boolean hasReachedMax = progressInfo.hasReachedMax();
 		boolean hasSurpassedMax = hasReachedMax && progressInfo.foodsEaten > previousMilestone;
@@ -87,7 +88,7 @@ final class ProgressGraph extends UIElement {
 			children.add(UIBox.horizontalLine(progressX + 1, rightPoint, lineY, hasReachedMax ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
 		}
 		
-		boolean isLastMilestoneVisible = milestonesAchieved + 1 >= progressInfo.milestones.length;
+		boolean isLastMilestoneVisible = milestonesAchieved + 1 >= configInfo.milestones.length;
 		// if the last milestone is visible, there are no more milestones beyond the right edge, so the line is fainter.
 		children.add(UIBox.horizontalLine(rightPoint + 1, rightEdge, lineY, isLastMilestoneVisible ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
 		
@@ -102,24 +103,27 @@ final class ProgressGraph extends UIElement {
 		}
 		
 		calculateFrameFromChildren();
+		System.out.println(frame);
 	}
 	
 	private void addHeartsView(int centerX, int maxY, boolean isOpaque) {
 		UIStack heartsView = new UIStack();
 		
-		heartsView.tooltip = localizedQuantity("gui", "food_book.stats.tooltip.hearts_per_milestone", progressInfo.heartsPerMilestone);
+		heartsView.tooltip = localizedQuantity("gui", "food_book.stats.tooltip.hearts_per_milestone", configInfo.heartsPerMilestone);
 		
-		int hearts = progressInfo.heartsPerMilestone;
+		int hearts = configInfo.heartsPerMilestone;
 		if (hearts <= 3) {
 			heartsView.spacing = -1;
 			for (int i = 0; i < hearts; i++) {
 				UIImage heartImage = new UIImage(GuiFoodBook.heartImage);
+				heartImage.setSize(9, 9);
 				heartImage.alpha = isOpaque ? 1f : 0.5f;
 				heartsView.addChild(heartImage);
 			}
 		} else {
 			heartsView.spacing = 1;
 			UIImage heartImage = new UIImage(GuiFoodBook.heartImage);
+			heartImage.setSize(9, 9);
 			heartImage.alpha = isOpaque ? 1f : 0.5f;
 			heartsView.addChild(heartImage);
 			UILabel label = new UILabel("×" + hearts);

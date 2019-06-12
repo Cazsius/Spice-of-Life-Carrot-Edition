@@ -24,7 +24,7 @@ class FoodData {
 		this.foodCapability = foodCapability;
 		this.progressInfo = foodCapability.getProgressInfo();
 		this.validFoods = FoodItemStacks.getAllFoods().stream()
-			.filter(progressInfo::shouldCount)
+			.filter(progressInfo.configInfo::isHearty)
 			.collect(Collectors.toList());
 		this.eatenFoods = new ArrayList<>();
 		this.uneatenFoods = new ArrayList<>();
