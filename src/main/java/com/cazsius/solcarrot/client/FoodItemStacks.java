@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
