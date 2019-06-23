@@ -1,12 +1,12 @@
 buildscript {
-    repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-    }
+	repositories {
+		jcenter()
+		maven { url = "http://files.minecraftforge.net/maven" }
+	}
 	
 	dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-    }
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+	}
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 // Only edit below this line; the above code adds and enables the necessary things for Forge to be set up.
@@ -18,16 +18,16 @@ archivesBaseName = "solcarrot"
 
 sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly. 
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+	sourceCompatibility = targetCompatibility = "1.8"
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
-    runDir = "run"
-    mappings = "stable_39"
-    makeObfSourceJar = false
-    
-    replace "__VERSION_FROM_GRADLE__", full_mod_version
+	version = "1.12.2-14.23.5.2768"
+	runDir = "run"
+	mappings = "stable_39"
+	makeObfSourceJar = false
+	
+	replace "__VERSION_FROM_GRADLE__", full_mod_version
 }
 
 repositories {
@@ -35,10 +35,10 @@ repositories {
 		url "http://dvs1.progwml6.com/files/maven" // JEI
 	}
 	
-    maven {
-        url "http://www.ryanliptak.com/maven/" // AppleCore
-    }
-    
+	maven {
+		url "http://www.ryanliptak.com/maven/" // AppleCore
+	}
+	
 	maven {
 		url "http://tehnut.info/maven" // HWYLA
 	}
@@ -46,25 +46,25 @@ repositories {
 
 dependencies {
 	deobfCompile "mezz.jei:jei_1.12.2:4.15.0.268"
-    deobfCompile "applecore:AppleCore:1.12.2-3.2.0:deobf"
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
+	deobfCompile "applecore:AppleCore:1.12.2-3.2.0:deobf"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+	// this will ensure that this task is redone when the versions change.
+	inputs.property "version", project.version
+	inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+	// replace stuff in mcmod.info, nothing else
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+				
+		// replace version and mcversion
+		expand 'version':project.version, 'mcversion':project.minecraft.version
+	}
+		
+	// copy everything else except the mcmod.info
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'mcmod.info'
+	}
 }
