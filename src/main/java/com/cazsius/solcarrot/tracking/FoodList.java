@@ -1,6 +1,7 @@
 package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.api.FoodCapability;
+import com.cazsius.solcarrot.api.SOLCarrotAPI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
@@ -18,13 +19,10 @@ public final class FoodList implements FoodCapability, ICapabilitySerializable<N
 	private static final String NBT_KEY_PROGRESS_INFO = "progressInfo";
 	
 	public static FoodList get(EntityPlayer player) {
-		FoodList foodList = player.getCapability(FoodList.FOOD_CAPABILITY, null);
+		FoodList foodList = (FoodList) player.getCapability(SOLCarrotAPI.FOOD_CAPABILITY, null);
 		assert foodList != null;
 		return foodList;
 	}
-	
-	@CapabilityInject(FoodList.class)
-	public static Capability<FoodList> FOOD_CAPABILITY;
 	
 	private final Set<FoodInstance> foods = new HashSet<>();
 	private ProgressInfo progressInfo = new ProgressInfo(this);
@@ -33,13 +31,13 @@ public final class FoodList implements FoodCapability, ICapabilitySerializable<N
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == FOOD_CAPABILITY;
+		return capability == SOLCarrotAPI.FOOD_CAPABILITY;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-		return capability == FOOD_CAPABILITY ? (T) this : null;
+		return capability == SOLCarrotAPI.FOOD_CAPABILITY ? (T) this : null;
 	}
 	
 	/** used for persistent storage */
