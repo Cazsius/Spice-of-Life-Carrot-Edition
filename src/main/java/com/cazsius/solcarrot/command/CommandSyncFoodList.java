@@ -13,10 +13,10 @@ final class CommandSyncFoodList extends CommandFoodList.SubCommand {
 	}
 	
 	@Override
-	void execute(EntityPlayer player, FoodList foodList) {
+	void execute(ICommandSender sender, EntityPlayer player, FoodList foodList) {
 		CapabilityHandler.syncFoodList(player);
 		
-		showMessage(player, localizedComponent("success"));
+		showMessage(sender, localizedComponent("success"));
 	}
 	
 	@Override

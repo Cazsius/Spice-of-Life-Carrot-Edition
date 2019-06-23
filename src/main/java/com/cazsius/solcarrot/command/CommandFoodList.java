@@ -6,8 +6,13 @@ import net.minecraft.command.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
 import net.minecraftforge.server.command.CommandTreeBase;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 import static com.cazsius.solcarrot.lib.Localization.keyString;
 
@@ -35,11 +40,26 @@ public class CommandFoodList extends CommandTreeBase {
 		return true;
 	}
 	
+	private static EntityPlayer getPlayerEntity(ICommandSender sender) throws SyntaxErrorException {
+		Entity senderEntity = sender.getCommandSenderEntity();
+		if (!(senderEntity instanceof EntityPlayer))
+			throw new SyntaxErrorException("commands.generic.player.unspecified");
+		return (EntityPlayer) senderEntity;
+	}
+	
 	public static abstract class SubCommand extends CommandBase {
-		
 		@Override
 		public String getUsage(ICommandSender sender) {
 			return keyString("command", localizationPath("usage"));
+		}
+		
+		@Override
+		public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
+			if (args.length < 2) {
+				return getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames());
+			} else {
+				return Collections.emptyList();
+			}
 		}
 		
 		@Override
@@ -49,17 +69,19 @@ public class CommandFoodList extends CommandTreeBase {
 			EntityPlayer player;
 			if (args.length == 1) {
 				player = getPlayer(server, sender, args[0]);
+				
+				if (!player.equals(sender.getCommandSenderEntity()) && !sender.canUseCommand(2, getName())) {
+					showMessage(sender, Localization.localizedComponent("command", "foodlist.no_permissions"), TextFormatting.RED);
+					return;
+				}
 			} else { // no args
-				Entity senderEntity = sender.getCommandSenderEntity();
-				if (!(senderEntity instanceof EntityPlayer))
-					throw new SyntaxErrorException("commands.generic.player.unspecified");
-				player = (EntityPlayer) senderEntity;
+				player = getPlayerEntity(sender);
 			}
 			
-			execute(player, FoodList.get(player));
+			execute(sender, player, FoodList.get(player));
 		}
 		
-		abstract void execute(EntityPlayer player, FoodList foodList);
+		abstract void execute(ICommandSender sender, EntityPlayer player, FoodList foodList);
 		
 		ITextComponent localizedComponent(String path, Object... args) {
 			return Localization.localizedComponent("command", localizationPath(path), args);
@@ -69,9 +91,13 @@ public class CommandFoodList extends CommandTreeBase {
 			return Localization.localizedQuantityComponent("command", localizationPath(path), number);
 		}
 		
-		static void showMessage(EntityPlayer player, ITextComponent message) {
-			Style style = new Style().setColor(TextFormatting.DARK_AQUA);
-			player.sendStatusMessage(message.setStyle(style), false);
+		static void showMessage(ICommandSender sender, ITextComponent message, TextFormatting color) {
+			Style style = new Style().setColor(color);
+			sender.sendMessage(message.setStyle(style));
+		}
+		
+		static void showMessage(ICommandSender sender, ITextComponent message) {
+			showMessage(sender, message, TextFormatting.DARK_AQUA);
 		}
 		
 		private String localizationPath(String path) {
