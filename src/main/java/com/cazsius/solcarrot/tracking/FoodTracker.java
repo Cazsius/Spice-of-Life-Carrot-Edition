@@ -26,10 +26,13 @@ public class FoodTracker {
 		
 		FoodList foodList = FoodList.get(player);
 		boolean hasTriedNewFood = foodList.addFood(event.food);
+		
+		// check this before syncing, because the sync entails an hp update
+		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
+		
 		CapabilityHandler.syncFoodList(player);
 		ProgressInfo progressInfo = foodList.getProgressInfo();
 		
-		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
 		if (newMilestoneReached) {
 			if (SOLCarrotConfig.shouldPlayMilestoneSounds) {
 				// passing the player makes it not play for some reason
