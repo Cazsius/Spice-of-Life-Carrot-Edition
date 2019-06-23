@@ -3,6 +3,7 @@ package com.cazsius.solcarrot.command;
 import com.cazsius.solcarrot.lib.Localization;
 import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.command.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.*;
@@ -43,16 +44,22 @@ public class CommandFoodList extends CommandTreeBase {
 		
 		@Override
 		public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-			execute(CommandFoodList.getCommandSenderAsPlayer(sender), args);
+			if (args.length > 1) throw new WrongUsageException(getUsage(sender));
+			
+			EntityPlayer player;
+			if (args.length == 1) {
+				player = getPlayer(server, sender, args[0]);
+			} else { // no args
+				Entity senderEntity = sender.getCommandSenderEntity();
+				if (!(senderEntity instanceof EntityPlayer))
+					throw new SyntaxErrorException("commands.generic.player.unspecified");
+				player = (EntityPlayer) senderEntity;
+			}
+			
+			execute(player, FoodList.get(player));
 		}
 		
-		void execute(EntityPlayer player, String[] args) {
-			FoodList foodList = player.getCapability(FoodList.FOOD_CAPABILITY, null);
-			assert foodList != null;
-			execute(player, foodList, args);
-		}
-		
-		void execute(EntityPlayer player, FoodList foodList, String[] args) {}
+		abstract void execute(EntityPlayer player, FoodList foodList);
 		
 		ITextComponent localizedComponent(String path, Object... args) {
 			return Localization.localizedComponent("command", localizationPath(path), args);

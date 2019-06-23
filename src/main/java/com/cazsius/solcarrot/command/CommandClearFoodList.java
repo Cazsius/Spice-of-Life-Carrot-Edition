@@ -11,7 +11,7 @@ final class CommandClearFoodList extends CommandFoodList.SubCommand {
 	}
 	
 	@Override
-	void execute(EntityPlayer player, FoodList foodList, String[] args) {
+	void execute(EntityPlayer player, FoodList foodList) {
 		foodList.clearFood();
 		CapabilityHandler.syncFoodList(player);
 		

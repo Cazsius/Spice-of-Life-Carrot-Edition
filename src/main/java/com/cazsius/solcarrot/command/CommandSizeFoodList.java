@@ -14,8 +14,8 @@ final class CommandSizeFoodList extends CommandFoodList.SubCommand {
 	}
 	
 	@Override
-	void execute(EntityPlayer player, String[] args) {
-		ProgressInfo progressInfo = FoodList.get(player).getProgressInfo();
+	void execute(EntityPlayer player, FoodList foodList) {
+		ProgressInfo progressInfo = foodList.getProgressInfo();
 		
 		ITextComponent progressDesc = localizedQuantityComponent("desc.foods_eaten", progressInfo.foodsEaten);
 		showMessage(player, progressDesc);
