@@ -18,14 +18,14 @@ public final class SOLCarrotAPI {
 	/**
 	 Retrieves the {@link com.cazsius.solcarrot.api.FoodCapability} for the given player.
 	 */
-	static FoodCapability getFoodCapability(EntityPlayer player) {
+	public static FoodCapability getFoodCapability(EntityPlayer player) {
 		return FoodList.get(player);
 	}
 	
 	/**
 	 Synchronizes the food list for the given player to the client, updating their max health in the process.
 	 */
-	static void syncFoodList(EntityPlayer player) {
+	public static void syncFoodList(EntityPlayer player) {
 		CapabilityHandler.syncFoodList(player);
 	}
 }
