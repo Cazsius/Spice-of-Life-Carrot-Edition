@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.stream.StreamSupport;
 
 @ParametersAreNonnullByDefault
-public final class FoodList implements FoodCapability, ICapabilitySerializable<NBTBase> {
+public final class FoodList implements FoodCapability {
 	private static final String NBT_KEY_FOOD_LIST = "foodList";
 	private static final String NBT_KEY_PROGRESS_INFO = "progressInfo";
 	
