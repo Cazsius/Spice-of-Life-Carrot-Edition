@@ -26,9 +26,9 @@ public class ProgressInfo {
 		configInfo = new ConfigInfo(tag.getCompoundTag(NBT_KEY_CONFIG_INFO));
 	}
 	
-	ProgressInfo(FoodCapability foodCapability) {
+	ProgressInfo(FoodList foodList) {
 		configInfo = new ConfigInfo();
-		foodsEaten = (int) foodCapability.getFoodList().stream()
+		foodsEaten = (int) foodList.getEatenFoods().stream()
 			.map(FoodInstance::getItemStack)
 			.filter(configInfo::shouldCount)
 			.count();

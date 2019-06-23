@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.tracking.CapabilityHandler;
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.config.Config;
@@ -94,7 +94,7 @@ public class SOLCarrotConfig {
 		if (event.isWorldRunning()) {
 			PlayerList players = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 			for (EntityPlayer player : players.getPlayers()) {
-				FoodCapability.get(player).updateProgressInfo();
+				FoodList.get(player).updateProgressInfo();
 				CapabilityHandler.syncFoodList(player);
 			}
 		}

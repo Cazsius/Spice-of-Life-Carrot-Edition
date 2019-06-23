@@ -2,7 +2,7 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.client.gui.elements.*;
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +53,7 @@ public final class GuiFoodBook extends GuiScreen {
 	public void initGui() {
 		super.initGui();
 		
-		foodData = new FoodData(FoodCapability.get(player));
+		foodData = new FoodData(FoodList.get(player));
 		
 		background = new UIImage(bookImage);
 		background.setCenterX(width / 2);

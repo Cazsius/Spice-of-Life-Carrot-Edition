@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.communication;
 
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
@@ -13,8 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class MessageFoodList extends NBTMessage {
 	private NBTTagCompound capabilityNBT;
 	
-	public MessageFoodList(FoodCapability foodCapability) {
-		this.capabilityNBT = foodCapability.serializeFullNBT();
+	public MessageFoodList(FoodList foodList) {
+		this.capabilityNBT = foodList.serializeFullNBT();
 	}
 	
 	/** this is used when receiving, followed by a call to deserializeNBT */
@@ -47,7 +47,7 @@ public class MessageFoodList extends NBTMessage {
 		@SideOnly(Side.CLIENT)
 		private void handle(MessageFoodList message, MessageContext ctx) {
 			EntityPlayer player = Minecraft.getMinecraft().player;
-			FoodCapability.get(player).deserializeFullNBT(message.capabilityNBT);
+			FoodList.get(player).deserializeFullNBT(message.capabilityNBT);
 		}
 	}
 }

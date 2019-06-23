@@ -19,7 +19,7 @@ final class ConfigInfoPage extends Page {
 		int totalFoods = FoodItemStacks.getAllFoods().size();
 		int validFoods = foodData.validFoods.size();
 		int cheapFoods = totalFoods - validFoods;
-		int eatenCheapFoods = (int) foodData.foodCapability.getFoodList().stream()
+		int eatenCheapFoods = (int) foodData.foodList.getEatenFoods().stream()
 			.map(FoodInstance::getItemStack)
 			.filter(food -> configInfo.isAllowed(food) && !configInfo.isHearty(food))
 			.count();

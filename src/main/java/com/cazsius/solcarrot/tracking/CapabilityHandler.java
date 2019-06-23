@@ -21,7 +21,7 @@ public class CapabilityHandler {
 	public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (!(event.getObject() instanceof EntityPlayer)) return;
 		
-		event.addCapability(FOOD, new FoodCapability());
+		event.addCapability(FOOD, new FoodList());
 	}
 	
 	@SubscribeEvent
@@ -35,14 +35,14 @@ public class CapabilityHandler {
 	
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {
-		FoodCapability newInstance = FoodCapability.get(event.getEntityPlayer());
-		FoodCapability original = FoodCapability.get(event.getOriginal());
+		FoodList newInstance = FoodList.get(event.getEntityPlayer());
+		FoodList original = FoodList.get(event.getOriginal());
 		newInstance.deserializeNBT(original.serializeNBT());
 	}
 	
 	public static void syncFoodList(EntityPlayer player) {
-		FoodCapability foodCapability = FoodCapability.get(player);
-		PacketHandler.INSTANCE.sendTo(new MessageFoodList(foodCapability), (EntityPlayerMP) player);
+		FoodList foodList = FoodList.get(player);
+		PacketHandler.INSTANCE.sendTo(new MessageFoodList(foodList), (EntityPlayerMP) player);
 		MaxHealthHandler.updateFoodHPModifier(player);
 	}
 }

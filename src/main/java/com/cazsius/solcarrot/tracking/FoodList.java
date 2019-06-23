@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.tracking;
 
+import com.cazsius.solcarrot.api.FoodCapability;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
@@ -12,23 +13,23 @@ import java.util.*;
 import java.util.stream.StreamSupport;
 
 @ParametersAreNonnullByDefault
-public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
+public final class FoodList implements FoodCapability, ICapabilitySerializable<NBTBase> {
 	private static final String NBT_KEY_FOOD_LIST = "foodList";
 	private static final String NBT_KEY_PROGRESS_INFO = "progressInfo";
 	
-	public static FoodCapability get(EntityPlayer player) {
-		FoodCapability foodCapability = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-		assert foodCapability != null;
-		return foodCapability;
+	public static FoodList get(EntityPlayer player) {
+		FoodList foodList = player.getCapability(FoodList.FOOD_CAPABILITY, null);
+		assert foodList != null;
+		return foodList;
 	}
 	
-	@CapabilityInject(FoodCapability.class)
-	public static Capability<FoodCapability> FOOD_CAPABILITY;
+	@CapabilityInject(FoodList.class)
+	public static Capability<FoodList> FOOD_CAPABILITY;
 	
 	private final Set<FoodInstance> foods = new HashSet<>();
 	private ProgressInfo progressInfo = new ProgressInfo(this);
 	
-	public FoodCapability() {}
+	public FoodList() {}
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
@@ -91,6 +92,7 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		return wasAdded;
 	}
 	
+	@Override
 	public boolean hasEaten(ItemStack itemStack) {
 		return foods.contains(new FoodInstance(itemStack));
 	}
@@ -100,7 +102,7 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		updateProgressInfo();
 	}
 	
-	public Set<FoodInstance> getFoodList() {
+	public Set<FoodInstance> getEatenFoods() {
 		return new HashSet<>(foods);
 	}
 	
@@ -117,14 +119,19 @@ public final class FoodCapability implements ICapabilitySerializable<NBTBase> {
 		progressInfo = new ProgressInfo(this);
 	}
 	
-	public static class Storage implements Capability.IStorage<FoodCapability> {
+	@Override
+	public int getEatenFoodCount() {
+		return foods.size();
+	}
+	
+	public static class Storage implements Capability.IStorage<FoodList> {
 		@Override
-		public NBTBase writeNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side) {
+		public NBTBase writeNBT(Capability<FoodList> capability, FoodList instance, EnumFacing side) {
 			return instance.serializeNBT();
 		}
 		
 		@Override
-		public void readNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side, NBTBase nbt) {
+		public void readNBT(Capability<FoodList> capability, FoodList instance, EnumFacing side, NBTBase nbt) {
 			instance.deserializeNBT(nbt);
 		}
 	}

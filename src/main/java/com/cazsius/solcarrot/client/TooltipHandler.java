@@ -2,7 +2,7 @@ package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -35,9 +35,9 @@ public class TooltipHandler {
 		ItemStack food = event.getItemStack();
 		if (!isValidFood(food)) return;
 		
-		FoodCapability foodCapability = FoodCapability.get(player);
-		ProgressInfo.ConfigInfo configInfo = foodCapability.getConfigInfo();
-		boolean hasBeenEaten = foodCapability.hasEaten(food);
+		FoodList foodList = FoodList.get(player);
+		ProgressInfo.ConfigInfo configInfo = foodList.getConfigInfo();
+		boolean hasBeenEaten = foodList.hasEaten(food);
 		boolean isAllowed = configInfo.isAllowed(food);
 		boolean isHearty = configInfo.isHearty(food);
 		

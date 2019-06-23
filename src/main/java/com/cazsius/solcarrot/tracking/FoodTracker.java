@@ -24,10 +24,10 @@ public class FoodTracker {
 		
 		EntityPlayer player = event.player;
 		
-		FoodCapability foodCapability = FoodCapability.get(player);
-		boolean hasTriedNewFood = foodCapability.addFood(event.food);
+		FoodList foodList = FoodList.get(player);
+		boolean hasTriedNewFood = foodList.addFood(event.food);
 		CapabilityHandler.syncFoodList(player);
-		ProgressInfo progressInfo = foodCapability.getProgressInfo();
+		ProgressInfo progressInfo = foodList.getProgressInfo();
 		
 		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
 		if (newMilestoneReached) {

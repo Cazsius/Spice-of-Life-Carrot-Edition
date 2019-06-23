@@ -3,7 +3,7 @@ package com.cazsius.solcarrot;
 import com.cazsius.solcarrot.command.CommandFoodList;
 import com.cazsius.solcarrot.communication.GuiHandler;
 import com.cazsius.solcarrot.communication.PacketHandler;
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -31,7 +31,7 @@ public class SOLCarrot {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		PacketHandler.registerMessages(MOD_ID);
-		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodCapability.Storage(), FoodCapability::new);
+		CapabilityManager.INSTANCE.register(FoodList.class, new FoodList.Storage(), FoodList::new);
 		NetworkRegistry.INSTANCE.registerGuiHandler(SOLCarrot.instance, new GuiHandler());
 	}
 	

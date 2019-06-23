@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.command;
 
 import com.cazsius.solcarrot.lib.Localization;
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
@@ -47,12 +47,12 @@ public class CommandFoodList extends CommandTreeBase {
 		}
 		
 		void execute(EntityPlayer player, String[] args) {
-			FoodCapability foodCapability = player.getCapability(FoodCapability.FOOD_CAPABILITY, null);
-			assert foodCapability != null;
-			execute(player, foodCapability, args);
+			FoodList foodList = player.getCapability(FoodList.FOOD_CAPABILITY, null);
+			assert foodList != null;
+			execute(player, foodList, args);
 		}
 		
-		void execute(EntityPlayer player, FoodCapability foodCapability, String[] args) {}
+		void execute(EntityPlayer player, FoodList foodList, String[] args) {}
 		
 		ITextComponent localizedComponent(String path, Object... args) {
 			return Localization.localizedComponent("command", localizationPath(path), args);

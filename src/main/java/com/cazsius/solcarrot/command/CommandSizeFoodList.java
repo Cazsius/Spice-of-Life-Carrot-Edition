@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.command;
 
-import com.cazsius.solcarrot.tracking.FoodCapability;
+import com.cazsius.solcarrot.tracking.FoodList;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +15,7 @@ final class CommandSizeFoodList extends CommandFoodList.SubCommand {
 	
 	@Override
 	void execute(EntityPlayer player, String[] args) {
-		ProgressInfo progressInfo = FoodCapability.get(player).getProgressInfo();
+		ProgressInfo progressInfo = FoodList.get(player).getProgressInfo();
 		
 		ITextComponent progressDesc = localizedQuantityComponent("desc.foods_eaten", progressInfo.foodsEaten);
 		showMessage(player, progressDesc);
