@@ -12,10 +12,19 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@Mod(modid = SOLCarrot.MOD_ID, version = "__VERSION_FROM_GRADLE__", dependencies = "required-after:applecore")
+@Mod(
+	modid = SOLCarrot.MOD_ID,
+	certificateFingerprint = "__FINGERPRINT_FROM_GRADLE__",
+	version = "__VERSION_FROM_GRADLE__",
+	dependencies = "required-after:applecore"
+)
 public class SOLCarrot {
 	public static final String MOD_ID = "solcarrot";
+	
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	
 	@Mod.Instance(MOD_ID)
 	public static SOLCarrot instance;
@@ -26,6 +35,12 @@ public class SOLCarrot {
 	
 	public static String namespaced(String path) {
 		return MOD_ID + "." + path;
+	}
+	
+	@EventHandler
+	public static void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		// This complains if jar not signed, even if certificateFingerprint is blank
+		LOGGER.warn("Invalid Fingerprint!");
 	}
 	
 	@EventHandler

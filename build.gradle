@@ -195,9 +195,9 @@ minecraft {
 	replace '__VERSION_FROM_GRADLE__', project.short_version
 
 	if (project.hasProperty('signSHA1') && getBooleanProperty('do_sign_jar')) {
-		replace '@FINGERPRINT@', project.findProperty('signSHA1')
+		replace '__FINGERPRINT_FROM_GRADLE__', project.findProperty('signSHA1')
 	} else {
-		replace '@FINGERPRINT@', ''
+		replace '__FINGERPRINT_FROM_GRADLE__', ''
 	}
 
 	if (project.hasProperty('core_plugin')) {
