@@ -1,3 +1,6 @@
+/**
+ This package handles client-server communication.
+ */
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 package com.cazsius.solcarrot.communication;

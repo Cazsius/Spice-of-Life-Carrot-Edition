@@ -1,3 +1,6 @@
+/**
+ This package contains the items the mod adds.
+ */
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 package com.cazsius.solcarrot.item;
