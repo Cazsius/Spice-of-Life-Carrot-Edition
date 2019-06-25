@@ -76,3 +76,4 @@ config.solcarrot.should_spawn_milestone_particles=Enable Milestone Particles
 config.solcarrot.food_blacklist=Blacklist
 config.solcarrot.food_whitelist=Whitelist (disables blacklist)
 config.solcarrot.minimum_food_value=Minimum Food Value
+config.solcarrot.reset_on_death=Reset on Death
