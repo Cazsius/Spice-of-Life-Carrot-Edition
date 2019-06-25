@@ -122,14 +122,14 @@ public final class FoodList implements FoodCapability {
 		return foods.size();
 	}
 	
-	public static class Storage implements Capability.IStorage<FoodList> {
+	public static class Storage implements Capability.IStorage<FoodCapability> {
 		@Override
-		public NBTBase writeNBT(Capability<FoodList> capability, FoodList instance, EnumFacing side) {
+		public NBTBase writeNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side) {
 			return instance.serializeNBT();
 		}
 		
 		@Override
-		public void readNBT(Capability<FoodList> capability, FoodList instance, EnumFacing side, NBTBase nbt) {
+		public void readNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side, NBTBase nbt) {
 			instance.deserializeNBT(nbt);
 		}
 	}

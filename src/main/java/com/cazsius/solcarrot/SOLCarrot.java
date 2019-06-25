@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot;
 
+import com.cazsius.solcarrot.api.FoodCapability;
 import com.cazsius.solcarrot.command.CommandFoodList;
 import com.cazsius.solcarrot.communication.GuiHandler;
 import com.cazsius.solcarrot.communication.PacketHandler;
@@ -46,7 +47,7 @@ public class SOLCarrot {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		PacketHandler.registerMessages(MOD_ID);
-		CapabilityManager.INSTANCE.register(FoodList.class, new FoodList.Storage(), FoodList::new);
+		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodList.Storage(), FoodList::new);
 		NetworkRegistry.INSTANCE.registerGuiHandler(SOLCarrot.instance, new GuiHandler());
 	}
 	
