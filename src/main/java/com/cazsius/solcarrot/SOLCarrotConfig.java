@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 @Config(modid = SOLCarrot.MOD_ID)//, name = Constants.MOD_ID + "-" + SOLCarrotConfig.version)
-public class SOLCarrotConfig {
+public final class SOLCarrotConfig {
 	//static final String version = "1.5"; // only change this if the new version is not backwards-compatible with the old one.
 	private static final String langPath = "config.solcarrot.";
 	
@@ -104,4 +104,6 @@ public class SOLCarrotConfig {
 			}
 		}
 	}
+	
+	private SOLCarrotConfig() {}
 }

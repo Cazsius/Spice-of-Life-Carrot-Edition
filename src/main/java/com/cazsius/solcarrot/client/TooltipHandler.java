@@ -20,7 +20,7 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = SOLCarrot.MOD_ID)
-public class TooltipHandler {
+public final class TooltipHandler {
 	private static boolean isValidFood(ItemStack itemStack) {
 		return AppleCoreAPI.accessor.isFood(itemStack);
 	}
@@ -65,4 +65,6 @@ public class TooltipHandler {
 	private static String localizedTooltip(String path) {
 		return localized("tooltip", path);
 	}
+	
+	private TooltipHandler() {}
 }

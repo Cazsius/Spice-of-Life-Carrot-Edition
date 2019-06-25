@@ -12,7 +12,7 @@ public abstract class NBTMessage implements IMessage {
 	private static final String NBT_KEY_CONTENTS = "contents";
 	
 	@Override
-	public void fromBytes(ByteBuf buf) {
+	public final void fromBytes(ByteBuf buf) {
 		try {
 			NBTTagCompound tag = new PacketBuffer(buf).readCompoundTag();
 			assert tag != null;
@@ -25,7 +25,7 @@ public abstract class NBTMessage implements IMessage {
 	public abstract void deserializeNBT(NBTBase tag);
 	
 	@Override
-	public void toBytes(ByteBuf buf) {
+	public final void toBytes(ByteBuf buf) {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setTag(NBT_KEY_CONTENTS, serializeNBT());
 		new PacketBuffer(buf).writeCompoundTag(tag);

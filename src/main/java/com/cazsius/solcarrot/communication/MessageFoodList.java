@@ -10,7 +10,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MessageFoodList extends NBTMessage {
+import javax.annotation.Nullable;
+
+public final class MessageFoodList extends NBTMessage {
 	private NBTTagCompound capabilityNBT;
 	
 	public MessageFoodList(FoodList foodList) {
@@ -31,7 +33,8 @@ public class MessageFoodList extends NBTMessage {
 	}
 	
 	// message is only ever sent from server to client, so everything inside can use client-only methods just fine.
-	public static class Handler implements IMessageHandler<MessageFoodList, IMessage> {
+	public static final class Handler implements IMessageHandler<MessageFoodList, IMessage> {
+		@Nullable
 		@Override
 		@SideOnly(Side.CLIENT)
 		public IMessage onMessage(MessageFoodList message, MessageContext ctx) {

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-class PageFlipButton extends GuiButton {
+final class PageFlipButton extends GuiButton {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	public static final int width = 23;
 	public static final int height = 13;

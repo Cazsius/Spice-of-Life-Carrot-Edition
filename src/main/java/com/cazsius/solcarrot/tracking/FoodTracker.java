@@ -16,7 +16,7 @@ import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 import static com.cazsius.solcarrot.lib.Localization.localizedQuantityComponent;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
-public class FoodTracker {
+public final class FoodTracker {
 	@SubscribeEvent
 	public static void onFoodEaten(FoodEvent.FoodEaten event) {
 		if (event.player.world.isRemote) return;
@@ -86,4 +86,6 @@ public class FoodTracker {
 		component.setStyle(new Style().setColor(color));
 		player.sendStatusMessage(component, false);
 	}
+	
+	private FoodTracker() {}
 }

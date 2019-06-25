@@ -18,7 +18,7 @@ import java.util.List;
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
-public class SOLCarrotItems {
+public final class SOLCarrotItems {
 	private static final List<Item> ITEMS = new ArrayList<>(); // has to be on top so it's loaded first
 	
 	public static final ItemFoodBook foodBook = item(new ItemFoodBook(), "food_book");
@@ -45,4 +45,6 @@ public class SOLCarrotItems {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(registryName, "inventory"));
 		});
 	}
+	
+	private SOLCarrotItems() {}
 }

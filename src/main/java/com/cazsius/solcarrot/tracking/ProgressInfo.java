@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /** contains all relevant variables for current and future progress, so we don't have to sync config to clients */
-public class ProgressInfo {
+public final class ProgressInfo {
 	private static final String NBT_KEY_FOODS_EATEN = "foodsEaten";
 	private static final String NBT_KEY_CONFIG_INFO = "configInfo";
 	
@@ -61,7 +61,7 @@ public class ProgressInfo {
 		return tag;
 	}
 	
-	public static class ConfigInfo {
+	public static final class ConfigInfo {
 		private static final String NBT_KEY_MILESTONES = "milestones";
 		private static final String NBT_KEY_HEARTS_PER_MILESTONE = "heartsPerMilestone";
 		private static final String NBT_KEY_BASE_HEARTS = "baseHearts";

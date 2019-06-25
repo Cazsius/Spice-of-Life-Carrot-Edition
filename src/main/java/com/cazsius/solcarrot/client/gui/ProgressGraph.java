@@ -12,7 +12,7 @@ final class ProgressGraph extends UIElement {
 	
 	private ProgressInfo.ConfigInfo configInfo;
 	
-	public ProgressGraph(FoodData foodData, int centerX, int lineY) {
+	ProgressGraph(FoodData foodData, int centerX, int lineY) {
 		super(new Rectangle(centerX, lineY, 2 * segmentLength, 1)); // kinda wrong; will adjust later
 		
 		ProgressInfo progressInfo = foodData.progressInfo;

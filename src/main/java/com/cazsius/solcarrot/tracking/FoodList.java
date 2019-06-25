@@ -19,7 +19,7 @@ public final class FoodList implements FoodCapability {
 	private static final String NBT_KEY_PROGRESS_INFO = "progressInfo";
 	
 	public static FoodList get(EntityPlayer player) {
-		FoodList foodList = (FoodList) player.getCapability(SOLCarrotAPI.FOOD_CAPABILITY, null);
+		FoodList foodList = (FoodList) player.getCapability(SOLCarrotAPI.foodCapability, null);
 		assert foodList != null;
 		return foodList;
 	}
@@ -31,13 +31,13 @@ public final class FoodList implements FoodCapability {
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == SOLCarrotAPI.FOOD_CAPABILITY;
+		return capability == SOLCarrotAPI.foodCapability;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-		return capability == SOLCarrotAPI.FOOD_CAPABILITY ? (T) this : null;
+		return capability == SOLCarrotAPI.foodCapability ? (T) this : null;
 	}
 	
 	/** used for persistent storage */
@@ -122,7 +122,7 @@ public final class FoodList implements FoodCapability {
 		return foods.size();
 	}
 	
-	public static class Storage implements Capability.IStorage<FoodCapability> {
+	public static final class Storage implements Capability.IStorage<FoodCapability> {
 		@Override
 		public NBTBase writeNBT(Capability<FoodCapability> capability, FoodCapability instance, EnumFacing side) {
 			return instance.serializeNBT();

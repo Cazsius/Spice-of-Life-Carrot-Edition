@@ -44,6 +44,9 @@ public abstract class UIElement {
 		this.frame = frame;
 	}
 	
+	/**
+	 Renders the element to the screen. Note that no transforms have been applied, so you should take your position into account!
+	 */
 	protected void render() {
 		children.forEach(UIElement::render);
 	}
@@ -55,10 +58,18 @@ public abstract class UIElement {
 		);
 	}
 	
+	/**
+	 @return whether or not the element has a tooltip. This is used to determine which of multiple overlapping tooltips to render.
+	 */
 	protected boolean hasTooltip() {
 		return tooltip != null;
 	}
 	
+	/**
+	 Renders the tooltip at the given position.
+	 @param mouseX the mouse's x position
+	 @param mouseY the mouse's y position
+	 */
 	protected void renderTooltip(int mouseX, int mouseY) {
 		if (tooltip == null) return;
 		ScaledResolution resolution = new ScaledResolution(mc);
@@ -81,63 +92,71 @@ public abstract class UIElement {
 		setHeight(children.stream().mapToInt(UIElement::getMaxY).max().orElse(getMaxY()) - getMinY());
 	}
 	
-	public int getCenterX() {
+	public final int getCenterX() {
 		return frame.x + frame.width / 2;
 	}
 	
-	public void setCenterX(int centerX) {
+	public final void setCenterX(int centerX) {
 		frame.setLocation(centerX - frame.width / 2, frame.y);
 	}
 	
-	public int getCenterY() {
+	public final int getCenterY() {
 		return frame.y + frame.height / 2;
 	}
 	
-	public void setCenterY(int centerY) {
+	public final void setCenterY(int centerY) {
 		frame.setLocation(frame.x, centerY - frame.height / 2);
 	}
 	
-	public int getMinX() {
+	public final int getMinX() {
 		return frame.x;
 	}
 	
-	public void setMinX(int minX) {
+	public final void setMinX(int minX) {
 		frame.setLocation(minX, frame.y);
 	}
 	
-	public int getMinY() {
+	public final int getMinY() {
 		return frame.y;
 	}
 	
-	public void setMinY(int minY) {
+	public final void setMinY(int minY) {
 		frame.setLocation(frame.x, minY);
 	}
 	
-	public int getMaxX() {
+	public final int getMaxX() {
 		return frame.x + frame.width;
 	}
 	
-	public void setMaxX(int maxX) {
+	public final void setMaxX(int maxX) {
 		frame.setLocation(maxX - frame.width, frame.y);
 	}
 	
-	public int getMaxY() {
+	public final int getMaxY() {
 		return frame.y + frame.height;
 	}
 	
-	public void setMaxY(int maxY) {
+	public final void setMaxY(int maxY) {
 		frame.setLocation(frame.x, maxY - frame.height);
 	}
 	
-	public int getWidth() { return frame.width; }
+	public final int getWidth() {
+		return frame.width;
+	}
 	
-	public void setWidth(int width) { frame.width = width; }
+	public final void setWidth(int width) {
+		frame.width = width;
+	}
 	
-	public int getHeight() { return frame.height; }
+	public final int getHeight() {
+		return frame.height;
+	}
 	
-	public void setHeight(int height) { frame.height = height; }
+	public final void setHeight(int height) {
+		frame.height = height;
+	}
 	
-	public void setSize(int width, int height) {
+	public final void setSize(int width, int height) {
 		setWidth(width);
 		setHeight(height);
 	}

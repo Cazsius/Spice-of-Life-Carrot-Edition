@@ -3,7 +3,7 @@ package com.cazsius.solcarrot.client.gui.elements;
 import java.awt.*;
 import java.util.List;
 
-public class UIStack extends UIElement {
+public final class UIStack extends UIElement {
 	public Axis axis = Axis.HORIZONTAL;
 	public int spacing = 1;
 	
@@ -52,6 +52,8 @@ public class UIStack extends UIElement {
 				frame.width = width;
 				frame.height = y - spacing;
 				break;
+			default:
+				throw new AssertionError();
 		}
 	}
 	

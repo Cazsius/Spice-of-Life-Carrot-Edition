@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public class Localization {
+public final class Localization {
 	public static String keyString(String domain, IForgeRegistryEntry entry, String path) {
 		final ResourceLocation location = entry.getRegistryName();
 		assert location != null;
@@ -61,4 +61,6 @@ public class Localization {
 			return Math.round(number / 1000F) + "k";
 		}
 	}
+	
+	private Localization() {}
 }

@@ -11,7 +11,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
  */
 public final class SOLCarrotAPI {
 	@CapabilityInject(FoodCapability.class)
-	public static Capability<FoodCapability> FOOD_CAPABILITY;
+	public static Capability<FoodCapability> foodCapability;
 	
 	private SOLCarrotAPI() {}
 	

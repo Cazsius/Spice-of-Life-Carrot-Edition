@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SideOnly(Side.CLIENT)
-@EventBusSubscriber(value = Side.CLIENT, modid = SOLCarrot.MOD_ID)
-public class FoodItemStacks {
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = SOLCarrot.MOD_ID)
+public final class FoodItemStacks {
 	private static List<ItemStack> foodsBeforeBlacklist;
 	private static List<ItemStack> foods;
 	
@@ -75,4 +75,6 @@ public class FoodItemStacks {
 			.forEach(creativeTab -> item.getSubItems(creativeTab, subItems));
 		return subItems.stream();
 	}
+	
+	private FoodItemStacks() {}
 }

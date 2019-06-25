@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class FoodInstance {
+public final class FoodInstance {
 	public final Item item;
 	public final int metadata;
 	
@@ -57,8 +57,7 @@ public class FoodInstance {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof FoodInstance))
-			return false;
+		if (!(obj instanceof FoodInstance)) return false;
 		FoodInstance other = (FoodInstance) obj;
 		
 		return ItemStack.areItemStacksEqual(getItemStack(), other.getItemStack());

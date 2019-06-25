@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 /** collects the information the food book needs in a convenient single location */
 @SideOnly(Side.CLIENT)
-class FoodData {
+final class FoodData {
 	public final FoodList foodList;
 	public final ProgressInfo progressInfo;
 	public final List<ItemStack> validFoods;

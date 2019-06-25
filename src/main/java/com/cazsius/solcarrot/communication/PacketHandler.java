@@ -1,27 +1,26 @@
 package com.cazsius.solcarrot.communication;
 
+import com.cazsius.solcarrot.SOLCarrot;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class PacketHandler {
-	private static int packetId = 0;
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
+public final class PacketHandler {
+	public static final SimpleNetworkWrapper channel = NetworkRegistry.INSTANCE.newSimpleChannel(SOLCarrot.MOD_ID);
 	
-	public static SimpleNetworkWrapper INSTANCE = null;
+	private static int packetID = 0;
 	
-	public PacketHandler() {}
-	
-	public static int nextID() {
-		return packetId++;
+	@SubscribeEvent
+	public static void preInit(SOLCarrot.PreInitializationEvent e) {
+		channel.registerMessage(MessageFoodList.Handler.class, MessageFoodList.class, nextID(), Side.CLIENT);
 	}
 	
-	public static void registerMessages(String channelName) {
-		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
-		registerMessages();
+	private static int nextID() {
+		return packetID++;
 	}
 	
-	public static void registerMessages() {
-		// Register messages which are sent from the client to the server here:
-		INSTANCE.registerMessage(MessageFoodList.Handler.class, MessageFoodList.class, nextID(), Side.CLIENT);
-	}
+	private PacketHandler() {}
 }

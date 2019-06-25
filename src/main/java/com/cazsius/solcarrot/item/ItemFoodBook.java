@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-public class ItemFoodBook extends Item {
+public final class ItemFoodBook extends Item {
 	public static final int GUI_ID = 1;
 	
 	public ItemFoodBook() {

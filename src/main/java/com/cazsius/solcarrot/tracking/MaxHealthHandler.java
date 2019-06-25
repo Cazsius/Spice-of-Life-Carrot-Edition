@@ -1,8 +1,3 @@
-/*******************************************************************************
- * Special thanks to the Biomes O' Plenty Team, whose open source "Tough as
- * nails" mod taught me to change player's max health. Below is a heavily
- * modified version of their code. 
- ******************************************************************************/
 package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
@@ -16,10 +11,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
-public class MaxHealthHandler {
+public final class MaxHealthHandler {
 	private static final UUID MILESTONE_HEALTH_MODIFIER_ID = UUID.fromString("b20d3436-0d39-4868-96ab-d0a4856e68c6");
 	
 	@SubscribeEvent
@@ -31,7 +27,10 @@ public class MaxHealthHandler {
 	
 	@SubscribeEvent
 	public static void onPlayerClone(PlayerEvent.Clone event) {
-		updateHealthModifier(event.getEntityPlayer(), getHealthModifier(event.getOriginal()));
+		AttributeModifier prevModifier = getHealthModifier(event.getOriginal());
+		if (prevModifier == null) return;
+		
+		updateHealthModifier(event.getEntityPlayer(), prevModifier);
 	}
 	
 	/** @return whether or not the player reached a new milestone in this update */
@@ -68,6 +67,7 @@ public class MaxHealthHandler {
 		}
 	}
 	
+	@Nullable
 	private static AttributeModifier getHealthModifier(EntityPlayer player) {
 		return maxHealthAttribute(player).getModifier(MILESTONE_HEALTH_MODIFIER_ID);
 	}
@@ -81,4 +81,6 @@ public class MaxHealthHandler {
 	private static IAttributeInstance maxHealthAttribute(EntityPlayer player) {
 		return player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
 	}
+	
+	private MaxHealthHandler() {}
 }

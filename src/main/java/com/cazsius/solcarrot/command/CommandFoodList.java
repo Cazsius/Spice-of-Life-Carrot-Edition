@@ -16,7 +16,7 @@ import java.util.List;
 
 import static com.cazsius.solcarrot.lib.Localization.keyString;
 
-public class CommandFoodList extends CommandTreeBase {
+public final class CommandFoodList extends CommandTreeBase {
 	private static final String name = "foodlist";
 	
 	public CommandFoodList() {
@@ -42,12 +42,11 @@ public class CommandFoodList extends CommandTreeBase {
 	
 	private static EntityPlayer getPlayerEntity(ICommandSender sender) throws SyntaxErrorException {
 		Entity senderEntity = sender.getCommandSenderEntity();
-		if (!(senderEntity instanceof EntityPlayer))
-			throw new SyntaxErrorException("commands.generic.player.unspecified");
+		if (!(senderEntity instanceof EntityPlayer)) throw new SyntaxErrorException("commands.generic.player.unspecified");
 		return (EntityPlayer) senderEntity;
 	}
 	
-	public static abstract class SubCommand extends CommandBase {
+	public abstract static class SubCommand extends CommandBase {
 		@Override
 		public String getUsage(ICommandSender sender) {
 			return keyString("command", localizationPath("usage"));
@@ -83,11 +82,11 @@ public class CommandFoodList extends CommandTreeBase {
 		
 		abstract void execute(ICommandSender sender, EntityPlayer player, FoodList foodList);
 		
-		ITextComponent localizedComponent(String path, Object... args) {
+		final ITextComponent localizedComponent(String path, Object... args) {
 			return Localization.localizedComponent("command", localizationPath(path), args);
 		}
 		
-		ITextComponent localizedQuantityComponent(String path, int number) {
+		final ITextComponent localizedQuantityComponent(String path, int number) {
 			return Localization.localizedQuantityComponent("command", localizationPath(path), number);
 		}
 		
