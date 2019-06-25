@@ -1,6 +1,7 @@
 package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.communication.MessageFoodList;
 import com.cazsius.solcarrot.communication.PacketHandler;
 import net.minecraft.entity.Entity;
@@ -35,9 +36,12 @@ public class CapabilityHandler {
 	
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {
-		FoodList newInstance = FoodList.get(event.getEntityPlayer());
+		if (event.isWasDeath() && SOLCarrotConfig.shouldResetOnDeath) return;
+		
 		FoodList original = FoodList.get(event.getOriginal());
+		FoodList newInstance = FoodList.get(event.getEntityPlayer());
 		newInstance.deserializeNBT(original.serializeNBT());
+		syncFoodList(event.getEntityPlayer());
 	}
 	
 	public static void syncFoodList(EntityPlayer player) {

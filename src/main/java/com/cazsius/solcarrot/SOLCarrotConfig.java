@@ -85,6 +85,11 @@ public class SOLCarrotConfig {
 	@Config.Comment("The minimum hunger value foods need to provide in order to count for milestones, in half drumsticks.")
 	public static int minimumFoodValue = 1;
 	
+	@Config.Name("Reset on Death")
+	@Config.LangKey(langPath + "reset_on_death")
+	@Config.Comment("Whether or not to reset the food list on death, effectively losing all bonus hearts.")
+	public static boolean shouldResetOnDeath = false;
+	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (!event.getModID().equals(SOLCarrot.MOD_ID)) return;
