@@ -90,6 +90,11 @@ checkstyle {
 	toolVersion = '8.20'
 }
 
+tasks.withType(Checkstyle) {
+	// always run
+	outputs.upToDateWhen { false }
+}
+
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 	options.compilerArgs = [
