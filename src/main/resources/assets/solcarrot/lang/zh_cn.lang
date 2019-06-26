@@ -76,3 +76,4 @@ config.solcarrot.should_spawn_milestone_particles=启用里程碑粒子效果
 config.solcarrot.food_blacklist=黑名单
 config.solcarrot.food_whitelist=白名单(禁用黑名单)
 config.solcarrot.minimum_food_value=最低食用价值
+config.solcarrot.reset_on_death=死亡重置
