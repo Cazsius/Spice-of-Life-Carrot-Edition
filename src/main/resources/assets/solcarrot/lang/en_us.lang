@@ -65,7 +65,7 @@ gui.solcarrot.food_book.config.tooltip.whitelist=How many foods the whitelist al
 
 # Config GUI
 config.solcarrot.base_hearts=Base Hearts
-config.solcarrot.hearts_per_milestone=Hearts per Milestone
+config.solcarrot.hearts_per_milestone=Hearts per Milestone (whole number)
 config.solcarrot.milestones=Milestones
 config.solcarrot.is_food_tooltip_enabled=Enable Food Tooltip
 config.solcarrot.should_show_progress_above_hotbar=Show Progress Above Hotbar
