@@ -1,0 +1,36 @@
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader = "javafml"
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion = "[28,)"
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL = "https://github.com/Cazsius/Spice-of-Life-Carrot-Edition/issues"
+
+[[mods]]
+	modId = "solcarrot"
+	version = "${file.jarVersion}"
+	displayName = "Spice of Life: Carrot Edition"
+	displayURL = "https://www.curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition"
+	logoFile = "logo.png"
+	credits = "Lewis_McReu for some coding assistance"
+	authors = "Cazsius, Talonos, juliand665"
+	description = '''
+	A mod designed to encourage dietary variety!
+	
+	It does so by rewarding the player for eating a variety of foods instead of punishing them for failing to diversify.
+	Instead of using the stick, we use the carrot!
+	'''
+
+# Dependencies are optional.
+[[dependencies]]
+	modId = "forge"
+	mandatory = true
+	versionRange = "[28,)"
+	ordering = "NONE" # BEFORE or AFTER required if the relationship is not mandatory
+	side = "BOTH" # BOTH, CLIENT or SERVER
+
+[[dependencies]]
+	modId = "minecraft"
+	mandatory = true
+	versionRange = "[1.14.4]"
+	ordering = "NONE"
+	side = "BOTH"

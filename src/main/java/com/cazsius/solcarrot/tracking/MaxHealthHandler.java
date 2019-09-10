@@ -5,11 +5,10 @@ import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -19,10 +18,8 @@ public final class MaxHealthHandler {
 	private static final UUID MILESTONE_HEALTH_MODIFIER_ID = UUID.fromString("b20d3436-0d39-4868-96ab-d0a4856e68c6");
 	
 	@SubscribeEvent
-	public static void onPlayerLogin(PlayerLoggedInEvent event) {
-		EntityPlayer player = event.player;
-		
-		updateFoodHPModifier(player);
+	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+		updateFoodHPModifier(event.getPlayer());
 	}
 	
 	@SubscribeEvent
@@ -30,11 +27,11 @@ public final class MaxHealthHandler {
 		AttributeModifier prevModifier = getHealthModifier(event.getOriginal());
 		if (prevModifier == null) return;
 		
-		updateHealthModifier(event.getEntityPlayer(), prevModifier);
+		updateHealthModifier(event.getPlayer(), prevModifier);
 	}
 	
 	/** @return whether or not the player reached a new milestone in this update */
-	public static boolean updateFoodHPModifier(EntityPlayer player) {
+	public static boolean updateFoodHPModifier(PlayerEntity player) {
 		if (player.world.isRemote) return false;
 		
 		AttributeModifier prevModifier = getHealthModifier(player);
@@ -52,7 +49,7 @@ public final class MaxHealthHandler {
 				MILESTONE_HEALTH_MODIFIER_ID,
 				"Health Gained from Trying New Foods",
 				totalHealthModifier,
-				0
+				AttributeModifier.Operation.ADDITION
 			);
 			
 			float oldMax = player.getMaxHealth();
@@ -68,18 +65,18 @@ public final class MaxHealthHandler {
 	}
 	
 	@Nullable
-	private static AttributeModifier getHealthModifier(EntityPlayer player) {
+	private static AttributeModifier getHealthModifier(PlayerEntity player) {
 		return maxHealthAttribute(player).getModifier(MILESTONE_HEALTH_MODIFIER_ID);
 	}
 	
-	private static void updateHealthModifier(EntityPlayer player, AttributeModifier modifier) {
+	private static void updateHealthModifier(PlayerEntity player, AttributeModifier modifier) {
 		IAttributeInstance attribute = maxHealthAttribute(player);
 		attribute.removeModifier(modifier);
 		attribute.applyModifier(modifier);
 	}
 	
-	private static IAttributeInstance maxHealthAttribute(EntityPlayer player) {
-		return player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+	private static IAttributeInstance maxHealthAttribute(PlayerEntity player) {
+		return player.getAttribute(SharedMonsterAttributes.MAX_HEALTH);
 	}
 	
 	private MaxHealthHandler() {}

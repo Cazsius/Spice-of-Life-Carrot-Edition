@@ -1,12 +1,11 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static net.minecraft.client.util.ITooltipFlag.TooltipFlags.ADVANCED;
 import static net.minecraft.client.util.ITooltipFlag.TooltipFlags.NORMAL;
@@ -26,7 +25,7 @@ public class UIItemStack extends UIElement {
 	protected void render() {
 		super.render();
 		
-		mc.getRenderItem().renderItemIntoGUI(
+		mc.getItemRenderer().renderItemIntoGUI(
 			itemStack,
 			frame.x + (frame.width - size) / 2,
 			frame.y + (frame.height - size) / 2
@@ -40,18 +39,12 @@ public class UIItemStack extends UIElement {
 	
 	@Override
 	protected void renderTooltip(int mouseX, int mouseY) {
-		List<String> tooltip = itemStack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ADVANCED : NORMAL);
+		List<String> tooltip = itemStack
+			.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ADVANCED : NORMAL)
+			.stream()
+			.map(ITextComponent::getString)
+			.collect(Collectors.toList());
 		
-		GuiUtils.preItemToolTip(itemStack);
-		ScaledResolution resolution = new ScaledResolution(mc);
-		GuiUtils.drawHoveringText(
-			itemStack,
-			tooltip,
-			mouseX, mouseY,
-			resolution.getScaledWidth(), resolution.getScaledHeight(),
-			-1,
-			Optional.ofNullable(itemStack.getItem().getFontRenderer(itemStack)).orElse(fontRenderer)
-		);
-		GuiUtils.postItemToolTip();
+		renderTooltip(itemStack, tooltip, mouseX, mouseY);
 	}
 }

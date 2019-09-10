@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import java.awt.*;
 

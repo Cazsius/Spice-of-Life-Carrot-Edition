@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.client.gui;
 
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.gui.elements.UIBox;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 
@@ -12,7 +13,6 @@ final class StatListPage extends Page {
 		super(frame, localized("gui", "food_book.stats"));
 		
 		ProgressInfo progressInfo = foodData.progressInfo;
-		ProgressInfo.ConfigInfo configInfo = progressInfo.configInfo;
 		ProgressGraph progressGraph = new ProgressGraph(foodData, getCenterX(), (int) mainStack.frame.getMinY() + 43);
 		children.add(progressGraph);
 		
@@ -21,7 +21,7 @@ final class StatListPage extends Page {
 		mainStack.addChild(makeSeparatorLine());
 		
 		String foodsTasted;
-		if (configInfo.shouldShowUneatenFoods) {
+		if (SOLCarrotConfig.shouldShowUneatenFoods) {
 			foodsTasted = fraction(progressInfo.foodsEaten, foodData.validFoods.size());
 		} else {
 			foodsTasted = "" + progressInfo.foodsEaten;
@@ -36,8 +36,8 @@ final class StatListPage extends Page {
 		mainStack.addChild(makeSeparatorLine());
 		
 		String heartsGained = fraction(
-			configInfo.heartsPerMilestone * progressInfo.milestonesAchieved(),
-			configInfo.heartsPerMilestone * configInfo.milestones.length
+			SOLCarrotConfig.heartsPerMilestone * progressInfo.milestonesAchieved(),
+			SOLCarrotConfig.heartsPerMilestone * SOLCarrotConfig.milestones.size()
 		);
 		
 		mainStack.addChild(statWithIcon(

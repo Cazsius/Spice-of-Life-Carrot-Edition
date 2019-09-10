@@ -2,11 +2,10 @@ package com.cazsius.solcarrot.client.gui.elements;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 
 import static java.util.Collections.singletonList;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public abstract class UIElement {
 	public static void render(UIElement element, int mouseX, int mouseY) {
 		render(singletonList(element), mouseX, mouseY);
@@ -32,7 +31,7 @@ public abstract class UIElement {
 			.ifPresent(element -> element.renderTooltip(mouseX, mouseY));
 	}
 	
-	protected static final Minecraft mc = Minecraft.getMinecraft();
+	protected static final Minecraft mc = Minecraft.getInstance();
 	protected static final FontRenderer fontRenderer = mc.fontRenderer;
 	
 	public Rectangle frame;
@@ -67,20 +66,42 @@ public abstract class UIElement {
 	
 	/**
 	 Renders the tooltip at the given position.
+	 
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
 	protected void renderTooltip(int mouseX, int mouseY) {
 		if (tooltip == null) return;
-		ScaledResolution resolution = new ScaledResolution(mc);
+		
+		renderTooltip(ItemStack.EMPTY, Collections.singletonList(tooltip), mouseX, mouseY);
+	}
+	
+	/**
+	 Renders a tooltip at the given position.
+	 
+	 @param itemStack an item stack (possibly empty/none) that is the subject of the tooltip
+	 @param tooltip the tooltip contents
+	 @param mouseX the mouse's x position
+	 @param mouseY the mouse's y position
+	 */
+	protected final void renderTooltip(ItemStack itemStack, List<String> tooltip, int mouseX, int mouseY) {
+		if (!itemStack.isEmpty()) {
+			GuiUtils.preItemToolTip(itemStack);
+		}
+		
 		GuiUtils.drawHoveringText(
-			ItemStack.EMPTY,
-			Collections.singletonList(tooltip),
+			itemStack,
+			tooltip,
 			mouseX, mouseY,
-			resolution.getScaledWidth(), resolution.getScaledHeight(),
+			mc.mainWindow.getScaledWidth(),
+			mc.mainWindow.getScaledHeight(),
 			-1,
 			fontRenderer
 		);
+		
+		if (!itemStack.isEmpty()) {
+			GuiUtils.postItemToolTip();
+		}
 	}
 	
 	/** calculates and sets the frame to the smallest rectangle enclosing all children's frames */

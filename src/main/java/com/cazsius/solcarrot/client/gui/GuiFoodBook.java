@@ -1,24 +1,28 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
+import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.gui.elements.*;
 import com.cazsius.solcarrot.tracking.FoodList;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
-@SideOnly(Side.CLIENT)
-public final class GuiFoodBook extends GuiScreen {
+@OnlyIn(Dist.CLIENT)
+public final class GuiFoodBook extends Screen implements PageFlipButton.Pageable {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	private static final UIImage.Image bookImage = new UIImage.Image(texture, new Rectangle(0, 0, 186, 192));
 	static final UIImage.Image carrotImage = new UIImage.Image(texture, new Rectangle(0, 240, 16, 16));
@@ -39,19 +43,24 @@ public final class GuiFoodBook extends GuiScreen {
 	private PageFlipButton nextPageButton;
 	private PageFlipButton prevPageButton;
 	
-	private EntityPlayer player;
+	private PlayerEntity player;
 	private FoodData foodData;
 	
 	private final List<Page> pages = new ArrayList<>();
 	private int currentPageNumber = 0;
 	
-	public GuiFoodBook(EntityPlayer player) {
+	public static void open(PlayerEntity player) {
+		Minecraft.getInstance().displayGuiScreen(new GuiFoodBook(player));
+	}
+	
+	public GuiFoodBook(PlayerEntity player) {
+		super(new StringTextComponent(""));
 		this.player = player;
 	}
 	
 	@Override
-	public void initGui() {
-		super.initGui();
+	public void init() {
+		super.init();
 		
 		foodData = new FoodData(FoodList.get(player));
 		
@@ -69,11 +78,19 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		initPages();
 		
-		buttonList.clear();
-		
 		int pageFlipButtonSpacing = 50;
-		prevPageButton = addButton(new PageFlipButton(1, background.getCenterX() - pageFlipButtonSpacing / 2 - PageFlipButton.width, background.getMinY() + 152, PageFlipButton.Direction.BACKWARD));
-		nextPageButton = addButton(new PageFlipButton(2, background.getCenterX() + pageFlipButtonSpacing / 2, background.getMinY() + 152, PageFlipButton.Direction.FORWARD));
+		prevPageButton = addButton(new PageFlipButton(
+			background.getCenterX() - pageFlipButtonSpacing / 2 - PageFlipButton.width,
+			background.getMinY() + 152,
+			PageFlipButton.Direction.BACKWARD,
+			this
+		));
+		nextPageButton = addButton(new PageFlipButton(
+			background.getCenterX() + pageFlipButtonSpacing / 2,
+			background.getMinY() + 152,
+			PageFlipButton.Direction.FORWARD,
+			this
+		));
 		
 		updateButtonVisibility();
 	}
@@ -87,28 +104,24 @@ public final class GuiFoodBook extends GuiScreen {
 		
 		addPages("eaten_foods", foodData.eatenFoods);
 		
-		if (foodData.progressInfo.configInfo.shouldShowUneatenFoods) {
+		if (SOLCarrotConfig.shouldShowUneatenFoods) {
 			addPages("uneaten_foods", foodData.uneatenFoods);
 		}
 	}
 	
-	private void addPages(String headerLocalizationPath, List<ItemStack> items) {
+	private void addPages(String headerLocalizationPath, List<Item> items) {
 		String header = localized("gui", "food_book." + headerLocalizationPath, items.size());
-		pages.addAll(ItemListPage.pages(background.frame, header, items));
-	}
-	
-	private void updateButtonVisibility() {
-		nextPageButton.visible = currentPageNumber < pages.size() - 1;
-		prevPageButton.visible = currentPageNumber > 0;
+		List<ItemStack> stacks = items.stream().map(ItemStack::new).collect(Collectors.toList());
+		pages.addAll(ItemListPage.pages(background.frame, header, stacks));
 	}
 	
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		drawDefaultBackground();
+	public void render(int mouseX, int mouseY, float partialTicks) {
+		renderBackground();
 		
 		UIElement.render(background, mouseX, mouseY);
 		
-		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.render(mouseX, mouseY, partialTicks);
 		
 		// current page
 		UIElement.render(elements, mouseX, mouseY);
@@ -116,17 +129,27 @@ public final class GuiFoodBook extends GuiScreen {
 	}
 	
 	@Override
-	protected void actionPerformed(GuiButton button) {
-		if (!button.enabled) return;
+	public void switchToPage(int pageNumber) {
+		if (!isWithinRange(pageNumber)) return;
 		
-		if (button == prevPageButton) {
-			currentPageNumber--;
-			updateButtonVisibility();
-		} else if (button == nextPageButton) {
-			currentPageNumber++;
-			updateButtonVisibility();
-		}
+		currentPageNumber = pageNumber;
+		updateButtonVisibility();
 		
 		pageNumberLabel.text = "" + (currentPageNumber + 1);
+	}
+	
+	@Override
+	public int getCurrentPageNumber() {
+		return currentPageNumber;
+	}
+	
+	@Override
+	public boolean isWithinRange(int pageNumber) {
+		return pageNumber > 0 && pageNumber < pages.size();
+	}
+	
+	private void updateButtonVisibility() {
+		prevPageButton.updateState();
+		nextPageButton.updateState();
 	}
 }

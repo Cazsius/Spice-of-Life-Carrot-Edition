@@ -1,10 +1,10 @@
 package com.cazsius.solcarrot.client.gui;
 
-import com.cazsius.solcarrot.client.FoodItemStacks;
+import com.cazsius.solcarrot.SOLCarrotConfig;
+import com.cazsius.solcarrot.client.FoodItems;
 import com.cazsius.solcarrot.client.gui.elements.UIElement;
 import com.cazsius.solcarrot.client.gui.elements.UIImage;
 import com.cazsius.solcarrot.tracking.FoodInstance;
-import com.cazsius.solcarrot.tracking.ProgressInfo;
 
 import java.awt.*;
 
@@ -14,20 +14,18 @@ final class ConfigInfoPage extends Page {
 	ConfigInfoPage(FoodData foodData, Rectangle frame) {
 		super(frame, localized("gui", "food_book.config"));
 		
-		ProgressInfo.ConfigInfo configInfo = foodData.progressInfo.configInfo;
-		
-		int totalFoods = FoodItemStacks.getAllFoods().size();
+		int totalFoods = FoodItems.getAllFoods().size();
 		int validFoods = foodData.validFoods.size();
 		int cheapFoods = totalFoods - validFoods;
 		int eatenCheapFoods = (int) foodData.foodList.getEatenFoods().stream()
-			.map(FoodInstance::getItemStack)
-			.filter(food -> configInfo.isAllowed(food) && !configInfo.isHearty(food))
+			.map(FoodInstance::getItem)
+			.filter(food -> SOLCarrotConfig.isAllowed(food) && !SOLCarrotConfig.isHearty(food))
 			.count();
 		
 		{
 			UIImage drumstickIcon = icon(GuiFoodBook.drumstickImage);
 			
-			int minValue = configInfo.minimumFoodValue;
+			int minValue = SOLCarrotConfig.minimumFoodValue;
 			String minValueDesc = "" + (minValue / 2);
 			if (minValue % 2 == 1) {
 				minValueDesc += ".5";
@@ -54,13 +52,13 @@ final class ConfigInfoPage extends Page {
 		mainStack.addChild(makeSeparatorLine());
 		
 		{
-			boolean hasWhitelist = configInfo.hasWhitelist();
+			boolean hasWhitelist = SOLCarrotConfig.hasWhitelist();
 			String listKey = hasWhitelist ? "whitelist" : "blacklist";
 			
 			UIImage listIcon = icon(hasWhitelist ? GuiFoodBook.whitelistImage : GuiFoodBook.blacklistImage);
 			
-			int allFoods = FoodItemStacks.getAllFoodsIgnoringBlacklist().size();
-			int allowedFoods = FoodItemStacks.getAllFoods().size();
+			int allFoods = FoodItems.getAllFoodsIgnoringBlacklist().size();
+			int allowedFoods = FoodItems.getAllFoods().size();
 			String fraction = hasWhitelist
 				? fraction(allowedFoods, allFoods)
 				: fraction(allFoods - allowedFoods, allFoods);

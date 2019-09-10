@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
@@ -28,7 +28,7 @@ public class UIImage extends UIElement {
 		int imageHeight = image.partOfTexture.height;
 		
 		GlStateManager.enableBlend();
-		GlStateManager.color(1, 1, 1, alpha);
+		GlStateManager.color4f(1, 1, 1, alpha);
 		mc.getTextureManager().bindTexture(image.textureLocation);
 		GuiUtils.drawTexturedModalRect(
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),

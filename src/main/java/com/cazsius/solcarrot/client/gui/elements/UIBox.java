@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.AbstractGui;
 
 import java.awt.*;
 
@@ -26,8 +25,6 @@ public class UIBox extends UIElement {
 	protected void render() {
 		super.render();
 		
-		GlStateManager.enableBlend();
-		GlStateManager.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
-		Gui.drawRect(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
+		AbstractGui.fill(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
 	}
 }

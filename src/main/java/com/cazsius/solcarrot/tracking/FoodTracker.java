@@ -2,15 +2,17 @@ package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.*;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import squeek.applecore.api.food.FoodEvent;
 
 import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 import static com.cazsius.solcarrot.lib.Localization.localizedQuantityComponent;
@@ -18,14 +20,19 @@ import static com.cazsius.solcarrot.lib.Localization.localizedQuantityComponent;
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class FoodTracker {
 	@SubscribeEvent
-	public static void onFoodEaten(FoodEvent.FoodEaten event) {
-		if (event.player.world.isRemote) return;
-		WorldServer world = (WorldServer) event.player.world;
+	public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
+		if (!(event.getEntity() instanceof PlayerEntity)) return;
+		PlayerEntity player = (PlayerEntity) event.getEntity();
 		
-		EntityPlayer player = event.player;
+		if (player.world.isRemote) return;
+		ServerWorld world = (ServerWorld) player.world;
+		
+		// TODO: make sure this actually works as expected
+		Item usedItem = event.getItem().getItem();
+		if (!usedItem.isFood()) return;
 		
 		FoodList foodList = FoodList.get(player);
-		boolean hasTriedNewFood = foodList.addFood(event.food);
+		boolean hasTriedNewFood = foodList.addFood(usedItem);
 		
 		// check this before syncing, because the sync entails an hp update
 		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
@@ -45,10 +52,10 @@ public final class FoodTracker {
 			}
 			
 			if (SOLCarrotConfig.shouldSpawnMilestoneParticles) {
-				spawnParticles(world, player, EnumParticleTypes.HEART, 12);
+				spawnParticles(world, player, ParticleTypes.HEART, 12);
 				
 				if (progressInfo.hasReachedMax()) {
-					spawnParticles(world, player, EnumParticleTypes.VILLAGER_HAPPY, 16);
+					spawnParticles(world, player, ParticleTypes.HAPPY_VILLAGER, 16);
 				}
 			}
 			
@@ -65,12 +72,12 @@ public final class FoodTracker {
 			}
 		} else if (hasTriedNewFood) {
 			if (SOLCarrotConfig.shouldSpawnIntermediateParticles) {
-				spawnParticles(world, player, EnumParticleTypes.END_ROD, 12);
+				spawnParticles(world, player, ParticleTypes.END_ROD, 12);
 			}
 		}
 	}
 	
-	private static void spawnParticles(WorldServer world, EntityPlayer player, EnumParticleTypes type, int count) {
+	private static void spawnParticles(ServerWorld world, PlayerEntity player, IParticleData type, int count) {
 		// this overload sends a packet to the client
 		world.spawnParticle(
 			type,
@@ -81,7 +88,7 @@ public final class FoodTracker {
 		);
 	}
 	
-	private static void showChatMessage(EntityPlayer player, TextFormatting color, ITextComponent message) {
+	private static void showChatMessage(PlayerEntity player, TextFormatting color, ITextComponent message) {
 		ITextComponent component = localizedComponent("message", "chat_wrapper", message);
 		component.setStyle(new Style().setColor(color));
 		player.sendStatusMessage(component, false);
