@@ -2,17 +2,17 @@
 modLoader = "javafml"
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
 loaderVersion = "[28,)"
-# A URL to refer people to when problems occur with this mod
+
 issueTrackerURL = "https://github.com/Cazsius/Spice-of-Life-Carrot-Edition/issues"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition"
+logoFile = "logo.png"
+credits = "Lewis_McReu for some coding assistance"
+authors = "Cazsius, Talonos, juliand665"
 
 [[mods]]
 	modId = "solcarrot"
 	version = "${file.jarVersion}"
 	displayName = "Spice of Life: Carrot Edition"
-	displayURL = "https://www.curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition"
-	logoFile = "logo.png"
-	credits = "Lewis_McReu for some coding assistance"
-	authors = "Cazsius, Talonos, juliand665"
 	description = '''
 A mod designed to encourage dietary variety!
 
