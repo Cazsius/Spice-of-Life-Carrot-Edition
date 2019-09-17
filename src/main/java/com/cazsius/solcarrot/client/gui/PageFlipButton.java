@@ -48,7 +48,6 @@ final class PageFlipButton extends Button {
 	
 	private void changePage() {
 		pageable.switchToPage(pageable.getCurrentPageNumber() + direction.distance);
-		updateState();
 	}
 	
 	enum Direction {

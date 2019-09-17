@@ -136,6 +136,9 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 		updateButtonVisibility();
 		
 		pageNumberLabel.text = "" + (currentPageNumber + 1);
+		
+		prevPageButton.updateState();
+		nextPageButton.updateState();
 	}
 	
 	@Override
