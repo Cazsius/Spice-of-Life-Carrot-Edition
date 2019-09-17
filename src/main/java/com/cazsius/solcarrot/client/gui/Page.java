@@ -40,7 +40,7 @@ abstract class Page extends UIElement {
 	}
 	
 	UIElement makeSeparatorLine() {
-		return UIBox.horizontalLine(0, getWidth() / 2, 0, GuiFoodBook.leastBlack);
+		return UIBox.horizontalLine(0, getWidth() / 2, 0, FoodBookScreen.leastBlack);
 	}
 	
 	UIImage icon(UIImage.Image image) {
@@ -64,7 +64,7 @@ abstract class Page extends UIElement {
 		
 		fullStack.addChild(valueStack);
 		UILabel nameLabel = new UILabel(name);
-		nameLabel.color = GuiFoodBook.lessBlack;
+		nameLabel.color = FoodBookScreen.lessBlack;
 		fullStack.addChild(nameLabel);
 		
 		return fullStack;

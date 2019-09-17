@@ -30,7 +30,7 @@ final class ProgressGraph extends UIElement {
 		int progress = segmentLength * (progressInfo.foodsEaten - previousMilestone) / (nextMilestone - previousMilestone);
 		int progressX = leftPoint + (hasSurpassedMax ? segmentLength : progress);
 		
-		UIImage carrotIcon = new UIImage(GuiFoodBook.carrotImage);
+		UIImage carrotIcon = new UIImage(FoodBookScreen.carrotImage);
 		carrotIcon.setCenterY(lineY);
 		if (milestonesAchieved > 0) {
 			carrotIcon.setMaxX(leftEdge - padding);
@@ -45,55 +45,55 @@ final class ProgressGraph extends UIElement {
 		}
 		children.add(carrotIcon);
 		
-		children.add(UIBox.horizontalLine(leftPoint, progressX, lineY, GuiFoodBook.fullBlack));
+		children.add(UIBox.horizontalLine(leftPoint, progressX, lineY, FoodBookScreen.fullBlack));
 		
 		UILabel previousMilestoneLabel = new UILabel("" + previousMilestone);
-		previousMilestoneLabel.color = GuiFoodBook.fullBlack;
+		previousMilestoneLabel.color = FoodBookScreen.fullBlack;
 		previousMilestoneLabel.tooltip = localized("gui", "food_book.stats.tooltip.previous_milestone", previousMilestone);
 		previousMilestoneLabel.setCenterX(leftPoint);
 		previousMilestoneLabel.setMaxY(lineY - 3);
 		children.add(previousMilestoneLabel);
-		children.add(UIBox.verticalLine(leftPoint, lineY - 2, lineY - 1, GuiFoodBook.fullBlack));
+		children.add(UIBox.verticalLine(leftPoint, lineY - 2, lineY - 1, FoodBookScreen.fullBlack));
 		
 		if (milestonesAchieved > 0) {
 			addHeartsView(leftPoint, previousMilestoneLabel.getMinY() - 4, true);
 			
-			children.add(UIBox.horizontalLine(leftEdge, leftPoint, lineY, GuiFoodBook.fullBlack));
+			children.add(UIBox.horizontalLine(leftEdge, leftPoint, lineY, FoodBookScreen.fullBlack));
 		}
 		
 		UILabel foodsEatenLabel = new UILabel("" + progressInfo.foodsEaten);
-		foodsEatenLabel.color = GuiFoodBook.fullBlack;
+		foodsEatenLabel.color = FoodBookScreen.fullBlack;
 		foodsEatenLabel.tooltip = localized("gui", "food_book.stats.tooltip.foods_tasted", progressInfo.foodsEaten);
 		foodsEatenLabel.setCenterX(progressX);
 		foodsEatenLabel.setMinY(lineY + 7);
 		children.add(foodsEatenLabel);
-		children.add(UIBox.verticalLine(progressX, lineY + 1, lineY + 5, GuiFoodBook.fullBlack));
+		children.add(UIBox.verticalLine(progressX, lineY + 1, lineY + 5, FoodBookScreen.fullBlack));
 		
 		if (!hasReachedMax) {
 			UILabel nextMilestoneLabel = new UILabel("" + nextMilestone);
-			nextMilestoneLabel.color = GuiFoodBook.lessBlack;
+			nextMilestoneLabel.color = FoodBookScreen.lessBlack;
 			nextMilestoneLabel.tooltip = localized("gui", "food_book.stats.tooltip.next_milestone", nextMilestone);
 			nextMilestoneLabel.setCenterX(rightPoint);
 			nextMilestoneLabel.setMaxY(lineY - 3);
 			children.add(nextMilestoneLabel);
-			children.add(UIBox.verticalLine(rightPoint, lineY - 2, lineY - 1, GuiFoodBook.lessBlack));
+			children.add(UIBox.verticalLine(rightPoint, lineY - 2, lineY - 1, FoodBookScreen.lessBlack));
 			
 			addHeartsView(rightPoint, previousMilestoneLabel.getMinY() - 4, false);
 		}
 		
 		if (!hasSurpassedMax) {
 			// all the edge cases!
-			children.add(UIBox.horizontalLine(progressX + 1, rightPoint, lineY, hasReachedMax ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
+			children.add(UIBox.horizontalLine(progressX + 1, rightPoint, lineY, hasReachedMax ? FoodBookScreen.leastBlack : FoodBookScreen.lessBlack));
 		}
 		
 		boolean isLastMilestoneVisible = milestonesAchieved + 1 >= SOLCarrotConfig.getMilestoneCount();
 		// if the last milestone is visible, there are no more milestones beyond the right edge, so the line is fainter.
-		children.add(UIBox.horizontalLine(rightPoint + 1, rightEdge, lineY, isLastMilestoneVisible ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
+		children.add(UIBox.horizontalLine(rightPoint + 1, rightEdge, lineY, isLastMilestoneVisible ? FoodBookScreen.leastBlack : FoodBookScreen.lessBlack));
 		
 		int totalFoodCount = foodData.validFoods.size();
 		if (progressInfo.foodsEaten < totalFoodCount) {
 			UILabel totalFoodsLabel = new UILabel(formatBigNumber(totalFoodCount));
-			totalFoodsLabel.color = GuiFoodBook.leastBlack;
+			totalFoodsLabel.color = FoodBookScreen.leastBlack;
 			totalFoodsLabel.tooltip = localized("gui", "food_book.stats.tooltip.total_foods", totalFoodCount);
 			totalFoodsLabel.setMinX(rightEdge + padding);
 			totalFoodsLabel.setCenterY(lineY);
@@ -114,19 +114,19 @@ final class ProgressGraph extends UIElement {
 		if (heartCount <= 3) {
 			heartsView.spacing = -1;
 			for (int i = 0; i < heartCount; i++) {
-				UIImage heartImage = new UIImage(GuiFoodBook.heartImage);
+				UIImage heartImage = new UIImage(FoodBookScreen.heartImage);
 				heartImage.setSize(9, 9);
 				heartImage.alpha = isOpaque ? 1f : 0.5f;
 				heartsView.addChild(heartImage);
 			}
 		} else {
 			heartsView.spacing = 1;
-			UIImage heartImage = new UIImage(GuiFoodBook.heartImage);
+			UIImage heartImage = new UIImage(FoodBookScreen.heartImage);
 			heartImage.setSize(9, 9);
 			heartImage.alpha = isOpaque ? 1f : 0.5f;
 			heartsView.addChild(heartImage);
 			UILabel label = new UILabel("×" + heartCount);
-			label.color = isOpaque ? GuiFoodBook.fullBlack : GuiFoodBook.lessBlack;
+			label.color = isOpaque ? FoodBookScreen.fullBlack : FoodBookScreen.lessBlack;
 			heartsView.addChild(label);
 		}
 		

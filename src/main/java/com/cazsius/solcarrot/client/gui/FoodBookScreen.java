@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
 @OnlyIn(Dist.CLIENT)
-public final class GuiFoodBook extends Screen implements PageFlipButton.Pageable {
+public final class FoodBookScreen extends Screen implements PageFlipButton.Pageable {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	private static final UIImage.Image bookImage = new UIImage.Image(texture, new Rectangle(0, 0, 186, 192));
 	static final UIImage.Image carrotImage = new UIImage.Image(texture, new Rectangle(0, 240, 16, 16));
@@ -50,10 +50,10 @@ public final class GuiFoodBook extends Screen implements PageFlipButton.Pageable
 	private int currentPageNumber = 0;
 	
 	public static void open(PlayerEntity player) {
-		Minecraft.getInstance().displayGuiScreen(new GuiFoodBook(player));
+		Minecraft.getInstance().displayGuiScreen(new FoodBookScreen(player));
 	}
 	
-	public GuiFoodBook(PlayerEntity player) {
+	public FoodBookScreen(PlayerEntity player) {
 		super(new StringTextComponent(""));
 		this.player = player;
 	}

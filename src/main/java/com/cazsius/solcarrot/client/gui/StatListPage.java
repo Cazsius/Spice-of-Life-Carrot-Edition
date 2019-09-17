@@ -28,7 +28,7 @@ final class StatListPage extends Page {
 		}
 		
 		mainStack.addChild(statWithIcon(
-			icon(GuiFoodBook.carrotImage),
+			icon(FoodBookScreen.carrotImage),
 			foodsTasted,
 			localized("gui", "food_book.stats.foods_tasted")
 		));
@@ -42,7 +42,7 @@ final class StatListPage extends Page {
 		);
 		
 		mainStack.addChild(statWithIcon(
-			icon(GuiFoodBook.heartImage),
+			icon(FoodBookScreen.heartImage),
 			heartsGained,
 			localized("gui", "food_book.stats.hearts_gained")
 		));

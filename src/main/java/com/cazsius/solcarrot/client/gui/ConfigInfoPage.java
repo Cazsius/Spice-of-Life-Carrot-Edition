@@ -23,7 +23,7 @@ final class ConfigInfoPage extends Page {
 			.count();
 		
 		{
-			UIImage drumstickIcon = icon(GuiFoodBook.drumstickImage);
+			UIImage drumstickIcon = icon(FoodBookScreen.drumstickImage);
 			
 			int minValue = SOLCarrotConfig.getMinimumFoodValue();
 			String minValueDesc = "" + (minValue / 2);
@@ -37,7 +37,7 @@ final class ConfigInfoPage extends Page {
 		}
 		
 		{
-			UIImage cheapIcon = icon(GuiFoodBook.spiderEyeImage);
+			UIImage cheapIcon = icon(FoodBookScreen.spiderEyeImage);
 			cheapIcon.setWidth(12);
 			
 			UIElement cheapStat = statWithIcon(
@@ -55,7 +55,7 @@ final class ConfigInfoPage extends Page {
 			boolean hasWhitelist = SOLCarrotConfig.hasWhitelist();
 			String listKey = hasWhitelist ? "whitelist" : "blacklist";
 			
-			UIImage listIcon = icon(hasWhitelist ? GuiFoodBook.whitelistImage : GuiFoodBook.blacklistImage);
+			UIImage listIcon = icon(hasWhitelist ? FoodBookScreen.whitelistImage : FoodBookScreen.blacklistImage);
 			
 			int allFoods = FoodItems.getAllFoodsIgnoringBlacklist().size();
 			int allowedFoods = FoodItems.getAllFoods().size();
