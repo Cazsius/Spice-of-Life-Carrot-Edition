@@ -48,26 +48,28 @@ public final class SOLCarrotConfig {
 		CLIENT_SPEC = specPair.getRight();
 	}
 	
-	public static int baseHearts;
-	public static int heartsPerMilestone;
-	public static List<Integer> milestones;
+	public static int getBaseHearts() {
+		return SERVER.baseHearts.get();
+	}
+	public static int getHeartsPerMilestone() {
+		return SERVER.heartsPerMilestone.get();
+	}
+	public static List<Integer> getMilestones() {
+		return new ArrayList<>(SERVER.milestones.get());
+	}
 	
-	public static Set<String> blacklist;
-	public static Set<String> whitelist;
-	public static int minimumFoodValue;
+	public static List<String> getBlacklist() {
+		return new ArrayList<>(SERVER.blacklist.get());
+	}
+	public static List<String> getWhitelist() {
+		return new ArrayList<>(SERVER.whitelist.get());
+	}
+	public static int getMinimumFoodValue() {
+		return SERVER.minimumFoodValue.get();
+	}
 	
-	public static boolean shouldResetOnDeath;
-	
-	public static void refreshServer() {
-		baseHearts = SERVER.baseHearts.get();
-		heartsPerMilestone = SERVER.heartsPerMilestone.get();
-		milestones = new ArrayList<>(SERVER.milestones.get());
-		
-		blacklist = new HashSet<>(SERVER.blacklist.get());
-		whitelist = new HashSet<>(SERVER.whitelist.get());
-		minimumFoodValue = SERVER.minimumFoodValue.get();
-		
-		shouldResetOnDeath = SERVER.shouldResetOnDeath.get();
+	public static boolean shouldResetOnDeath() {
+		return SERVER.shouldResetOnDeath.get();
 	}
 	
 	public static class Server {
@@ -129,22 +131,24 @@ public final class SOLCarrotConfig {
 		}
 	}
 	
-	public static boolean shouldPlayMilestoneSounds;
-	public static boolean shouldSpawnIntermediateParticles;
-	public static boolean shouldSpawnMilestoneParticles;
+	public static boolean shouldPlayMilestoneSounds() {
+		return CLIENT.shouldPlayMilestoneSounds.get();
+	}
+	public static boolean shouldSpawnIntermediateParticles() {
+		return CLIENT.shouldSpawnIntermediateParticles.get();
+	}
+	public static boolean shouldSpawnMilestoneParticles() {
+		return CLIENT.shouldSpawnMilestoneParticles.get();
+	}
 	
-	public static boolean isFoodTooltipEnabled;
-	public static boolean shouldShowProgressAboveHotbar;
-	public static boolean shouldShowUneatenFoods;
-	
-	public static void refreshClient() {
-		shouldPlayMilestoneSounds = CLIENT.shouldPlayMilestoneSounds.get();
-		shouldSpawnIntermediateParticles = CLIENT.shouldSpawnIntermediateParticles.get();
-		shouldSpawnMilestoneParticles = CLIENT.shouldSpawnMilestoneParticles.get();
-		
-		isFoodTooltipEnabled = CLIENT.isFoodTooltipEnabled.get();
-		shouldShowProgressAboveHotbar = CLIENT.shouldShowProgressAboveHotbar.get();
-		shouldShowUneatenFoods = CLIENT.shouldShowUneatenFoods.get();
+	public static boolean isFoodTooltipEnabled() {
+		return CLIENT.isFoodTooltipEnabled.get();
+	}
+	public static boolean shouldShowProgressAboveHotbar() {
+		return CLIENT.shouldShowProgressAboveHotbar.get();
+	}
+	public static boolean shouldShowUneatenFoods() {
+		return CLIENT.shouldShowUneatenFoods.get();
 	}
 	
 	public static class Client {
@@ -196,13 +200,6 @@ public final class SOLCarrotConfig {
 		}
 	}
 	
-	@SubscribeEvent
-	public static void refresh(ModConfig.ModConfigEvent event) {
-		ForgeConfigSpec spec = event.getConfig().getSpec();
-		if (spec == CLIENT_SPEC) refreshClient();
-		if (spec == SERVER_SPEC) refreshServer();
-	}
-	
 	// TODO: make sure this is actually called
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -217,26 +214,40 @@ public final class SOLCarrotConfig {
 		}
 	}
 	
-	static void setUp() {
-		ModLoadingContext context = ModLoadingContext.get();
-		context.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
-		context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
+	@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
+	private static final class Setup {
+		@SubscribeEvent
+		public static void setUp(FMLCommonSetupEvent event) {
+			ModLoadingContext context = ModLoadingContext.get();
+			context.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
+			context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
+		}
+	}
+	
+	// TODO: investigate performance of all these get() calls
+	
+	public static int milestone(int i) {
+		return SERVER.milestones.get().get(i);
+	}
+	
+	public static int getMilestoneCount() {
+		return SERVER.milestones.get().size();
 	}
 	
 	public static int highestMilestone() {
-		return milestones.get(milestones.size() - 1);
+		return milestone(getMilestoneCount() - 1);
 	}
 	
 	public static boolean hasWhitelist() {
-		return !whitelist.isEmpty();
+		return !SERVER.whitelist.get().isEmpty();
 	}
 	
 	public static boolean isAllowed(Item food) {
 		String id = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(food)).toString();
 		if (hasWhitelist()) {
-			return matchesAnyPattern(id, whitelist);
+			return matchesAnyPattern(id, SERVER.whitelist.get());
 		} else {
-			return !matchesAnyPattern(id, blacklist);
+			return !matchesAnyPattern(id, SERVER.blacklist.get());
 		}
 	}
 	
@@ -247,10 +258,10 @@ public final class SOLCarrotConfig {
 	public static boolean isHearty(Item food) {
 		Food foodInfo = food.getFood();
 		assert foodInfo != null;
-		return foodInfo.getHealing() >= minimumFoodValue;
+		return foodInfo.getHealing() >= SERVER.minimumFoodValue.get();
 	}
 	
-	private static boolean matchesAnyPattern(String query, Collection<String> patterns) {
+	private static boolean matchesAnyPattern(String query, Collection<? extends String> patterns) {
 		for (String glob : patterns) {
 			StringBuilder pattern = new StringBuilder(glob.length());
 			for (String part : glob.split("\\*", -1)) {
@@ -270,12 +281,3 @@ public final class SOLCarrotConfig {
 		return false;
 	}
 }
-/*
-@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
-final class Setup {
-	@SubscribeEvent
-	public static void setUp(FMLCommonSetupEvent event) {
-		SOLCarrotConfig.setUp();
-	}
-}
-*/

@@ -104,7 +104,7 @@ public final class GuiFoodBook extends Screen implements PageFlipButton.Pageable
 		
 		addPages("eaten_foods", foodData.eatenFoods);
 		
-		if (SOLCarrotConfig.shouldShowUneatenFoods) {
+		if (SOLCarrotConfig.shouldShowUneatenFoods()) {
 			addPages("uneaten_foods", foodData.uneatenFoods);
 		}
 	}

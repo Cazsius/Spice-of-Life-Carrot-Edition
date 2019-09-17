@@ -33,15 +33,18 @@ public final class FoodItems {
 		return new ArrayList<>(foods);
 	}
 	
-	@SubscribeEvent
-	public static void setUp() {
-		foodsBeforeBlacklist = ForgeRegistries.ITEMS.getValues().stream()
-			.filter(Item::isFood)
-			// sort by name
-			.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
-			.collect(Collectors.toList());
-		
-		//applyBlacklist();
+	@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
+	private static final class Setup {
+		@SubscribeEvent
+		public static void setUp(FMLCommonSetupEvent event) {
+			foodsBeforeBlacklist = ForgeRegistries.ITEMS.getValues().stream()
+				.filter(Item::isFood)
+				// sort by name
+				.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
+				.collect(Collectors.toList());
+			
+			applyBlacklist();
+		}
 	}
 	
 	@SubscribeEvent
@@ -59,12 +62,3 @@ public final class FoodItems {
 	
 	private FoodItems() {}
 }
-/*
-@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
-final class Setup {
-	@SubscribeEvent
-	public static void setUp(FMLCommonSetupEvent event) {
-		FoodItems.setUp();
-	}
-}
-*/

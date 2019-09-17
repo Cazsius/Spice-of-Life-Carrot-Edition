@@ -14,11 +14,11 @@ issueTrackerURL = "https://github.com/Cazsius/Spice-of-Life-Carrot-Edition/issue
 	credits = "Lewis_McReu for some coding assistance"
 	authors = "Cazsius, Talonos, juliand665"
 	description = '''
-	A mod designed to encourage dietary variety!
-	
-	It does so by rewarding the player for eating a variety of foods instead of punishing them for failing to diversify.
-	Instead of using the stick, we use the carrot!
-	'''
+A mod designed to encourage dietary variety!
+
+It does so by rewarding the player for eating a variety of foods instead of punishing them for failing to diversify.
+Instead of using the stick, we use the carrot!
+'''
 
 # Dependencies are optional.
 [[dependencies]]

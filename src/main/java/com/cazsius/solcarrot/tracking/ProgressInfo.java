@@ -20,7 +20,7 @@ public final class ProgressInfo {
 	
 	/** the next milestone to reach, or a negative value if the maximum has been reached */
 	public int nextMilestone() {
-		return hasReachedMax() ? -1 : SOLCarrotConfig.milestones.get(milestonesAchieved());
+		return hasReachedMax() ? -1 : SOLCarrotConfig.milestone(milestonesAchieved());
 	}
 	
 	/** the number of foods remaining until the next milestone, or a negative value if the maximum has been reached */
@@ -30,7 +30,7 @@ public final class ProgressInfo {
 	
 	/** the number of milestones achieved, doubling as the index of the next milestone */
 	public int milestonesAchieved() {
-		return (int) SOLCarrotConfig.milestones.stream()
+		return (int) SOLCarrotConfig.getMilestones().stream()
 			.filter(milestone -> foodsEaten >= milestone).count();
 	}
 }

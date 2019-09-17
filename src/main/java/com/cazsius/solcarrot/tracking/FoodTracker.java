@@ -41,7 +41,7 @@ public final class FoodTracker {
 		ProgressInfo progressInfo = foodList.getProgressInfo();
 		
 		if (newMilestoneReached) {
-			if (SOLCarrotConfig.shouldPlayMilestoneSounds) {
+			if (SOLCarrotConfig.shouldPlayMilestoneSounds()) {
 				// passing the player makes it not play for some reason
 				world.playSound(
 					null,
@@ -51,7 +51,7 @@ public final class FoodTracker {
 				);
 			}
 			
-			if (SOLCarrotConfig.shouldSpawnMilestoneParticles) {
+			if (SOLCarrotConfig.shouldSpawnMilestoneParticles()) {
 				spawnParticles(world, player, ParticleTypes.HEART, 12);
 				
 				if (progressInfo.hasReachedMax()) {
@@ -59,9 +59,9 @@ public final class FoodTracker {
 				}
 			}
 			
-			ITextComponent heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.heartsPerMilestone);
+			ITextComponent heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.getHeartsPerMilestone());
 			
-			if (SOLCarrotConfig.shouldShowProgressAboveHotbar) {
+			if (SOLCarrotConfig.shouldShowProgressAboveHotbar()) {
 				String messageKey = progressInfo.hasReachedMax() ? "finished.hotbar" : "milestone_achieved";
 				player.sendStatusMessage(localizedComponent("message", messageKey, heartsDescription), true);
 			} else {
@@ -71,7 +71,7 @@ public final class FoodTracker {
 				}
 			}
 		} else if (hasTriedNewFood) {
-			if (SOLCarrotConfig.shouldSpawnIntermediateParticles) {
+			if (SOLCarrotConfig.shouldSpawnIntermediateParticles()) {
 				spawnParticles(world, player, ParticleTypes.END_ROD, 12);
 			}
 		}

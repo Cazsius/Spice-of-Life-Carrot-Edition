@@ -8,7 +8,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
+import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
+
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
 public final class SOLCarrotItems {
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {

@@ -25,7 +25,7 @@ final class ConfigInfoPage extends Page {
 		{
 			UIImage drumstickIcon = icon(GuiFoodBook.drumstickImage);
 			
-			int minValue = SOLCarrotConfig.minimumFoodValue;
+			int minValue = SOLCarrotConfig.getMinimumFoodValue();
 			String minValueDesc = "" + (minValue / 2);
 			if (minValue % 2 == 1) {
 				minValueDesc += ".5";

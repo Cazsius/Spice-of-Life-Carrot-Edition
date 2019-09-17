@@ -22,8 +22,12 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 public final class CapabilityHandler {
 	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("food");
 	
-	static void setUp() {
-		CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodList.Storage(), FoodList::new);
+	@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
+	private static final class Setup {
+		@SubscribeEvent
+		public static void setUp(FMLCommonSetupEvent event) {
+			CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodList.Storage(), FoodList::new);
+		}
 	}
 	
 	@SubscribeEvent
@@ -46,7 +50,7 @@ public final class CapabilityHandler {
 	
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {
-		if (event.isWasDeath() && SOLCarrotConfig.shouldResetOnDeath) return;
+		if (event.isWasDeath() && SOLCarrotConfig.shouldResetOnDeath()) return;
 		
 		FoodList original = FoodList.get(event.getOriginal());
 		FoodList newInstance = FoodList.get(event.getPlayer());
@@ -67,12 +71,3 @@ public final class CapabilityHandler {
 		MaxHealthHandler.updateFoodHPModifier(player);
 	}
 }
-/*
-@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
-final class Setup {
-	@SubscribeEvent
-	public static void setUp(FMLCommonSetupEvent event) {
-		CapabilityHandler.setUp();
-	}
-}
-*/

@@ -36,11 +36,11 @@ public final class MaxHealthHandler {
 		
 		AttributeModifier prevModifier = getHealthModifier(player);
 		
-		int healthPenalty = 2 * (SOLCarrotConfig.baseHearts - 10);
+		int healthPenalty = 2 * (SOLCarrotConfig.getBaseHearts() - 10);
 		
 		ProgressInfo progressInfo = FoodList.get(player).getProgressInfo();
 		int milestonesAchieved = progressInfo.milestonesAchieved();
-		int addedHealthFromFood = milestonesAchieved * 2 * SOLCarrotConfig.heartsPerMilestone;
+		int addedHealthFromFood = milestonesAchieved * 2 * SOLCarrotConfig.getHeartsPerMilestone();
 		
 		double totalHealthModifier = healthPenalty + addedHealthFromFood;
 		

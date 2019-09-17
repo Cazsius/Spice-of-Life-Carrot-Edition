@@ -23,7 +23,7 @@ final class ProgressGraph extends UIElement {
 		int padding = 4;
 		
 		int milestonesAchieved = progressInfo.milestonesAchieved();
-		int previousMilestone = milestonesAchieved > 0 ? SOLCarrotConfig.milestones.get(milestonesAchieved - 1) : 0;
+		int previousMilestone = milestonesAchieved > 0 ? SOLCarrotConfig.milestone(milestonesAchieved - 1) : 0;
 		int nextMilestone = progressInfo.nextMilestone();
 		boolean hasReachedMax = progressInfo.hasReachedMax();
 		boolean hasSurpassedMax = hasReachedMax && progressInfo.foodsEaten > previousMilestone;
@@ -86,7 +86,7 @@ final class ProgressGraph extends UIElement {
 			children.add(UIBox.horizontalLine(progressX + 1, rightPoint, lineY, hasReachedMax ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
 		}
 		
-		boolean isLastMilestoneVisible = milestonesAchieved + 1 >= SOLCarrotConfig.milestones.size();
+		boolean isLastMilestoneVisible = milestonesAchieved + 1 >= SOLCarrotConfig.getMilestoneCount();
 		// if the last milestone is visible, there are no more milestones beyond the right edge, so the line is fainter.
 		children.add(UIBox.horizontalLine(rightPoint + 1, rightEdge, lineY, isLastMilestoneVisible ? GuiFoodBook.leastBlack : GuiFoodBook.lessBlack));
 		
@@ -107,12 +107,13 @@ final class ProgressGraph extends UIElement {
 	private void addHeartsView(int centerX, int maxY, boolean isOpaque) {
 		UIStack heartsView = new UIStack();
 		
-		heartsView.tooltip = localizedQuantity("gui", "food_book.stats.tooltip.hearts_per_milestone", SOLCarrotConfig.heartsPerMilestone);
+		int heartCount = SOLCarrotConfig.getHeartsPerMilestone();
 		
-		int hearts = SOLCarrotConfig.heartsPerMilestone;
-		if (hearts <= 3) {
+		heartsView.tooltip = localizedQuantity("gui", "food_book.stats.tooltip.hearts_per_milestone", heartCount);
+		
+		if (heartCount <= 3) {
 			heartsView.spacing = -1;
-			for (int i = 0; i < hearts; i++) {
+			for (int i = 0; i < heartCount; i++) {
 				UIImage heartImage = new UIImage(GuiFoodBook.heartImage);
 				heartImage.setSize(9, 9);
 				heartImage.alpha = isOpaque ? 1f : 0.5f;
@@ -124,7 +125,7 @@ final class ProgressGraph extends UIElement {
 			heartImage.setSize(9, 9);
 			heartImage.alpha = isOpaque ? 1f : 0.5f;
 			heartsView.addChild(heartImage);
-			UILabel label = new UILabel("×" + hearts);
+			UILabel label = new UILabel("×" + heartCount);
 			label.color = isOpaque ? GuiFoodBook.fullBlack : GuiFoodBook.lessBlack;
 			heartsView.addChild(label);
 		}

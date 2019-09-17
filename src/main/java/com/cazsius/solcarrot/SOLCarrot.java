@@ -32,10 +32,6 @@ public final class SOLCarrot {
 		return new ResourceLocation(MOD_ID, path);
 	}
 	
-	public static String namespaced(String path) {
-		return MOD_ID + "." + path;
-	}
-	
 	// TODO: not sure if this is even implemented anymore
 	@SubscribeEvent
 	public static void onFingerprintViolation(FMLFingerprintViolationEvent event) {

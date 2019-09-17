@@ -21,7 +21,7 @@ final class StatListPage extends Page {
 		mainStack.addChild(makeSeparatorLine());
 		
 		String foodsTasted;
-		if (SOLCarrotConfig.shouldShowUneatenFoods) {
+		if (SOLCarrotConfig.shouldShowUneatenFoods()) {
 			foodsTasted = fraction(progressInfo.foodsEaten, foodData.validFoods.size());
 		} else {
 			foodsTasted = "" + progressInfo.foodsEaten;
@@ -35,9 +35,10 @@ final class StatListPage extends Page {
 		
 		mainStack.addChild(makeSeparatorLine());
 		
+		int heartsPerMilestone = SOLCarrotConfig.getHeartsPerMilestone();
 		String heartsGained = fraction(
-			SOLCarrotConfig.heartsPerMilestone * progressInfo.milestonesAchieved(),
-			SOLCarrotConfig.heartsPerMilestone * SOLCarrotConfig.milestones.size()
+			heartsPerMilestone * progressInfo.milestonesAchieved(),
+			heartsPerMilestone * SOLCarrotConfig.getMilestoneCount()
 		);
 		
 		mainStack.addChild(statWithIcon(

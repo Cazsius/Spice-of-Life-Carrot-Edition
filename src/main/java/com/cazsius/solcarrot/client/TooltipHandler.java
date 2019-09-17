@@ -23,7 +23,7 @@ import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 public final class TooltipHandler {
 	@SubscribeEvent
 	public static void onItemTooltip(ItemTooltipEvent event) {
-		if (!SOLCarrotConfig.isFoodTooltipEnabled) return;
+		if (!SOLCarrotConfig.isFoodTooltipEnabled()) return;
 		
 		if (event.getEntityPlayer() == null) return;
 		PlayerEntity player = event.getEntityPlayer();
