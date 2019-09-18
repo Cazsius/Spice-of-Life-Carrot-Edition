@@ -101,7 +101,6 @@ final class ProgressGraph extends UIElement {
 		}
 		
 		calculateFrameFromChildren();
-		System.out.println(frame);
 	}
 	
 	private void addHeartsView(int centerX, int maxY, boolean isOpaque) {
