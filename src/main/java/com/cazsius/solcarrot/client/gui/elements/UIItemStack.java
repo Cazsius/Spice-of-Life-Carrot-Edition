@@ -5,7 +5,6 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.awt.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static net.minecraft.client.util.ITooltipFlag.TooltipFlags.ADVANCED;
 import static net.minecraft.client.util.ITooltipFlag.TooltipFlags.NORMAL;
@@ -39,12 +38,7 @@ public class UIItemStack extends UIElement {
 	
 	@Override
 	protected void renderTooltip(int mouseX, int mouseY) {
-		List<String> tooltip = itemStack
-			.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ADVANCED : NORMAL)
-			.stream()
-			.map(ITextComponent::getString)
-			.collect(Collectors.toList());
-		
+		List<ITextComponent> tooltip = itemStack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ADVANCED : NORMAL);
 		renderTooltip(itemStack, tooltip, mouseX, mouseY);
 	}
 }

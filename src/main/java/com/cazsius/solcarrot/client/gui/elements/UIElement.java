@@ -3,6 +3,8 @@ package com.cazsius.solcarrot.client.gui.elements;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.config.GuiUtils;
@@ -11,6 +13,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Collections.singletonList;
@@ -73,7 +76,7 @@ public abstract class UIElement {
 	protected void renderTooltip(int mouseX, int mouseY) {
 		if (tooltip == null) return;
 		
-		renderTooltip(ItemStack.EMPTY, Collections.singletonList(tooltip), mouseX, mouseY);
+		renderTooltip(ItemStack.EMPTY, Collections.singletonList(new StringTextComponent(tooltip)), mouseX, mouseY);
 	}
 	
 	/**
@@ -84,14 +87,14 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected final void renderTooltip(ItemStack itemStack, List<String> tooltip, int mouseX, int mouseY) {
+	protected final void renderTooltip(ItemStack itemStack, List<ITextComponent> tooltip, int mouseX, int mouseY) {
 		if (!itemStack.isEmpty()) {
 			GuiUtils.preItemToolTip(itemStack);
 		}
 		
 		GuiUtils.drawHoveringText(
 			itemStack,
-			tooltip,
+			tooltip.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()),
 			mouseX, mouseY,
 			mc.mainWindow.getScaledWidth(),
 			mc.mainWindow.getScaledHeight(),
