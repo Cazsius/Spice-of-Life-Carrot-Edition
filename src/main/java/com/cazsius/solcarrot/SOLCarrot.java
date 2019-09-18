@@ -22,7 +22,7 @@ public final class SOLCarrot {
 	
 	private static final String PROTOCOL_VERSION = "1.0";
 	public static SimpleChannel channel = NetworkRegistry.ChannelBuilder
-		.named(resourceLocation(MOD_ID))
+		.named(resourceLocation("main"))
 		.clientAcceptedVersions(PROTOCOL_VERSION::equals)
 		.serverAcceptedVersions(PROTOCOL_VERSION::equals)
 		.networkProtocolVersion(() -> PROTOCOL_VERSION)

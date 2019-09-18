@@ -46,6 +46,8 @@ public final class FoodItems {
 	
 	@SubscribeEvent
 	public static void onConfigUpdate(ModConfig.ModConfigEvent event) {
+		if (event.getConfig().getType() == ModConfig.Type.CLIENT) return;
+		
 		applyBlacklist();
 	}
 	

@@ -29,5 +29,6 @@ public final class FoodListMessage {
 			PlayerEntity player = Minecraft.getInstance().player;
 			FoodList.get(player).deserializeNBT(capabilityNBT);
 		});
+		context.get().setPacketHandled(true);
 	}
 }
