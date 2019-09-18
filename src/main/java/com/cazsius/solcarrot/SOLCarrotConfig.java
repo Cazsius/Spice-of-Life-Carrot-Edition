@@ -11,7 +11,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -24,7 +23,7 @@ import java.util.regex.Pattern;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
-@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
 public final class SOLCarrotConfig {
 	private static String localizationPath(String path) {
 		return "config." + SOLCarrot.MOD_ID + "." + path;
@@ -48,12 +47,30 @@ public final class SOLCarrotConfig {
 		CLIENT_SPEC = specPair.getRight();
 	}
 	
+	@SubscribeEvent
+	public static void setUp(FMLCommonSetupEvent event) {
+		ModLoadingContext context = ModLoadingContext.get();
+		context.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
+		context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
+	}
+	
+	@SubscribeEvent
+	public static void onConfigReload(ModConfig.ConfigReloading event) {
+		PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
+		for (PlayerEntity player : players.getPlayers()) {
+			FoodList.get(player).invalidateProgressInfo();
+			CapabilityHandler.syncFoodList(player);
+		}
+	}
+	
 	public static int getBaseHearts() {
 		return SERVER.baseHearts.get();
 	}
+	
 	public static int getHeartsPerMilestone() {
 		return SERVER.heartsPerMilestone.get();
 	}
+	
 	public static List<Integer> getMilestones() {
 		return new ArrayList<>(SERVER.milestones.get());
 	}
@@ -61,9 +78,11 @@ public final class SOLCarrotConfig {
 	public static List<String> getBlacklist() {
 		return new ArrayList<>(SERVER.blacklist.get());
 	}
+	
 	public static List<String> getWhitelist() {
 		return new ArrayList<>(SERVER.whitelist.get());
 	}
+	
 	public static int getMinimumFoodValue() {
 		return SERVER.minimumFoodValue.get();
 	}
@@ -134,9 +153,11 @@ public final class SOLCarrotConfig {
 	public static boolean shouldPlayMilestoneSounds() {
 		return CLIENT.shouldPlayMilestoneSounds.get();
 	}
+	
 	public static boolean shouldSpawnIntermediateParticles() {
 		return CLIENT.shouldSpawnIntermediateParticles.get();
 	}
+	
 	public static boolean shouldSpawnMilestoneParticles() {
 		return CLIENT.shouldSpawnMilestoneParticles.get();
 	}
@@ -144,9 +165,11 @@ public final class SOLCarrotConfig {
 	public static boolean isFoodTooltipEnabled() {
 		return CLIENT.isFoodTooltipEnabled.get();
 	}
+	
 	public static boolean shouldShowProgressAboveHotbar() {
 		return CLIENT.shouldShowProgressAboveHotbar.get();
 	}
+	
 	public static boolean shouldShowUneatenFoods() {
 		return CLIENT.shouldShowUneatenFoods.get();
 	}
@@ -197,30 +220,6 @@ public final class SOLCarrotConfig {
 				.define("shouldShowUneatenFoods", true);
 			
 			builder.pop();
-		}
-	}
-	
-	// TODO: make sure this is actually called
-	@SubscribeEvent
-	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (!event.getModID().equals(SOLCarrot.MOD_ID)) return;
-		
-		if (event.isWorldRunning()) {
-			PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
-			for (PlayerEntity player : players.getPlayers()) {
-				FoodList.get(player).invalidateProgressInfo();
-				CapabilityHandler.syncFoodList(player);
-			}
-		}
-	}
-	
-	@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
-	private static final class Setup {
-		@SubscribeEvent
-		public static void setUp(FMLCommonSetupEvent event) {
-			ModLoadingContext context = ModLoadingContext.get();
-			context.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
-			context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 		}
 	}
 	
