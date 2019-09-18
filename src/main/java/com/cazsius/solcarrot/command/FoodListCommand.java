@@ -1,9 +1,9 @@
 package com.cazsius.solcarrot.command;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.lib.Localization;
 import com.cazsius.solcarrot.tracking.*;
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -12,19 +12,25 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.*;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 import static net.minecraft.command.Commands.argument;
 import static net.minecraft.command.Commands.literal;
 
+@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class FoodListCommand {
 	private static final String name = "foodlist";
 	private static final Style feedbackStyle = new Style().setColor(TextFormatting.DARK_AQUA);
 	
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
-		dispatcher.register(literal(name)
-			.then(withPlayerArgumentOrSender(literal("size"), FoodListCommand::showFoodListSize))
-			.then(withPlayerArgumentOrSender(literal("sync"), FoodListCommand::syncFoodList))
-			.then(withPlayerArgumentOrSender(literal("clear"), FoodListCommand::clearFoodList))
+	@SubscribeEvent
+	public static void register(FMLServerStartingEvent event) {
+		event.getCommandDispatcher().register(
+			literal(name)
+				.then(withPlayerArgumentOrSender(literal("size"), FoodListCommand::showFoodListSize))
+				.then(withPlayerArgumentOrSender(literal("sync"), FoodListCommand::syncFoodList))
+				.then(withPlayerArgumentOrSender(literal("clear"), FoodListCommand::clearFoodList))
 		);
 	}
 	
