@@ -43,25 +43,18 @@ public final class MaxHealthHandler {
 		int addedHealthFromFood = milestonesAchieved * 2 * SOLCarrotConfig.getHeartsPerMilestone();
 		
 		double totalHealthModifier = healthPenalty + addedHealthFromFood;
+		boolean hasChanged = prevModifier == null || prevModifier.getAmount() != totalHealthModifier;
 		
-		if (prevModifier == null || prevModifier.getAmount() != totalHealthModifier) {
-			AttributeModifier modifier = new AttributeModifier(
-				MILESTONE_HEALTH_MODIFIER_ID,
-				"Health Gained from Trying New Foods",
-				totalHealthModifier,
-				AttributeModifier.Operation.ADDITION
-			);
-			
-			float oldMax = player.getMaxHealth();
-			updateHealthModifier(player, modifier);
-			
-			// adjust current health proportionally to increase in max health
-			player.setHealth(player.getHealth() * player.getMaxHealth() / oldMax);
-			
-			return true;
-		} else {
-			return false;
-		}
+		AttributeModifier modifier = new AttributeModifier(
+			MILESTONE_HEALTH_MODIFIER_ID,
+			"Health Gained from Trying New Foods",
+			totalHealthModifier,
+			AttributeModifier.Operation.ADDITION
+		);
+		
+		updateHealthModifier(player, modifier);
+		
+		return hasChanged;
 	}
 	
 	@Nullable
@@ -70,9 +63,17 @@ public final class MaxHealthHandler {
 	}
 	
 	private static void updateHealthModifier(PlayerEntity player, AttributeModifier modifier) {
+		float oldMax = player.getMaxHealth();
+		
 		IAttributeInstance attribute = maxHealthAttribute(player);
 		attribute.removeModifier(modifier);
 		attribute.applyModifier(modifier);
+		
+		float newHealth = player.getHealth() * player.getMaxHealth() / oldMax;
+		// because apparently it doesn't update unless changed
+		player.setHealth(0.1f);
+		// adjust current health proportionally to increase in max health
+		player.setHealth(newHealth);
 	}
 	
 	private static IAttributeInstance maxHealthAttribute(PlayerEntity player) {
