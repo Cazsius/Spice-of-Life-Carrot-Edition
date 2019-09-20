@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
@@ -56,7 +57,10 @@ public final class SOLCarrotConfig {
 	
 	@SubscribeEvent
 	public static void onConfigReload(ModConfig.ConfigReloading event) {
-		PlayerList players = ServerLifecycleHooks.getCurrentServer().getPlayerList();
+		MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
+		if (currentServer == null) return;
+		
+		PlayerList players = currentServer.getPlayerList();
 		for (PlayerEntity player : players.getPlayers()) {
 			FoodList.get(player).invalidateProgressInfo();
 			CapabilityHandler.syncFoodList(player);

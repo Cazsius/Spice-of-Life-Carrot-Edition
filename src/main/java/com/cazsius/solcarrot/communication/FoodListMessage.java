@@ -27,12 +27,16 @@ public final class FoodListMessage {
 	}
 	
 	public void handle(Supplier<NetworkEvent.Context> context) {
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> Handler.handle(this, context));
+	}
+	
+	private static class Handler {
+		static void handle(FoodListMessage message, Supplier<NetworkEvent.Context> context) {
 			context.get().enqueueWork(() -> {
 				PlayerEntity player = Minecraft.getInstance().player;
-				FoodList.get(player).deserializeNBT(capabilityNBT);
+				FoodList.get(player).deserializeNBT(message.capabilityNBT);
 			});
 			context.get().setPacketHandled(true);
-		});
+		}
 	}
 }
