@@ -5,6 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -25,10 +27,12 @@ public final class FoodListMessage {
 	}
 	
 	public void handle(Supplier<NetworkEvent.Context> context) {
-		context.get().enqueueWork(() -> {
-			PlayerEntity player = Minecraft.getInstance().player;
-			FoodList.get(player).deserializeNBT(capabilityNBT);
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+			context.get().enqueueWork(() -> {
+				PlayerEntity player = Minecraft.getInstance().player;
+				FoodList.get(player).deserializeNBT(capabilityNBT);
+			});
+			context.get().setPacketHandled(true);
 		});
-		context.get().setPacketHandled(true);
 	}
 }
