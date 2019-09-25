@@ -55,6 +55,11 @@ public final class CapabilityHandler {
 		FoodList original = FoodList.get(event.getOriginal());
 		FoodList newInstance = FoodList.get(event.getPlayer());
 		newInstance.deserializeNBT(original.serializeNBT());
+		// can't sync yet; client hasn't attached capabilities yet
+	}
+	
+	@SubscribeEvent
+	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
 		syncFoodList(event.getPlayer());
 	}
 	
