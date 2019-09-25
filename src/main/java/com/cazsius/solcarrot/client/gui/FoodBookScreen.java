@@ -123,9 +123,11 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 		
 		super.render(mouseX, mouseY, partialTicks);
 		
-		// current page
-		UIElement.render(elements, mouseX, mouseY);
-		UIElement.render(pages.get(currentPageNumber), mouseX, mouseY);
+		if (!pages.isEmpty()) { // might not be loaded yet; race condition
+			// current page
+			UIElement.render(elements, mouseX, mouseY);
+			UIElement.render(pages.get(currentPageNumber), mouseX, mouseY);
+		}
 	}
 	
 	@Override
