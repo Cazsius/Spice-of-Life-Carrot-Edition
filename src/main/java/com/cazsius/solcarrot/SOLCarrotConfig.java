@@ -260,7 +260,7 @@ public final class SOLCarrotConfig {
 	
 	public static boolean isHearty(Item food) {
 		Food foodInfo = food.getFood();
-		assert foodInfo != null;
+		if (foodInfo == null) return false;
 		return foodInfo.getHealing() >= SERVER.minimumFoodValue.get();
 	}
 	

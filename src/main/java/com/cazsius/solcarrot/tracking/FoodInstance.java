@@ -13,7 +13,7 @@ public final class FoodInstance {
 	
 	public FoodInstance(Item item) {
 		this.item = item;
-		assert item.isFood();
+		if (!item.isFood()) throw new RuntimeException("Attempting to construct FoodInstance from non-food item.");
 	}
 	
 	@Nullable
@@ -22,6 +22,7 @@ public final class FoodInstance {
 		
 		// TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
 		return Optional.ofNullable(ForgeRegistries.ITEMS.getValue(name))
+			.filter(Item::isFood) // may have changed since initial storage
 			.map(FoodInstance::new)
 			.orElse(null);
 	}
