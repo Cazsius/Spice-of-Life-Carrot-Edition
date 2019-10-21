@@ -20,7 +20,7 @@ public final class FoodList implements FoodCapability {
 	
 	public static FoodList get(PlayerEntity player) {
 		return (FoodList) player.getCapability(SOLCarrotAPI.foodCapability)
-			.orElseThrow(() -> new RuntimeException("Player must have food capability attached, but none was found."));
+			.orElseThrow(FoodListNotFoundException::new);
 	}
 	
 	private final Set<FoodInstance> foods = new HashSet<>();
@@ -117,6 +117,12 @@ public final class FoodList implements FoodCapability {
 		@Override
 		public void readNBT(Capability<FoodCapability> capability, FoodCapability instance, Direction side, INBT tag) {
 			instance.deserializeNBT((CompoundNBT) tag);
+		}
+	}
+	
+	public static class FoodListNotFoundException extends RuntimeException {
+		public FoodListNotFoundException() {
+			super("Player must have food capability attached, but none was found.");
 		}
 	}
 }
