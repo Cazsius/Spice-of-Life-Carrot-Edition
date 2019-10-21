@@ -52,7 +52,9 @@ public final class CapabilityHandler {
 	public static void onClone(PlayerEvent.Clone event) {
 		if (event.isWasDeath() && SOLCarrotConfig.shouldResetOnDeath()) return;
 		
-		FoodList original = FoodList.get(event.getOriginal());
+		PlayerEntity originalPlayer = event.getOriginal();
+		originalPlayer.revive(); // so we can access the capabilities; entity will get removed either way
+		FoodList original = FoodList.get(originalPlayer);
 		FoodList newInstance = FoodList.get(event.getPlayer());
 		newInstance.deserializeNBT(original.serializeNBT());
 		// can't sync yet; client hasn't attached capabilities yet
