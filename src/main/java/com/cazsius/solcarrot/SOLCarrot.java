@@ -47,4 +47,8 @@ public final class SOLCarrot {
 			.consumer(FoodListMessage::handle)
 			.add();
 	}
+	
+	public SOLCarrot() {
+		SOLCarrotConfig.setUp();
+	}
 }

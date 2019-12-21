@@ -48,8 +48,7 @@ public final class SOLCarrotConfig {
 		CLIENT_SPEC = specPair.getRight();
 	}
 	
-	@SubscribeEvent
-	public static void setUp(FMLCommonSetupEvent event) {
+	public static void setUp() {
 		ModLoadingContext context = ModLoadingContext.get();
 		context.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
 		context.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
