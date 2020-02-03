@@ -55,7 +55,7 @@ public final class SOLCarrotConfig {
 	}
 	
 	@SubscribeEvent
-	public static void onConfigReload(ModConfig.ConfigReloading event) {
+	public static void onConfigReload(ModConfig.Reloading event) {
 		MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
 		if (currentServer == null) return;
 		

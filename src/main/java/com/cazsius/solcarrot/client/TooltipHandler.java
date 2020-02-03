@@ -25,8 +25,8 @@ public final class TooltipHandler {
 	public static void onItemTooltip(ItemTooltipEvent event) {
 		if (!SOLCarrotConfig.isFoodTooltipEnabled()) return;
 		
-		if (event.getEntityPlayer() == null) return;
-		PlayerEntity player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
+		if (player == null) return;
 		
 		Item food = event.getItemStack().getItem();
 		if (!food.isFood()) return;

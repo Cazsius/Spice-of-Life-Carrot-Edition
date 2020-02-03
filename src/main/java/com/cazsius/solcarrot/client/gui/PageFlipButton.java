@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
@@ -37,7 +38,6 @@ final class PageFlipButton extends Button {
 		
 		int textureY = direction == Direction.FORWARD ? 192 : 205;
 		
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		blit(x, y, textureX, textureY, 23, 13);
 	}

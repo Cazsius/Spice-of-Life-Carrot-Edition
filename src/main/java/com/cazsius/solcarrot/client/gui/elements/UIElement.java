@@ -7,7 +7,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -96,8 +96,8 @@ public abstract class UIElement {
 			itemStack,
 			tooltip.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()),
 			mouseX, mouseY,
-			mc.mainWindow.getScaledWidth(),
-			mc.mainWindow.getScaledHeight(),
+			mc.getMainWindow().getScaledWidth(),
+			mc.getMainWindow().getScaledHeight(),
 			-1,
 			fontRenderer
 		);

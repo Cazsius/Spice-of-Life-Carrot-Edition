@@ -1,8 +1,9 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 import java.awt.*;
 
@@ -27,8 +28,8 @@ public class UIImage extends UIElement {
 		int imageWidth = image.partOfTexture.width;
 		int imageHeight = image.partOfTexture.height;
 		
-		GlStateManager.enableBlend();
-		GlStateManager.color4f(1, 1, 1, alpha);
+		RenderSystem.enableBlend();
+		RenderSystem.color4f(1, 1, 1, alpha);
 		mc.getTextureManager().bindTexture(image.textureLocation);
 		GuiUtils.drawTexturedModalRect(
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),

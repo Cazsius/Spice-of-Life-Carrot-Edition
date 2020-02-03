@@ -45,7 +45,7 @@ public final class FoodTracker {
 				// passing the player makes it not play for some reason
 				world.playSound(
 					null,
-					player.posX, player.posY, player.posZ,
+					player.getPosX(), player.getPosY(), player.getPosZ(),
 					SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
 					1.0F, 1.0F
 				);
@@ -81,7 +81,7 @@ public final class FoodTracker {
 		// this overload sends a packet to the client
 		world.spawnParticle(
 			type,
-			player.posX, player.posY + player.getEyeHeight(), player.posZ,
+			player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ(),
 			count,
 			0.5F, 0.5F, 0.5F,
 			0.0F

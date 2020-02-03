@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.*;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nullable;
@@ -46,7 +47,7 @@ public final class FoodList implements FoodCapability {
 		foods.stream()
 			.map(FoodInstance::encode)
 			.filter(Objects::nonNull)
-			.map(StringNBT::new)
+			.map(StringNBT::valueOf)
 			.forEach(list::add);
 		tag.put(NBT_KEY_FOOD_LIST, list);
 		
@@ -56,7 +57,7 @@ public final class FoodList implements FoodCapability {
 	/** used for persistent storage */
 	@Override
 	public void deserializeNBT(CompoundNBT tag) {
-		ListNBT list = tag.getList(NBT_KEY_FOOD_LIST, new StringNBT().getId());
+		ListNBT list = tag.getList(NBT_KEY_FOOD_LIST, Constants.NBT.TAG_STRING);
 		
 		foods.clear();
 		list.stream()
