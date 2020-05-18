@@ -71,7 +71,7 @@ public final class MaxHealthHandler {
 		
 		float newHealth = player.getHealth() * player.getMaxHealth() / oldMax;
 		// because apparently it doesn't update unless changed
-		player.setHealth(0.1f);
+		player.setHealth(1f);
 		// adjust current health proportionally to increase in max health
 		player.setHealth(newHealth);
 	}
