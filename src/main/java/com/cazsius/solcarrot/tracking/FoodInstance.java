@@ -1,9 +1,11 @@
 package com.cazsius.solcarrot.tracking;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import squeek.applecore.api.AppleCoreAPI;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -34,9 +36,18 @@ public final class FoodInstance {
 		}
 		
 		// TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
-		return Optional.ofNullable(ForgeRegistries.ITEMS.getValue(name))
-			.map(item -> new FoodInstance(item, meta))
-			.orElse(null);
+		Item item = ForgeRegistries.ITEMS.getValue(name);
+		if (item == null) {
+			SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer registered: " + encoded + " (ignoring)");
+			return null;
+		}
+		
+		ItemStack stack = new ItemStack(item, 1, meta);
+		if (!AppleCoreAPI.accessor.isFood(stack)) {
+			SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer edible: " + encoded + " (ignoring in case it becomes edible again later)");
+		}
+		
+		return new FoodInstance(stack);
 	}
 	
 	@Nullable

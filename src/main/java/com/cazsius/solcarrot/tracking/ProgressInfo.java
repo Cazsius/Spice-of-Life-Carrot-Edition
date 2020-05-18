@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import squeek.applecore.api.AppleCoreAPI;
+import squeek.applecore.api.food.FoodValues;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -151,7 +152,9 @@ public final class ProgressInfo {
 		}
 		
 		public boolean isHearty(ItemStack food) {
-			return AppleCoreAPI.accessor.getFoodValues(food).hunger >= minimumFoodValue;
+			FoodValues foodValues = AppleCoreAPI.accessor.getFoodValues(food);
+			if (foodValues == null) return false;
+			return foodValues.hunger >= minimumFoodValue;
 		}
 		
 		private static boolean matchesAnyPattern(String query, String[] patterns) {
