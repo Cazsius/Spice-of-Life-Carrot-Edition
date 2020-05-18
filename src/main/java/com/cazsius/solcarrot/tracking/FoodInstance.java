@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.tracking;
 
+import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -21,10 +22,17 @@ public final class FoodInstance {
 		ResourceLocation name = new ResourceLocation(encoded);
 		
 		// TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
-		return Optional.ofNullable(ForgeRegistries.ITEMS.getValue(name))
-			.filter(Item::isFood) // may have changed since initial storage
-			.map(FoodInstance::new)
-			.orElse(null);
+		Item item = ForgeRegistries.ITEMS.getValue(name);
+		if (item == null) {
+			SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer registered: " + encoded + " (removing from list)");
+			return null;
+		}
+		
+		if (!item.isFood()) {
+			SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer edible: " + encoded + " (ignoring in case it becomes edible again later)");
+		}
+		
+		return new FoodInstance(item);
 	}
 	
 	@Nullable
@@ -45,10 +53,6 @@ public final class FoodInstance {
 		FoodInstance other = (FoodInstance) obj;
 		
 		return item.equals(other.item);
-	}
-	
-	public Food getFood() {
-		return Objects.requireNonNull(item.getFood());
 	}
 	
 	public Item getItem() {
