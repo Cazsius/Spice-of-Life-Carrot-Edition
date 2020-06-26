@@ -3,12 +3,14 @@ package com.cazsius.solcarrot.tracking;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.*;
+import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,7 +29,10 @@ public final class FoodTracker {
 		if (player.world.isRemote) return;
 		ServerWorld world = (ServerWorld) player.world;
 		
-		// TODO: make sure this actually works as expected
+		ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+		boolean isInSurvival = serverPlayer.interactionManager.getGameType() == GameType.SURVIVAL;
+		if (SOLCarrotConfig.limitProgressionToSurvival() && !isInSurvival) return;
+		
 		Item usedItem = event.getItem().getItem();
 		if (!usedItem.isFood()) return;
 		

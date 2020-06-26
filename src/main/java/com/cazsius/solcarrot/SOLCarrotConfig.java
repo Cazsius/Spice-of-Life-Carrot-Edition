@@ -14,7 +14,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
@@ -94,6 +93,10 @@ public final class SOLCarrotConfig {
 		return SERVER.shouldResetOnDeath.get();
 	}
 	
+	public static boolean limitProgressionToSurvival() {
+		return SERVER.limitProgressionToSurvival.get();
+	}
+	
 	public static class Server {
 		public final IntValue baseHearts;
 		public final IntValue heartsPerMilestone;
@@ -104,6 +107,7 @@ public final class SOLCarrotConfig {
 		public final IntValue minimumFoodValue;
 		
 		public final BooleanValue shouldResetOnDeath;
+		public final BooleanValue limitProgressionToSurvival;
 		
 		Server(Builder builder) {
 			builder.push("milestones");
@@ -148,6 +152,11 @@ public final class SOLCarrotConfig {
 				.translation(localizationPath("reset_on_death"))
 				.comment("Whether or not to reset the food list on death, effectively losing all bonus hearts.")
 				.define("resetOnDeath", false);
+			
+			limitProgressionToSurvival = builder
+				.translation(localizationPath("limit_progression_to_survival"))
+				.comment("If true, eating foods outside of survival mode (e.g. creative/adventure) is not tracked and thus does not contribute towards progression.")
+				.define("limitProgressionToSurvival", false);
 			
 			builder.pop();
 		}
