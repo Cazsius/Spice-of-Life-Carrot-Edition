@@ -14,7 +14,6 @@ public final class FoodInstance {
 	
 	public FoodInstance(Item item) {
 		this.item = item;
-		if (!item.isFood()) throw new RuntimeException("Attempting to construct FoodInstance from non-food item.");
 	}
 	
 	@Nullable
