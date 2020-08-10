@@ -58,8 +58,7 @@ public final class TooltipHandler {
 	}
 	
 	private static ITextComponent localizedTooltip(String path, TextFormatting color) {
-		Style style = new Style().setColor(color);
-		return localizedComponent("tooltip", path).setStyle(style);
+		return localizedComponent("tooltip", path).modifyStyle(style -> style.applyFormatting(color));
 	}
 	
 	private TooltipHandler() {}

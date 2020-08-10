@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -20,18 +21,18 @@ import static java.util.Collections.singletonList;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class UIElement {
-	public static void render(UIElement element, int mouseX, int mouseY) {
-		render(singletonList(element), mouseX, mouseY);
+	public static void render(MatrixStack matrices, UIElement element, int mouseX, int mouseY) {
+		render(matrices, singletonList(element), mouseX, mouseY);
 	}
 	
-	public static void render(List<UIElement> elements, int mouseX, int mouseY) {
-		elements.forEach(UIElement::render);
+	public static void render(MatrixStack matrices, List<UIElement> elements, int mouseX, int mouseY) {
+		elements.forEach(element -> element.render(matrices));
 		
 		elements.stream()
 			.flatMap(UIElement::getRecursiveChildren)
 			.filter(element -> element.hasTooltip() && element.frame.contains(mouseX, mouseY))
 			.reduce((one, two) -> two) // last element was rendered last and is thus visually on top
-			.ifPresent(element -> element.renderTooltip(mouseX, mouseY));
+			.ifPresent(element -> element.renderTooltip(matrices, mouseX, mouseY));
 	}
 	
 	protected static final Minecraft mc = Minecraft.getInstance();
@@ -49,8 +50,8 @@ public abstract class UIElement {
 	/**
 	 Renders the element to the screen. Note that no transforms have been applied, so you should take your position into account!
 	 */
-	protected void render() {
-		children.forEach(UIElement::render);
+	protected void render(MatrixStack matrices) {
+		children.forEach(child -> child.render(matrices));
 	}
 	
 	private Stream<UIElement> getRecursiveChildren() {
@@ -73,10 +74,10 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected void renderTooltip(int mouseX, int mouseY) {
+	protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
 		if (tooltip == null) return;
 		
-		renderTooltip(ItemStack.EMPTY, Collections.singletonList(new StringTextComponent(tooltip)), mouseX, mouseY);
+		renderTooltip(matrices, ItemStack.EMPTY, Collections.singletonList(new StringTextComponent(tooltip)), mouseX, mouseY);
 	}
 	
 	/**
@@ -87,14 +88,15 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected final void renderTooltip(ItemStack itemStack, List<ITextComponent> tooltip, int mouseX, int mouseY) {
+	protected final void renderTooltip(MatrixStack matrices, ItemStack itemStack, List<ITextComponent> tooltip, int mouseX, int mouseY) {
 		if (!itemStack.isEmpty()) {
 			GuiUtils.preItemToolTip(itemStack);
 		}
 		
 		GuiUtils.drawHoveringText(
 			itemStack,
-			tooltip.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList()),
+			matrices,
+			tooltip,
 			mouseX, mouseY,
 			mc.getMainWindow().getScaledWidth(),
 			mc.getMainWindow().getScaledHeight(),

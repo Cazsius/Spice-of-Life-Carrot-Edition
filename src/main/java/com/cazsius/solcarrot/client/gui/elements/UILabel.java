@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import java.awt.*;
@@ -24,8 +25,8 @@ public class UILabel extends UIElement {
 	}
 	
 	@Override
-	protected void render() {
-		super.render();
+	protected void render(MatrixStack matrices) {
+		super.render(matrices);
 		
 		int textWidth = fontRenderer.getStringWidth(text) - 1;
 		int x = frame.x + (frame.width - textWidth) * alignment.ordinal / 2;
@@ -33,7 +34,7 @@ public class UILabel extends UIElement {
 		if (color.getTransparency() == Color.TRANSLUCENT) {
 			GlStateManager.enableBlend();
 		}
-		fontRenderer.drawString(text, x, y, color.getRGB());
+		fontRenderer.drawString(matrices, text, x, y, color.getRGB());
 	}
 	
 	enum TextAlignment {

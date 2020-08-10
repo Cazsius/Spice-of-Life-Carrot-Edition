@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 
@@ -21,10 +22,11 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void render() {
-		super.render();
+	protected void render(MatrixStack matrices) {
+		super.render(matrices);
 		
 		mc.getItemRenderer().renderItemIntoGUI(
+			// no MatrixStack? oof
 			itemStack,
 			frame.x + (frame.width - size) / 2,
 			frame.y + (frame.height - size) / 2
@@ -37,8 +39,8 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void renderTooltip(int mouseX, int mouseY) {
+	protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
 		List<ITextComponent> tooltip = itemStack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ADVANCED : NORMAL);
-		renderTooltip(itemStack, tooltip, mouseX, mouseY);
+		renderTooltip(matrices, itemStack, tooltip, mouseX, mouseY);
 	}
 }

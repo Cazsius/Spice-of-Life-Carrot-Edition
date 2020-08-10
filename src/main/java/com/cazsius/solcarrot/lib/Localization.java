@@ -3,14 +3,14 @@ package com.cazsius.solcarrot.lib;
 import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public final class Localization {
-	public static String keyString(String domain, IForgeRegistryEntry entry, String path) {
+	public static String keyString(String domain, IForgeRegistryEntry<?> entry, String path) {
 		final ResourceLocation location = entry.getRegistryName();
 		assert location != null;
 		return keyString(domain, location.getPath() + "." + path);
@@ -22,11 +22,11 @@ public final class Localization {
 	}
 	
 	@OnlyIn(Dist.CLIENT)
-	public static String localized(String domain, IForgeRegistryEntry entry, String path, Object... args) {
+	public static String localized(String domain, IForgeRegistryEntry<?> entry, String path, Object... args) {
 		return I18n.format(keyString(domain, entry, path), args);
 	}
 	
-	public static ITextComponent localizedComponent(String domain, IForgeRegistryEntry entry, String path, Object... args) {
+	public static IFormattableTextComponent localizedComponent(String domain, IForgeRegistryEntry<?> entry, String path, Object... args) {
 		return new TranslationTextComponent(keyString(domain, entry, path), args);
 	}
 	
@@ -35,7 +35,7 @@ public final class Localization {
 		return I18n.format(keyString(domain, path), args);
 	}
 	
-	public static ITextComponent localizedComponent(String domain, String path, Object... args) {
+	public static IFormattableTextComponent localizedComponent(String domain, String path, Object... args) {
 		return new TranslationTextComponent(keyString(domain, path), args);
 	}
 	
@@ -46,7 +46,7 @@ public final class Localization {
 			: I18n.format(keyString(domain, path + ".plural"), number);
 	}
 	
-	public static ITextComponent localizedQuantityComponent(String domain, String path, int number) {
+	public static IFormattableTextComponent localizedQuantityComponent(String domain, String path, int number) {
 		return number == 1
 			? new TranslationTextComponent(keyString(domain, path + ".singular"))
 			: new TranslationTextComponent(keyString(domain, path + ".plural"), number);

@@ -1,11 +1,13 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -19,14 +21,14 @@ final class PageFlipButton extends Button {
 	private final Pageable pageable;
 	
 	PageFlipButton(int x, int y, Direction direction, Pageable pageable) {
-		super(x, y, 23, 13, "", (button) -> ((PageFlipButton) button).changePage());
+		super(x, y, 23, 13, new StringTextComponent(""), (button) -> ((PageFlipButton) button).changePage());
 		
 		this.direction = direction;
 		this.pageable = pageable;
 	}
 	
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
 		if (!visible) return;
 		
 		int textureX = 0;
@@ -39,7 +41,7 @@ final class PageFlipButton extends Button {
 		int textureY = direction == Direction.FORWARD ? 192 : 205;
 		
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
-		blit(x, y, textureX, textureY, 23, 13);
+		blit(matrices, x, y, textureX, textureY, 23, 13);
 	}
 	
 	public void updateState() {

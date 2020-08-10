@@ -16,7 +16,7 @@ public final class FoodBookItem extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		if (player.isUser()) {
-			DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FoodBookScreen.open(player));
+			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FoodBookScreen.open(player));
 		}
 		
 		return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));

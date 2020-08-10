@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.AbstractGui;
 
 import java.awt.*;
@@ -22,9 +23,9 @@ public class UIBox extends UIElement {
 	}
 	
 	@Override
-	protected void render() {
-		super.render();
+	protected void render(MatrixStack matrices) {
+		super.render(matrices);
 		
-		AbstractGui.fill(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
+		AbstractGui.fill(matrices, frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
 	}
 }

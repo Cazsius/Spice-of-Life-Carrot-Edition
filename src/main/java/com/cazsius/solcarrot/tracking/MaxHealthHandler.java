@@ -2,15 +2,14 @@ package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
@@ -65,9 +64,9 @@ public final class MaxHealthHandler {
 	private static void updateHealthModifier(PlayerEntity player, AttributeModifier modifier) {
 		float oldMax = player.getMaxHealth();
 		
-		IAttributeInstance attribute = maxHealthAttribute(player);
+		ModifiableAttributeInstance attribute = maxHealthAttribute(player);
 		attribute.removeModifier(modifier);
-		attribute.applyModifier(modifier);
+		attribute.applyPersistentModifier(modifier);
 		
 		float newHealth = player.getHealth() * player.getMaxHealth() / oldMax;
 		// because apparently it doesn't update unless changed
@@ -76,8 +75,8 @@ public final class MaxHealthHandler {
 		player.setHealth(newHealth);
 	}
 	
-	private static IAttributeInstance maxHealthAttribute(PlayerEntity player) {
-		return player.getAttribute(SharedMonsterAttributes.MAX_HEALTH);
+	private static ModifiableAttributeInstance maxHealthAttribute(PlayerEntity player) {
+		return Objects.requireNonNull(player.getAttribute(Attributes.MAX_HEALTH));
 	}
 	
 	private MaxHealthHandler() {}

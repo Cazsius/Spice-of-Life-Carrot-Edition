@@ -50,7 +50,7 @@ public final class FoodTracker {
 				// passing the player makes it not play for some reason
 				world.playSound(
 					null,
-					player.getPosX(), player.getPosY(), player.getPosZ(),
+					player.getPosition(),
 					SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
 					1.0F, 1.0F
 				);
@@ -94,8 +94,8 @@ public final class FoodTracker {
 	}
 	
 	private static void showChatMessage(PlayerEntity player, TextFormatting color, ITextComponent message) {
-		ITextComponent component = localizedComponent("message", "chat_wrapper", message);
-		component.setStyle(new Style().setColor(color));
+		ITextComponent component = localizedComponent("message", "chat_wrapper", message)
+			.modifyStyle(style -> style.applyFormatting(color));
 		player.sendStatusMessage(component, false);
 	}
 	

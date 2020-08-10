@@ -1,5 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.ResourceLocation;
@@ -22,8 +23,8 @@ public class UIImage extends UIElement {
 	}
 	
 	@Override
-	protected void render() {
-		super.render();
+	protected void render(MatrixStack matrices) {
+		super.render(matrices);
 		
 		int imageWidth = image.partOfTexture.width;
 		int imageHeight = image.partOfTexture.height;

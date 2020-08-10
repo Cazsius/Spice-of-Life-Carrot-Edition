@@ -12,9 +12,11 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.*;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+
+import java.util.Objects;
 
 import static net.minecraft.command.Commands.argument;
 import static net.minecraft.command.Commands.literal;
@@ -22,11 +24,10 @@ import static net.minecraft.command.Commands.literal;
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class FoodListCommand {
 	private static final String name = "foodlist";
-	private static final Style feedbackStyle = new Style().setColor(TextFormatting.DARK_AQUA);
 	
 	@SubscribeEvent
-	public static void register(FMLServerStartingEvent event) {
-		event.getCommandDispatcher().register(
+	public static void register(RegisterCommandsEvent event) {
+		event.getDispatcher().register(
 			literal(name)
 				.then(withPlayerArgumentOrSender(literal("size"), FoodListCommand::showFoodListSize))
 				.then(withPlayerArgumentOrSender(literal("sync"), FoodListCommand::syncFoodList))
@@ -51,10 +52,10 @@ public final class FoodListCommand {
 	static int showFoodListSize(CommandContext<CommandSource> context, PlayerEntity target) {
 		ProgressInfo progressInfo = FoodList.get(target).getProgressInfo();
 		
-		ITextComponent progressDesc = localizedQuantityComponent("size.desc.foods_eaten", progressInfo.foodsEaten);
+		IFormattableTextComponent progressDesc = localizedQuantityComponent("size.desc.foods_eaten", progressInfo.foodsEaten);
 		sendFeedback(context.getSource(), progressDesc);
 		
-		ITextComponent milestoneDesc = progressInfo.hasReachedMax()
+		IFormattableTextComponent milestoneDesc = progressInfo.hasReachedMax()
 			? localizedComponent("size.desc.milestone.max")
 			: localizedComponent("size.desc.milestone.more", progressInfo.foodsUntilNextMilestone());
 		sendFeedback(context.getSource(), milestoneDesc);
@@ -78,28 +79,32 @@ public final class FoodListCommand {
 		FoodList.get(target).clearFood();
 		CapabilityHandler.syncFoodList(target);
 		
-		ITextComponent feedback = localizedComponent("clear.success");
+		IFormattableTextComponent feedback = localizedComponent("clear.success");
 		sendFeedback(context.getSource(), feedback);
 		if (!isTargetingSelf) {
-			target.sendMessage(feedback.setStyle(feedbackStyle));
+			target.sendStatusMessage(applyFeedbackStyle(feedback), true);
 		}
 		
 		return Command.SINGLE_SUCCESS;
 	}
 	
-	static void sendFeedback(CommandSource source, ITextComponent message) {
-		source.sendFeedback(message.setStyle(feedbackStyle), true);
+	static void sendFeedback(CommandSource source, IFormattableTextComponent message) {
+		source.sendFeedback(applyFeedbackStyle(message), true);
+	}
+	
+	private static IFormattableTextComponent applyFeedbackStyle(IFormattableTextComponent text) {
+		return text.modifyStyle(style -> style.applyFormatting(TextFormatting.DARK_AQUA));
 	}
 	
 	static boolean isTargetingSelf(CommandContext<CommandSource> context, PlayerEntity target) {
-		return target.isEntityEqual(context.getSource().getEntity());
+		return target.isEntityEqual(Objects.requireNonNull(context.getSource().getEntity()));
 	}
 	
-	static ITextComponent localizedComponent(String path, Object... args) {
+	static IFormattableTextComponent localizedComponent(String path, Object... args) {
 		return Localization.localizedComponent("command", localizationPath(path), args);
 	}
 	
-	static ITextComponent localizedQuantityComponent(String path, int number) {
+	static IFormattableTextComponent localizedQuantityComponent(String path, int number) {
 		return Localization.localizedQuantityComponent("command", localizationPath(path), number);
 	}
 	
