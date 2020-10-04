@@ -6,6 +6,7 @@ loaderVersion = "[28,)"
 issueTrackerURL = "https://github.com/Cazsius/Spice-of-Life-Carrot-Edition/issues"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition"
 logoFile = "logo 160.png"
+license = "GNU"
 credits = "Lewis_McReu for some coding assistance"
 authors = "Cazsius, Talonos, juliand665"
 
