@@ -1,0 +1,72 @@
+{
+	"tooltip.solcarrot.hearty.not_eaten": "Еще не пробовали! Каково это на вкус?",
+	"tooltip.solcarrot.hearty.eaten": "Съедено: помогло в добавлении сердец",
+	"tooltip.solcarrot.cheap.eaten": "Съедено: Нет заметного эффекта",
+	"tooltip.solcarrot.cheap": "Эта пища недостаточно питательна для улучшения вашего здоровья.",
+	"tooltip.solcarrot.disabled.blacklist": "Эта еда находится в чёрном списке и не может улучшить ваше здоровье.",
+	"tooltip.solcarrot.disabled.whitelist": "Этой еды нет в белом списке, поэтому она не может улучшить ваше здоровье.",
+	"tooltip.solcarrot.disabled.eaten": "Съедено: Нет заметного эффекта",
+	
+	"command.solcarrot.foodlist.no_permissions": "У вас нет прав, необходимых для применения этой команды к другим игрокам!",
+	
+	"command.solcarrot.foodlist.size.desc.foods_eaten.singular": "Вы съели одну уникальную еду!",
+	"command.solcarrot.foodlist.size.desc.foods_eaten.plural": "Вы съели %s уникальной еды!",
+	"command.solcarrot.foodlist.size.desc.milestone.max": "К сожалению, вы больше не можете увеличить здоровье, пробуя новую еду.",
+	"command.solcarrot.foodlist.size.desc.milestone.more": "Вам нужно ещё %s , чтобы увеличить максимальное колличество здоровья.",
+	
+	"command.solcarrot.foodlist.clear.success": "Список еды сброшен!",
+	
+	"command.solcarrot.foodlist.sync.success": "Список еды синхронизирован!",
+	
+	"message.solcarrot.chat_wrapper": "[SoL: Carrot] %s",
+	"message.solcarrot.hearts.singular": "сердце",
+	"message.solcarrot.hearts.plural": "%s сердец",
+	"message.solcarrot.milestone_achieved": "Какой уникальный вкус! Вы получили %s!",
+	"message.solcarrot.finished.chat": "Наконец-то ваше желание искать уникальную еду удовлетворено.",
+	"message.solcarrot.finished.hotbar": "Вы получили %s. Наконец-то ваше желание искать уникальную еду удовлетворено.",
+	
+	"item.solcarrot.food_book": "Книга Еды",
+	
+	"gui.solcarrot.food_book.stats": "Обзор",
+	"gui.solcarrot.food_book.eaten_foods": "Попробовано: %s",
+	"gui.solcarrot.food_book.uneaten_foods": "Непопробовано: %s",
+	"gui.solcarrot.food_book.config": "Настройка",
+	
+	"gui.solcarrot.food_book.fraction": "%1$s/%2$s",
+	
+	"gui.solcarrot.food_book.stats.foods_tasted": "Еды попробовано",
+	"gui.solcarrot.food_book.stats.hearts_gained": "Сердец получено",
+	"gui.solcarrot.food_book.stats.tooltip.progress": "%s до следующего веха",
+	"gui.solcarrot.food_book.stats.tooltip.progress.max": "Достигнута максимальная веха!",
+	"gui.solcarrot.food_book.stats.tooltip.previous_milestone": "Последняя веха: %s",
+	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "Следующяя веха: %s",
+	"gui.solcarrot.food_book.stats.tooltip.total_foods": "%s Всего еды",
+	"gui.solcarrot.food_book.stats.tooltip.foods_tasted": "Еды попробовано: %s",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.singular": "1 сердце за веха",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.plural": "%s сердца за веха",
+	
+	"gui.solcarrot.food_book.config.minimum_food_value": "Минимальная пищевая ценность",
+	"gui.solcarrot.food_book.config.tooltip.minimum_food_value": "Еда с минимальной пищевой ценностью, которой необходимо обеспечить, чтобы засчитывать их в достижении веха.",
+	"gui.solcarrot.food_book.config.hearty_fraction": "Питательная еда",
+	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "Из %1$s продуктов, %2$s достаточно питательны, чтобы увеличить ваш уровень здоровья.",
+	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Скучной еды попробовано",
+	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "Из %1$s продуктов, которые недостаточно питательны, чтобы увеличить ваш уровень здоровья, вы съели %2$s.",
+	"gui.solcarrot.food_book.config.blacklist": "Еда в чёрном списке",
+	"gui.solcarrot.food_book.config.whitelist": "Еда в белом списке",
+	"gui.solcarrot.food_book.config.tooltip.blacklist": "Сколько еды отключено чёрным списком.",
+	"gui.solcarrot.food_book.config.tooltip.whitelist": "Сколько еды разрешено белым списком.",
+	
+	"config.solcarrot.base_hearts": "Базовые сердца",
+	"config.solcarrot.hearts_per_milestone": "Сердец за веху",
+	"config.solcarrot.milestones": "Вехи",
+	"config.solcarrot.is_food_tooltip_enabled": "Включить подсказку о еде",
+	"config.solcarrot.should_show_progress_above_hotbar": "Показать прогресс над панелью быстрого доступа",
+	"config.solcarrot.should_show_uneaten_foods": "Показать еду, которую вы не пробовали",
+	"config.solcarrot.should_play_milestone_sounds": "Включить звуки вех",
+	"config.solcarrot.should_spawn_intermediate_particles": "Включить промежуточные частицы",
+	"config.solcarrot.should_spawn_milestone_particles": "Включить частицы вех",
+	"config.solcarrot.food_blacklist": "Чёрный список",
+	"config.solcarrot.food_whitelist": "Белый список (отключает чёрный список)",
+	"config.solcarrot.minimum_food_value": "Минимальная пищевая ценность",
+	"config.solcarrot.reset_on_death": "Сбросить при смерти"
+}
