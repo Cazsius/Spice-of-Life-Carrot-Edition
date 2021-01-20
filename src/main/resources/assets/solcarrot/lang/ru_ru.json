@@ -39,17 +39,17 @@
 	"gui.solcarrot.food_book.stats.tooltip.progress": "%s до следующего веха",
 	"gui.solcarrot.food_book.stats.tooltip.progress.max": "Достигнута максимальная веха!",
 	"gui.solcarrot.food_book.stats.tooltip.previous_milestone": "Последняя веха: %s",
-	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "Следующяя веха: %s",
+	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "Следующая веха: %s",
 	"gui.solcarrot.food_book.stats.tooltip.total_foods": "%s Всего еды",
 	"gui.solcarrot.food_book.stats.tooltip.foods_tasted": "Еды попробовано: %s",
 	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.singular": "1 сердце за веха",
 	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.plural": "%s сердца за веха",
 	
-	"gui.solcarrot.food_book.config.minimum_food_value": "Минимальная пищевая ценность",
+	"gui.solcarrot.food_book.config.minimum_food_value": "Мин. питательность",
 	"gui.solcarrot.food_book.config.tooltip.minimum_food_value": "Еда с минимальной пищевой ценностью, которой необходимо обеспечить, чтобы засчитывать их в достижении веха.",
 	"gui.solcarrot.food_book.config.hearty_fraction": "Питательная еда",
 	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "Из %1$s продуктов, %2$s достаточно питательны, чтобы увеличить ваш уровень здоровья.",
-	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Скучной еды попробовано",
+	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Съел бесполезной еды",
 	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "Из %1$s продуктов, которые недостаточно питательны, чтобы увеличить ваш уровень здоровья, вы съели %2$s.",
 	"gui.solcarrot.food_book.config.blacklist": "Еда в чёрном списке",
 	"gui.solcarrot.food_book.config.whitelist": "Еда в белом списке",
@@ -67,6 +67,6 @@
 	"config.solcarrot.should_spawn_milestone_particles": "Включить частицы вех",
 	"config.solcarrot.food_blacklist": "Чёрный список",
 	"config.solcarrot.food_whitelist": "Белый список (отключает чёрный список)",
-	"config.solcarrot.minimum_food_value": "Минимальная пищевая ценность",
+	"config.solcarrot.minimum_food_value": "Мин. питательность",
 	"config.solcarrot.reset_on_death": "Сбросить при смерти"
 }
