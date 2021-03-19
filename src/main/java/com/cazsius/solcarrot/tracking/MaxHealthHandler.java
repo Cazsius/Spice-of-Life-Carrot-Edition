@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class MaxHealthHandler {
+	private static final boolean HAS_FIRST_AID = ModList.get().isLoaded("firstaid");
 	private static final UUID MILESTONE_HEALTH_MODIFIER_ID = UUID.fromString("b20d3436-0d39-4868-96ab-d0a4856e68c6");
 	
 	@SubscribeEvent
@@ -69,8 +71,12 @@ public final class MaxHealthHandler {
 		attribute.applyPersistentModifier(modifier);
 		
 		float newHealth = player.getHealth() * player.getMaxHealth() / oldMax;
-		// because apparently it doesn't update unless changed
-		player.setHealth(1f);
+		// This workaround breaks first aid cause it tries to distribute the health change and may kill the player that way.
+		// So disable it for first aid, which has it's own way to handle max health changes
+		if (!HAS_FIRST_AID) {
+			// because apparently it doesn't update unless changed
+			player.setHealth(1f);
+		}
 		// adjust current health proportionally to increase in max health
 		player.setHealth(newHealth);
 	}
