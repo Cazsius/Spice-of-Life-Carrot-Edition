@@ -71,9 +71,7 @@ public final class MaxHealthHandler {
 		attribute.applyPersistentModifier(modifier);
 		
 		float newHealth = player.getHealth() * player.getMaxHealth() / oldMax;
-		// This workaround breaks first aid cause it tries to distribute the health change and may kill the player that way.
-		// So disable it for first aid, which has it's own way to handle max health changes
-		if (!HAS_FIRST_AID) {
+		if (!HAS_FIRST_AID) { // This workaround breaks First Aid because it tries to distribute the health change and may kill the player that way.
 			// because apparently it doesn't update unless changed
 			player.setHealth(1f);
 		}
