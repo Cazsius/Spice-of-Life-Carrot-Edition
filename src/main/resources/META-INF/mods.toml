@@ -32,6 +32,5 @@ Instead of using the stick, we use the carrot!
 [[dependencies]]
 	modId = "minecraft"
 	mandatory = true
-	versionRange = "[1.14.4]"
 	ordering = "NONE"
 	side = "BOTH"
