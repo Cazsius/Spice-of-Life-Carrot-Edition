@@ -2,8 +2,7 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.FoodItems;
-import com.cazsius.solcarrot.client.gui.elements.UIElement;
-import com.cazsius.solcarrot.client.gui.elements.UIImage;
+import com.cazsius.solcarrot.client.gui.elements.*;
 import com.cazsius.solcarrot.tracking.FoodInstance;
 
 import java.awt.*;
@@ -23,25 +22,24 @@ final class ConfigInfoPage extends Page {
 			.count();
 		
 		{
-			UIImage drumstickIcon = icon(FoodBookScreen.drumstickImage);
-			
 			int minValue = SOLCarrotConfig.getMinimumFoodValue();
 			String minValueDesc = "" + (minValue / 2);
 			if (minValue % 2 == 1) {
 				minValueDesc += ".5";
 			}
 			
-			UIElement minValueStat = statWithIcon(drumstickIcon, minValueDesc, localized("gui", "food_book.config.minimum_food_value"));
+			UIElement minValueStat = statWithIcon(
+				FoodBookScreen.drumstickImage,
+				minValueDesc,
+				localized("gui", "food_book.config.minimum_food_value")
+			);
 			minValueStat.tooltip = localized("gui", "food_book.config.tooltip.minimum_food_value");
 			mainStack.addChild(minValueStat);
 		}
 		
 		{
-			UIImage cheapIcon = icon(FoodBookScreen.spiderEyeImage);
-			cheapIcon.setWidth(12);
-			
 			UIElement cheapStat = statWithIcon(
-				cheapIcon,
+				FoodBookScreen.spiderEyeImage,
 				fraction(eatenCheapFoods, cheapFoods),
 				localized("gui", "food_book.config.eaten_cheap_foods")
 			);
@@ -55,7 +53,7 @@ final class ConfigInfoPage extends Page {
 			boolean hasWhitelist = SOLCarrotConfig.hasWhitelist();
 			String listKey = hasWhitelist ? "whitelist" : "blacklist";
 			
-			UIImage listIcon = icon(hasWhitelist ? FoodBookScreen.whitelistImage : FoodBookScreen.blacklistImage);
+			ImageData listIcon = hasWhitelist ? FoodBookScreen.whitelistImage : FoodBookScreen.blacklistImage;
 			
 			int allFoods = FoodItems.getAllFoodsIgnoringBlacklist().size();
 			int allowedFoods = FoodItems.getAllFoods().size();

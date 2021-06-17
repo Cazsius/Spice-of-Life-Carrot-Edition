@@ -1,53 +1,42 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 
 import java.awt.*;
 
 public class UIImage extends UIElement {
-	public Image image;
+	public ImageData data;
 	public float alpha = 1;
 	
-	public UIImage(Image image) {
-		this(new Rectangle(image.partOfTexture.getSize()), image);
+	public UIImage(ImageData data) {
+		this(new Rectangle(data.visualWidth, data.visualHeight), data);
 	}
 	
-	public UIImage(Rectangle frame, Image image) {
+	public UIImage(Rectangle frame, ImageData data) {
 		super(frame);
 		
-		this.image = image;
+		this.data = data;
 	}
 	
 	@Override
 	protected void render(MatrixStack matrices) {
 		super.render(matrices);
 		
-		int imageWidth = image.partOfTexture.width;
-		int imageHeight = image.partOfTexture.height;
+		int imageWidth = data.partOfTexture.width;
+		int imageHeight = data.partOfTexture.height;
 		
 		RenderSystem.enableBlend();
 		RenderSystem.color4f(1, 1, 1, alpha);
-		mc.getTextureManager().bind(image.textureLocation);
+		mc.getTextureManager().bind(data.textureLocation);
 		GuiUtils.drawTexturedModalRect(
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),
 			frame.y + (int) Math.floor((frame.height - imageHeight) / 2d),
-			image.partOfTexture.x, image.partOfTexture.y,
-			image.partOfTexture.width, image.partOfTexture.height,
+			data.partOfTexture.x, data.partOfTexture.y,
+			data.partOfTexture.width, data.partOfTexture.height,
 			0
 		);
 	}
 	
-	public static class Image {
-		public final ResourceLocation textureLocation;
-		public final Rectangle partOfTexture;
-		
-		public Image(ResourceLocation textureLocation, Rectangle partOfTexture) {
-			this.textureLocation = textureLocation;
-			this.partOfTexture = partOfTexture;
-		}
-	}
 }

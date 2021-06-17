@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.client.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import java.awt.*;
 
@@ -32,7 +33,7 @@ public class UILabel extends UIElement {
 		int x = frame.x + (frame.width - textWidth) * alignment.ordinal / 2;
 		int y = frame.y + (frame.height - 7) / 2;
 		if (color.getTransparency() == Color.TRANSLUCENT) {
-			GlStateManager._enableBlend();
+			RenderSystem.enableBlend();
 		}
 		fontRenderer.draw(matrices, text, x, y, color.getRGB());
 	}

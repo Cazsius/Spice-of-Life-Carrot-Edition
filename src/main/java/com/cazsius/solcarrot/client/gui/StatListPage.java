@@ -2,6 +2,7 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.gui.elements.UIBox;
+import com.cazsius.solcarrot.client.gui.elements.UIImage;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 
 import java.awt.*;
@@ -28,7 +29,7 @@ final class StatListPage extends Page {
 		}
 		
 		mainStack.addChild(statWithIcon(
-			icon(FoodBookScreen.carrotImage),
+			FoodBookScreen.carrotImage,
 			foodsTasted,
 			localized("gui", "food_book.stats.foods_tasted")
 		));
@@ -42,7 +43,7 @@ final class StatListPage extends Page {
 		);
 		
 		mainStack.addChild(statWithIcon(
-			icon(FoodBookScreen.heartImage),
+			FoodBookScreen.heartImage,
 			heartsGained,
 			localized("gui", "food_book.stats.hearts_gained")
 		));

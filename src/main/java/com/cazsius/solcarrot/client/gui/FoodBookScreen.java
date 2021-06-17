@@ -25,13 +25,33 @@ import static com.cazsius.solcarrot.lib.Localization.localized;
 @OnlyIn(Dist.CLIENT)
 public final class FoodBookScreen extends Screen implements PageFlipButton.Pageable {
 	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
-	private static final UIImage.Image bookImage = new UIImage.Image(texture, new Rectangle(0, 0, 186, 192));
-	static final UIImage.Image carrotImage = new UIImage.Image(texture, new Rectangle(0, 240, 16, 16));
-	static final UIImage.Image spiderEyeImage = new UIImage.Image(texture, new Rectangle(16, 240, 16, 16));
-	static final UIImage.Image heartImage = new UIImage.Image(texture, new Rectangle(0, 224, 15, 15));
-	static final UIImage.Image drumstickImage = new UIImage.Image(texture, new Rectangle(16, 224, 15, 15));
-	static final UIImage.Image blacklistImage = new UIImage.Image(texture, new Rectangle(32, 224, 15, 15));
-	static final UIImage.Image whitelistImage = new UIImage.Image(texture, new Rectangle(48, 224, 15, 15));
+	private static final ImageData bookImage = new ImageData(texture,
+		new Rectangle(0, 0, 186, 192)
+	);
+	static final ImageData carrotImage = new ImageData(texture,
+		new Rectangle(0, 240, 16, 16),
+		14, 14
+	);
+	static final ImageData spiderEyeImage = new ImageData(texture,
+		new Rectangle(16, 240, 16, 16),
+		8, 8
+	);
+	static final ImageData heartImage = new ImageData(texture,
+		new Rectangle(0, 224, 15, 15),
+		9, 9
+	);
+	static final ImageData drumstickImage = new ImageData(texture,
+		new Rectangle(16, 224, 15, 15),
+		9, 9
+	);
+	static final ImageData blacklistImage = new ImageData(texture,
+		new Rectangle(32, 224, 15, 15),
+		10, 12
+	);
+	static final ImageData whitelistImage = new ImageData(texture,
+		new Rectangle(48, 224, 15, 15),
+		10, 12
+	);
 	
 	static final Color fullBlack = Color.BLACK;
 	static final Color lessBlack = new Color(0, 0, 0, 128);
