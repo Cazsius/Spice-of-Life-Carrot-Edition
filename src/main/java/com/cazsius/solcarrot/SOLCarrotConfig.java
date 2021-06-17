@@ -267,9 +267,9 @@ public final class SOLCarrotConfig {
 	}
 	
 	public static boolean isHearty(Item food) {
-		Food foodInfo = food.getFood();
+		Food foodInfo = food.getFoodProperties();
 		if (foodInfo == null) return false;
-		return foodInfo.getHealing() >= SERVER.minimumFoodValue.get();
+		return foodInfo.getNutrition() >= SERVER.minimumFoodValue.get();
 	}
 	
 	private static boolean matchesAnyPattern(String query, Collection<? extends String> patterns) {

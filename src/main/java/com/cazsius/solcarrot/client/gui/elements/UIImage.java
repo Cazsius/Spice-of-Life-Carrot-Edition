@@ -31,7 +31,7 @@ public class UIImage extends UIElement {
 		
 		RenderSystem.enableBlend();
 		RenderSystem.color4f(1, 1, 1, alpha);
-		mc.getTextureManager().bindTexture(image.textureLocation);
+		mc.getTextureManager().bind(image.textureLocation);
 		GuiUtils.drawTexturedModalRect(
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),
 			frame.y + (int) Math.floor((frame.height - imageHeight) / 2d),

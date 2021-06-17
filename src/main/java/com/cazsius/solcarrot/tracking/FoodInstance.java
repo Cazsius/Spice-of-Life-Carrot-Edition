@@ -27,7 +27,7 @@ public final class FoodInstance {
 			return null;
 		}
 		
-		if (!item.isFood()) {
+		if (!item.isEdible()) {
 			SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer edible: " + encoded + " (ignoring in case it becomes edible again later)");
 		}
 		

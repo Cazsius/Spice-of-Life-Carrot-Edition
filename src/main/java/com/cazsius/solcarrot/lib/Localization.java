@@ -23,7 +23,7 @@ public final class Localization {
 	
 	@OnlyIn(Dist.CLIENT)
 	public static String localized(String domain, IForgeRegistryEntry<?> entry, String path, Object... args) {
-		return I18n.format(keyString(domain, entry, path), args);
+		return I18n.get(keyString(domain, entry, path), args);
 	}
 	
 	public static IFormattableTextComponent localizedComponent(String domain, IForgeRegistryEntry<?> entry, String path, Object... args) {
@@ -32,7 +32,7 @@ public final class Localization {
 	
 	@OnlyIn(Dist.CLIENT)
 	public static String localized(String domain, String path, Object... args) {
-		return I18n.format(keyString(domain, path), args);
+		return I18n.get(keyString(domain, path), args);
 	}
 	
 	public static IFormattableTextComponent localizedComponent(String domain, String path, Object... args) {
@@ -42,8 +42,8 @@ public final class Localization {
 	@OnlyIn(Dist.CLIENT)
 	public static String localizedQuantity(String domain, String path, int number) {
 		return number == 1
-			? I18n.format(keyString(domain, path + ".singular"))
-			: I18n.format(keyString(domain, path + ".plural"), number);
+			? I18n.get(keyString(domain, path + ".singular"))
+			: I18n.get(keyString(domain, path + ".plural"), number);
 	}
 	
 	public static IFormattableTextComponent localizedQuantityComponent(String domain, String path, int number) {

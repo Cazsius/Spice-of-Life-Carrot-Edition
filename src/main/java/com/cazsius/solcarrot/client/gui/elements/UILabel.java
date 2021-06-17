@@ -12,7 +12,7 @@ public class UILabel extends UIElement {
 	
 	/** sets frame to text size */
 	public UILabel(String text) {
-		this(new Rectangle(fontRenderer.getStringWidth(text) - 1, 7), text);
+		this(new Rectangle(fontRenderer.width(text) - 1, 7), text);
 	}
 	
 	public UILabel(Rectangle frame, String text) {
@@ -28,13 +28,13 @@ public class UILabel extends UIElement {
 	protected void render(MatrixStack matrices) {
 		super.render(matrices);
 		
-		int textWidth = fontRenderer.getStringWidth(text) - 1;
+		int textWidth = fontRenderer.width(text) - 1;
 		int x = frame.x + (frame.width - textWidth) * alignment.ordinal / 2;
 		int y = frame.y + (frame.height - 7) / 2;
 		if (color.getTransparency() == Color.TRANSLUCENT) {
-			GlStateManager.enableBlend();
+			GlStateManager._enableBlend();
 		}
-		fontRenderer.drawString(matrices, text, x, y, color.getRGB());
+		fontRenderer.draw(matrices, text, x, y, color.getRGB());
 	}
 	
 	enum TextAlignment {

@@ -51,7 +51,7 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	private int currentPageNumber = 0;
 	
 	public static void open(PlayerEntity player) {
-		Minecraft.getInstance().displayGuiScreen(new FoodBookScreen(player));
+		Minecraft.getInstance().setScreen(new FoodBookScreen(player));
 	}
 	
 	public FoodBookScreen(PlayerEntity player) {

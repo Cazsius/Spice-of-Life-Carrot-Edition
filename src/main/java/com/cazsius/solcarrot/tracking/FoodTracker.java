@@ -26,15 +26,15 @@ public final class FoodTracker {
 		if (!(event.getEntity() instanceof PlayerEntity)) return;
 		PlayerEntity player = (PlayerEntity) event.getEntity();
 		
-		if (player.world.isRemote) return;
-		ServerWorld world = (ServerWorld) player.world;
+		if (player.level.isClientSide) return;
+		ServerWorld world = (ServerWorld) player.level;
 		
 		ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-		boolean isInSurvival = serverPlayer.interactionManager.getGameType() == GameType.SURVIVAL;
+		boolean isInSurvival = serverPlayer.gameMode.getGameModeForPlayer() == GameType.SURVIVAL;
 		if (SOLCarrotConfig.limitProgressionToSurvival() && !isInSurvival) return;
 		
 		Item usedItem = event.getItem().getItem();
-		if (!usedItem.isFood()) return;
+		if (!usedItem.isEdible()) return;
 		
 		FoodList foodList = FoodList.get(player);
 		boolean hasTriedNewFood = foodList.addFood(usedItem);
@@ -50,8 +50,8 @@ public final class FoodTracker {
 				// passing the player makes it not play for some reason
 				world.playSound(
 					null,
-					player.getPosition(),
-					SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS,
+					player.blockPosition(),
+					SoundEvents.PLAYER_LEVELUP, SoundCategory.PLAYERS,
 					1.0F, 1.0F
 				);
 			}
@@ -68,7 +68,7 @@ public final class FoodTracker {
 			
 			if (SOLCarrotConfig.shouldShowProgressAboveHotbar()) {
 				String messageKey = progressInfo.hasReachedMax() ? "finished.hotbar" : "milestone_achieved";
-				player.sendStatusMessage(localizedComponent("message", messageKey, heartsDescription), true);
+				player.displayClientMessage(localizedComponent("message", messageKey, heartsDescription), true);
 			} else {
 				showChatMessage(player, TextFormatting.DARK_AQUA, localizedComponent("message", "milestone_achieved", heartsDescription));
 				if (progressInfo.hasReachedMax()) {
@@ -84,9 +84,9 @@ public final class FoodTracker {
 	
 	private static void spawnParticles(ServerWorld world, PlayerEntity player, IParticleData type, int count) {
 		// this overload sends a packet to the client
-		world.spawnParticle(
+		world.sendParticles(
 			type,
-			player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ(),
+			player.getX(), player.getY() + player.getEyeHeight(), player.getZ(),
 			count,
 			0.5F, 0.5F, 0.5F,
 			0.0F
@@ -95,8 +95,8 @@ public final class FoodTracker {
 	
 	private static void showChatMessage(PlayerEntity player, TextFormatting color, ITextComponent message) {
 		ITextComponent component = localizedComponent("message", "chat_wrapper", message)
-			.modifyStyle(style -> style.applyFormatting(color));
-		player.sendStatusMessage(component, false);
+			.withStyle(style -> style.applyFormat(color));
+		player.displayClientMessage(component, false);
 	}
 	
 	private FoodTracker() {}

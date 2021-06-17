@@ -19,11 +19,11 @@ public final class FoodListMessage {
 	}
 	
 	public FoodListMessage(PacketBuffer buffer) {
-		this.capabilityNBT = buffer.readCompoundTag();
+		this.capabilityNBT = buffer.readNbt();
 	}
 	
 	public void write(PacketBuffer buffer) {
-		buffer.writeCompoundTag(capabilityNBT);
+		buffer.writeNbt(capabilityNBT);
 	}
 	
 	public void handle(Supplier<NetworkEvent.Context> context) {

@@ -36,9 +36,9 @@ public final class FoodItems {
 	@SubscribeEvent
 	public static void setUp(FMLCommonSetupEvent event) {
 		foodsBeforeBlacklist = ForgeRegistries.ITEMS.getValues().stream()
-			.filter(Item::isFood)
+			.filter(Item::isEdible)
 			// sort by name
-			.sorted(Comparator.comparing(food -> I18n.format(food.getTranslationKey() + ".name")))
+			.sorted(Comparator.comparing(food -> I18n.get(food.getDescriptionId() + ".name")))
 			.collect(Collectors.toList());
 		
 		applyBlacklist();

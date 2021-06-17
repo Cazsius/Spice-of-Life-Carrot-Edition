@@ -36,7 +36,7 @@ public abstract class UIElement {
 	}
 	
 	protected static final Minecraft mc = Minecraft.getInstance();
-	protected static final FontRenderer fontRenderer = mc.fontRenderer;
+	protected static final FontRenderer fontRenderer = mc.font;
 	
 	public Rectangle frame;
 	@Nullable
@@ -98,8 +98,8 @@ public abstract class UIElement {
 			matrices,
 			tooltip,
 			mouseX, mouseY,
-			mc.getMainWindow().getScaledWidth(),
-			mc.getMainWindow().getScaledHeight(),
+			mc.getWindow().getGuiScaledWidth(),
+			mc.getWindow().getGuiScaledHeight(),
 			-1,
 			fontRenderer
 		);

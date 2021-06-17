@@ -62,7 +62,7 @@ public final class FoodList implements FoodCapability {
 		foods.clear();
 		list.stream()
 			.map(nbt -> (StringNBT) nbt)
-			.map(StringNBT::getString)
+			.map(StringNBT::getAsString)
 			.map(FoodInstance::decode)
 			.filter(Objects::nonNull)
 			.forEach(foods::add);
@@ -79,7 +79,7 @@ public final class FoodList implements FoodCapability {
 	
 	@Override
 	public boolean hasEaten(Item food) {
-		if (!food.isFood()) return false;
+		if (!food.isEdible()) return false;
 		return foods.contains(new FoodInstance(food));
 	}
 	

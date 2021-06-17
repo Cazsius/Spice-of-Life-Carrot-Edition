@@ -29,7 +29,7 @@ public final class TooltipHandler {
 		if (player == null) return;
 		
 		Item food = event.getItemStack().getItem();
-		if (!food.isFood()) return;
+		if (!food.isEdible()) return;
 		
 		FoodList foodList = FoodList.get(player);
 		boolean hasBeenEaten = foodList.hasEaten(food);
@@ -58,7 +58,7 @@ public final class TooltipHandler {
 	}
 	
 	private static ITextComponent localizedTooltip(String path, TextFormatting color) {
-		return localizedComponent("tooltip", path).modifyStyle(style -> style.applyFormatting(color));
+		return localizedComponent("tooltip", path).withStyle(style -> style.applyFormat(color));
 	}
 	
 	private TooltipHandler() {}

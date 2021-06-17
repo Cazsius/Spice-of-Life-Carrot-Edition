@@ -40,7 +40,7 @@ final class PageFlipButton extends Button {
 		
 		int textureY = direction == Direction.FORWARD ? 192 : 205;
 		
-		Minecraft.getInstance().getTextureManager().bindTexture(texture);
+		Minecraft.getInstance().getTextureManager().bind(texture);
 		blit(matrices, x, y, textureX, textureY, 23, 13);
 	}
 	

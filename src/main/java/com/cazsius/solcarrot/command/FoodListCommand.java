@@ -43,7 +43,7 @@ public final class FoodListCommand {
 	static ArgumentBuilder<CommandSource, ?> withPlayerArgumentOrSender(ArgumentBuilder<CommandSource, ?> base, CommandWithPlayer command) {
 		String target = "target";
 		return base
-			.executes((context) -> command.run(context, context.getSource().asPlayer()))
+			.executes((context) -> command.run(context, context.getSource().getPlayerOrException()))
 			.then(argument(target, EntityArgument.player())
 				.executes((context) -> command.run(context, EntityArgument.getPlayer(context, target)))
 			);
@@ -71,7 +71,7 @@ public final class FoodListCommand {
 	}
 	
 	static int clearFoodList(CommandContext<CommandSource> context, PlayerEntity target) {
-		boolean isOp = context.getSource().hasPermissionLevel(2);
+		boolean isOp = context.getSource().hasPermission(2);
 		boolean isTargetingSelf = isTargetingSelf(context, target);
 		if (!isOp && isTargetingSelf)
 			throw new CommandException(localizedComponent("no_permissions"));
@@ -82,22 +82,22 @@ public final class FoodListCommand {
 		IFormattableTextComponent feedback = localizedComponent("clear.success");
 		sendFeedback(context.getSource(), feedback);
 		if (!isTargetingSelf) {
-			target.sendStatusMessage(applyFeedbackStyle(feedback), true);
+			target.displayClientMessage(applyFeedbackStyle(feedback), true);
 		}
 		
 		return Command.SINGLE_SUCCESS;
 	}
 	
 	static void sendFeedback(CommandSource source, IFormattableTextComponent message) {
-		source.sendFeedback(applyFeedbackStyle(message), true);
+		source.sendSuccess(applyFeedbackStyle(message), true);
 	}
 	
 	private static IFormattableTextComponent applyFeedbackStyle(IFormattableTextComponent text) {
-		return text.modifyStyle(style -> style.applyFormatting(TextFormatting.DARK_AQUA));
+		return text.withStyle(style -> style.applyFormat(TextFormatting.DARK_AQUA));
 	}
 	
 	static boolean isTargetingSelf(CommandContext<CommandSource> context, PlayerEntity target) {
-		return target.isEntityEqual(Objects.requireNonNull(context.getSource().getEntity()));
+		return target.is(Objects.requireNonNull(context.getSource().getEntity()));
 	}
 	
 	static IFormattableTextComponent localizedComponent(String path, Object... args) {

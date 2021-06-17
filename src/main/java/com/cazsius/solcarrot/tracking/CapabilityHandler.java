@@ -66,12 +66,12 @@ public final class CapabilityHandler {
 	}
 	
 	public static void syncFoodList(PlayerEntity player) {
-		if (player.world.isRemote) return;
+		if (player.level.isClientSide) return;
 		
 		ServerPlayerEntity target = (ServerPlayerEntity) player;
 		SOLCarrot.channel.sendTo(
 			new FoodListMessage(FoodList.get(player)),
-			target.connection.getNetworkManager(),
+			target.connection.getConnection(),
 			NetworkDirection.PLAY_TO_CLIENT
 		);
 		

@@ -33,7 +33,7 @@ public final class MaxHealthHandler {
 	
 	/** @return whether or not the player reached a new milestone in this update */
 	public static boolean updateFoodHPModifier(PlayerEntity player) {
-		if (player.world.isRemote) return false;
+		if (player.level.isClientSide) return false;
 		
 		AttributeModifier prevModifier = getHealthModifier(player);
 		
@@ -68,7 +68,7 @@ public final class MaxHealthHandler {
 		
 		ModifiableAttributeInstance attribute = maxHealthAttribute(player);
 		attribute.removeModifier(modifier);
-		attribute.applyPersistentModifier(modifier);
+		attribute.addPermanentModifier(modifier);
 		
 		float newHealth = player.getHealth() * player.getMaxHealth() / oldMax;
 		if (!HAS_FIRST_AID) { // This workaround breaks First Aid because it tries to distribute the health change and may kill the player that way.

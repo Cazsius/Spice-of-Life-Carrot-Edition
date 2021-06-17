@@ -10,15 +10,15 @@ import net.minecraftforge.fml.DistExecutor;
 
 public final class FoodBookItem extends Item {
 	public FoodBookItem() {
-		super(new Properties().group(ItemGroup.MISC));
+		super(new Properties().tab(ItemGroup.TAB_MISC));
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		if (player.isUser()) {
+	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		if (player.isLocalPlayer()) {
 			DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FoodBookScreen.open(player));
 		}
 		
-		return new ActionResult<>(ActionResultType.SUCCESS, player.getHeldItem(hand));
+		return new ActionResult<>(ActionResultType.SUCCESS, player.getItemInHand(hand));
 	}
 }

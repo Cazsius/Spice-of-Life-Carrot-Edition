@@ -25,7 +25,7 @@ public class UIItemStack extends UIElement {
 	protected void render(MatrixStack matrices) {
 		super.render(matrices);
 		
-		mc.getItemRenderer().renderItemIntoGUI(
+		mc.getItemRenderer().renderGuiItem(
 			// no MatrixStack? oof
 			itemStack,
 			frame.x + (frame.width - size) / 2,
@@ -40,7 +40,7 @@ public class UIItemStack extends UIElement {
 	
 	@Override
 	protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-		List<ITextComponent> tooltip = itemStack.getTooltip(mc.player, mc.gameSettings.advancedItemTooltips ? ADVANCED : NORMAL);
+		List<ITextComponent> tooltip = itemStack.getTooltipLines(mc.player, mc.options.advancedItemTooltips ? ADVANCED : NORMAL);
 		renderTooltip(matrices, itemStack, tooltip, mouseX, mouseY);
 	}
 }
