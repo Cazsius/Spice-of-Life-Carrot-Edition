@@ -73,7 +73,7 @@ public final class FoodListCommand {
 	static int clearFoodList(CommandContext<CommandSource> context, PlayerEntity target) {
 		boolean isOp = context.getSource().hasPermission(2);
 		boolean isTargetingSelf = isTargetingSelf(context, target);
-		if (!isOp && isTargetingSelf)
+		if (!isOp && !isTargetingSelf)
 			throw new CommandException(localizedComponent("no_permissions"));
 		
 		FoodList.get(target).clearFood();
