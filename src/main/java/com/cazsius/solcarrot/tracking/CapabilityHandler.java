@@ -4,17 +4,16 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.api.FoodCapability;
 import com.cazsius.solcarrot.communication.FoodListMessage;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
 
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
@@ -25,14 +24,14 @@ public final class CapabilityHandler {
 	@Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
 	private static final class Setup {
 		@SubscribeEvent
-		public static void setUp(FMLCommonSetupEvent event) {
-			CapabilityManager.INSTANCE.register(FoodCapability.class, new FoodList.Storage(), FoodList::new);
+		public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+			event.register(FoodCapability.class);
 		}
 	}
 	
 	@SubscribeEvent
 	public static void attachPlayerCapability(AttachCapabilitiesEvent<Entity> event) {
-		if (!(event.getObject() instanceof PlayerEntity)) return;
+		if (!(event.getObject() instanceof Player)) return;
 		
 		event.addCapability(FOOD, new FoodList());
 	}
@@ -52,7 +51,7 @@ public final class CapabilityHandler {
 	public static void onClone(PlayerEvent.Clone event) {
 		if (event.isWasDeath() && SOLCarrotConfig.shouldResetOnDeath()) return;
 		
-		PlayerEntity originalPlayer = event.getOriginal();
+		var originalPlayer = event.getOriginal();
 		originalPlayer.revive(); // so we can access the capabilities; entity will get removed either way
 		FoodList original = FoodList.get(originalPlayer);
 		FoodList newInstance = FoodList.get(event.getPlayer());
@@ -65,10 +64,10 @@ public final class CapabilityHandler {
 		syncFoodList(event.getPlayer());
 	}
 	
-	public static void syncFoodList(PlayerEntity player) {
+	public static void syncFoodList(Player player) {
 		if (player.level.isClientSide) return;
 		
-		ServerPlayerEntity target = (ServerPlayerEntity) player;
+		var target = (ServerPlayer) player;
 		SOLCarrot.channel.sendTo(
 			new FoodListMessage(FoodList.get(player)),
 			target.connection.getConnection(),

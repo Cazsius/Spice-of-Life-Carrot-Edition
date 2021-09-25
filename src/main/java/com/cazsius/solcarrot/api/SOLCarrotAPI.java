@@ -2,7 +2,7 @@ package com.cazsius.solcarrot.api;
 
 import com.cazsius.solcarrot.tracking.CapabilityHandler;
 import com.cazsius.solcarrot.tracking.FoodList;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
@@ -18,14 +18,14 @@ public final class SOLCarrotAPI {
 	/**
 	 Retrieves the {@link com.cazsius.solcarrot.api.FoodCapability} for the given player.
 	 */
-	public static FoodCapability getFoodCapability(PlayerEntity player) {
+	public static FoodCapability getFoodCapability(Player player) {
 		return FoodList.get(player);
 	}
 	
 	/**
 	 Synchronizes the food list for the given player to the client, updating their max health in the process.
 	 */
-	public static void syncFoodList(PlayerEntity player) {
+	public static void syncFoodList(Player player) {
 		CapabilityHandler.syncFoodList(player);
 	}
 }

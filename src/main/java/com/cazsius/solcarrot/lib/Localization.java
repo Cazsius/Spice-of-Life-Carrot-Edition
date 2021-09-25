@@ -1,10 +1,9 @@
 package com.cazsius.solcarrot.lib;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -26,8 +25,8 @@ public final class Localization {
 		return I18n.get(keyString(domain, entry, path), args);
 	}
 	
-	public static IFormattableTextComponent localizedComponent(String domain, IForgeRegistryEntry<?> entry, String path, Object... args) {
-		return new TranslationTextComponent(keyString(domain, entry, path), args);
+	public static FormattedText localizedComponent(String domain, IForgeRegistryEntry<?> entry, String path, Object... args) {
+		return new TranslatableComponent(keyString(domain, entry, path), args);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
@@ -35,8 +34,8 @@ public final class Localization {
 		return I18n.get(keyString(domain, path), args);
 	}
 	
-	public static IFormattableTextComponent localizedComponent(String domain, String path, Object... args) {
-		return new TranslationTextComponent(keyString(domain, path), args);
+	public static MutableComponent localizedComponent(String domain, String path, Object... args) {
+		return new TranslatableComponent(keyString(domain, path), args);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
@@ -46,10 +45,10 @@ public final class Localization {
 			: I18n.get(keyString(domain, path + ".plural"), number);
 	}
 	
-	public static IFormattableTextComponent localizedQuantityComponent(String domain, String path, int number) {
+	public static MutableComponent localizedQuantityComponent(String domain, String path, int number) {
 		return number == 1
-			? new TranslationTextComponent(keyString(domain, path + ".singular"))
-			: new TranslationTextComponent(keyString(domain, path + ".plural"), number);
+			? new TranslatableComponent(keyString(domain, path + ".singular"))
+			: new TranslatableComponent(keyString(domain, path + ".plural"), number);
 	}
 	
 	public static String formatBigNumber(int number) {

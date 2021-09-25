@@ -2,24 +2,26 @@ package com.cazsius.solcarrot.command;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.lib.Localization;
-import com.cazsius.solcarrot.tracking.*;
+import com.cazsius.solcarrot.tracking.CapabilityHandler;
+import com.cazsius.solcarrot.tracking.FoodList;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandRuntimeException;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Objects;
 
-import static net.minecraft.command.Commands.argument;
-import static net.minecraft.command.Commands.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 @Mod.EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class FoodListCommand {
@@ -37,10 +39,10 @@ public final class FoodListCommand {
 	
 	@FunctionalInterface
 	private interface CommandWithPlayer {
-		int run(CommandContext<CommandSource> context, PlayerEntity target) throws CommandSyntaxException;
+		int run(CommandContext<CommandSourceStack> context, Player target) throws CommandSyntaxException;
 	}
 	
-	static ArgumentBuilder<CommandSource, ?> withPlayerArgumentOrSender(ArgumentBuilder<CommandSource, ?> base, CommandWithPlayer command) {
+	static ArgumentBuilder<CommandSourceStack, ?> withPlayerArgumentOrSender(ArgumentBuilder<CommandSourceStack, ?> base, CommandWithPlayer command) {
 		String target = "target";
 		return base
 			.executes((context) -> command.run(context, context.getSource().getPlayerOrException()))
@@ -49,13 +51,13 @@ public final class FoodListCommand {
 			);
 	}
 	
-	static int showFoodListSize(CommandContext<CommandSource> context, PlayerEntity target) {
-		ProgressInfo progressInfo = FoodList.get(target).getProgressInfo();
+	static int showFoodListSize(CommandContext<CommandSourceStack> context, Player target) {
+		var progressInfo = FoodList.get(target).getProgressInfo();
 		
-		IFormattableTextComponent progressDesc = localizedQuantityComponent("size.desc.foods_eaten", progressInfo.foodsEaten);
+		var progressDesc = localizedQuantityComponent("size.desc.foods_eaten", progressInfo.foodsEaten);
 		sendFeedback(context.getSource(), progressDesc);
 		
-		IFormattableTextComponent milestoneDesc = progressInfo.hasReachedMax()
+		var milestoneDesc = progressInfo.hasReachedMax()
 			? localizedComponent("size.desc.milestone.max")
 			: localizedComponent("size.desc.milestone.more", progressInfo.foodsUntilNextMilestone());
 		sendFeedback(context.getSource(), milestoneDesc);
@@ -63,23 +65,23 @@ public final class FoodListCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 	
-	static int syncFoodList(CommandContext<CommandSource> context, PlayerEntity target) {
+	static int syncFoodList(CommandContext<CommandSourceStack> context, Player target) {
 		CapabilityHandler.syncFoodList(target);
 		
 		sendFeedback(context.getSource(), localizedComponent("sync.success"));
 		return Command.SINGLE_SUCCESS;
 	}
 	
-	static int clearFoodList(CommandContext<CommandSource> context, PlayerEntity target) {
+	static int clearFoodList(CommandContext<CommandSourceStack> context, Player target) {
 		boolean isOp = context.getSource().hasPermission(2);
 		boolean isTargetingSelf = isTargetingSelf(context, target);
 		if (!isOp && !isTargetingSelf)
-			throw new CommandException(localizedComponent("no_permissions"));
+			throw new CommandRuntimeException(localizedComponent("no_permissions"));
 		
 		FoodList.get(target).clearFood();
 		CapabilityHandler.syncFoodList(target);
 		
-		IFormattableTextComponent feedback = localizedComponent("clear.success");
+		var feedback = localizedComponent("clear.success");
 		sendFeedback(context.getSource(), feedback);
 		if (!isTargetingSelf) {
 			target.displayClientMessage(applyFeedbackStyle(feedback), true);
@@ -88,23 +90,23 @@ public final class FoodListCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 	
-	static void sendFeedback(CommandSource source, IFormattableTextComponent message) {
+	static void sendFeedback(CommandSourceStack source, MutableComponent message) {
 		source.sendSuccess(applyFeedbackStyle(message), true);
 	}
 	
-	private static IFormattableTextComponent applyFeedbackStyle(IFormattableTextComponent text) {
-		return text.withStyle(style -> style.applyFormat(TextFormatting.DARK_AQUA));
+	private static MutableComponent applyFeedbackStyle(MutableComponent text) {
+		return text.withStyle(ChatFormatting.DARK_AQUA);
 	}
 	
-	static boolean isTargetingSelf(CommandContext<CommandSource> context, PlayerEntity target) {
+	static boolean isTargetingSelf(CommandContext<CommandSourceStack> context, Player target) {
 		return target.is(Objects.requireNonNull(context.getSource().getEntity()));
 	}
 	
-	static IFormattableTextComponent localizedComponent(String path, Object... args) {
+	static MutableComponent localizedComponent(String path, Object... args) {
 		return Localization.localizedComponent("command", localizationPath(path), args);
 	}
 	
-	static IFormattableTextComponent localizedQuantityComponent(String path, int number) {
+	static MutableComponent localizedQuantityComponent(String path, int number) {
 		return Localization.localizedQuantityComponent("command", localizationPath(path), number);
 	}
 	

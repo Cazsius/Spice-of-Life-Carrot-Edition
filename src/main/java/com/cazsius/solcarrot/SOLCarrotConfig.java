@@ -3,18 +3,16 @@ package com.cazsius.solcarrot;
 import com.cazsius.solcarrot.tracking.CapabilityHandler;
 import com.cazsius.solcarrot.tracking.FoodList;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.PlayerList;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -54,12 +52,12 @@ public final class SOLCarrotConfig {
 	}
 	
 	@SubscribeEvent
-	public static void onConfigReload(ModConfig.Reloading event) {
+	public static void onConfigReload(ModConfigEvent.Reloading event) {
 		MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
 		if (currentServer == null) return;
 		
-		PlayerList players = currentServer.getPlayerList();
-		for (PlayerEntity player : players.getPlayers()) {
+		var players = currentServer.getPlayerList();
+		for (var player : players.getPlayers()) {
 			FoodList.get(player).invalidateProgressInfo();
 			CapabilityHandler.syncFoodList(player);
 		}
@@ -267,7 +265,7 @@ public final class SOLCarrotConfig {
 	}
 	
 	public static boolean isHearty(Item food) {
-		Food foodInfo = food.getFoodProperties();
+		var foodInfo = food.getFoodProperties();
 		if (foodInfo == null) return false;
 		return foodInfo.getNutrition() >= SERVER.minimumFoodValue.get();
 	}

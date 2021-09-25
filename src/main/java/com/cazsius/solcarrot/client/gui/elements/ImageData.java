@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 import java.awt.*;
 

@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.item;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

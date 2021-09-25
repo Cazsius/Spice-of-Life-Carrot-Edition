@@ -28,8 +28,8 @@ public final class UIStack extends UIElement {
 				for (UIElement child : children) {
 					child.frame.x = frame.x + x;
 					child.frame.y = frame.y + (height - child.frame.height) / 2;
-					if (child instanceof UIStack) {
-						((UIStack) child).updateFrames();
+					if (child instanceof UIStack stack) {
+						stack.updateFrames();
 					}
 					x += child.frame.width;
 					x += spacing;
@@ -43,8 +43,8 @@ public final class UIStack extends UIElement {
 				for (UIElement child : children) {
 					child.frame.x = frame.x + (width - child.frame.width) / 2;
 					child.frame.y = frame.y + y;
-					if (child instanceof UIStack) {
-						((UIStack) child).updateFrames();
+					if (child instanceof UIStack stack) {
+						stack.updateFrames();
 					}
 					y += child.frame.height;
 					y += spacing;

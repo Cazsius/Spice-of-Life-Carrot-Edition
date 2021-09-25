@@ -1,8 +1,7 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import java.awt.*;
 
@@ -13,7 +12,7 @@ public class UILabel extends UIElement {
 	
 	/** sets frame to text size */
 	public UILabel(String text) {
-		this(new Rectangle(fontRenderer.width(text) - 1, 7), text);
+		this(new Rectangle(font.width(text) - 1, 7), text);
 	}
 	
 	public UILabel(Rectangle frame, String text) {
@@ -26,16 +25,16 @@ public class UILabel extends UIElement {
 	}
 	
 	@Override
-	protected void render(MatrixStack matrices) {
+	protected void render(PoseStack matrices) {
 		super.render(matrices);
 		
-		int textWidth = fontRenderer.width(text) - 1;
+		int textWidth = font.width(text) - 1;
 		int x = frame.x + (frame.width - textWidth) * alignment.ordinal / 2;
 		int y = frame.y + (frame.height - 7) / 2;
 		if (color.getTransparency() == Color.TRANSLUCENT) {
 			RenderSystem.enableBlend();
 		}
-		fontRenderer.draw(matrices, text, x, y, color.getRGB());
+		font.draw(matrices, text, x, y, color.getRGB());
 	}
 	
 	enum TextAlignment {

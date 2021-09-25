@@ -2,13 +2,14 @@ package com.cazsius.solcarrot.client;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -45,7 +46,7 @@ public final class FoodItems {
 	}
 	
 	@SubscribeEvent
-	public static void onConfigUpdate(ModConfig.ModConfigEvent event) {
+	public static void onConfigUpdate(ModConfigEvent event) {
 		if (event.getConfig().getType() == ModConfig.Type.CLIENT) return;
 		
 		applyBlacklist();

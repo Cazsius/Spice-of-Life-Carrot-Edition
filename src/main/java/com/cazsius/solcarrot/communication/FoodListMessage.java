@@ -2,27 +2,27 @@ package com.cazsius.solcarrot.communication;
 
 import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 public final class FoodListMessage {
-	private CompoundNBT capabilityNBT;
+	private CompoundTag capabilityNBT;
 	
 	public FoodListMessage(FoodList foodList) {
 		this.capabilityNBT = foodList.serializeNBT();
 	}
 	
-	public FoodListMessage(PacketBuffer buffer) {
+	public FoodListMessage(FriendlyByteBuf buffer) {
 		this.capabilityNBT = buffer.readNbt();
 	}
 	
-	public void write(PacketBuffer buffer) {
+	public void write(FriendlyByteBuf buffer) {
 		buffer.writeNbt(capabilityNBT);
 	}
 	
@@ -33,7 +33,7 @@ public final class FoodListMessage {
 	private static class Handler {
 		static void handle(FoodListMessage message, Supplier<NetworkEvent.Context> context) {
 			context.get().enqueueWork(() -> {
-				PlayerEntity player = Minecraft.getInstance().player;
+				Player player = Minecraft.getInstance().player;
 				assert player != null;
 				FoodList.get(player).deserializeNBT(message.capabilityNBT);
 			});

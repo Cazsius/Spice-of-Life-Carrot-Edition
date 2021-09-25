@@ -5,6 +5,6 @@
 @MethodsReturnNonnullByDefault
 package com.cazsius.solcarrot.command;
 
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;

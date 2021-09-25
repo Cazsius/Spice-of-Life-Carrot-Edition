@@ -3,10 +3,10 @@ package com.cazsius.solcarrot.tracking;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.api.FoodCapability;
 import com.cazsius.solcarrot.api.SOLCarrotAPI;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.*;
-import net.minecraft.util.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -19,7 +19,7 @@ import java.util.*;
 public final class FoodList implements FoodCapability {
 	private static final String NBT_KEY_FOOD_LIST = "foodList";
 	
-	public static FoodList get(PlayerEntity player) {
+	public static FoodList get(Player player) {
 		return (FoodList) player.getCapability(SOLCarrotAPI.foodCapability)
 			.orElseThrow(FoodListNotFoundException::new);
 	}
@@ -40,14 +40,14 @@ public final class FoodList implements FoodCapability {
 	
 	/** used for persistent storage */
 	@Override
-	public CompoundNBT serializeNBT() {
-		CompoundNBT tag = new CompoundNBT();
+	public CompoundTag serializeNBT() {
+		var tag = new CompoundTag();
 		
-		ListNBT list = new ListNBT();
+		var list = new ListTag();
 		foods.stream()
 			.map(FoodInstance::encode)
 			.filter(Objects::nonNull)
-			.map(StringNBT::valueOf)
+			.map(StringTag::valueOf)
 			.forEach(list::add);
 		tag.put(NBT_KEY_FOOD_LIST, list);
 		
@@ -56,13 +56,13 @@ public final class FoodList implements FoodCapability {
 	
 	/** used for persistent storage */
 	@Override
-	public void deserializeNBT(CompoundNBT tag) {
-		ListNBT list = tag.getList(NBT_KEY_FOOD_LIST, Constants.NBT.TAG_STRING);
+	public void deserializeNBT(CompoundTag tag) {
+		var list = tag.getList(NBT_KEY_FOOD_LIST, Constants.NBT.TAG_STRING);
 		
 		foods.clear();
 		list.stream()
-			.map(nbt -> (StringNBT) nbt)
-			.map(StringNBT::getAsString)
+			.map(nbt -> (StringTag) nbt)
+			.map(StringTag::getAsString)
 			.map(FoodInstance::decode)
 			.filter(Objects::nonNull)
 			.forEach(foods::add);
@@ -107,18 +107,6 @@ public final class FoodList implements FoodCapability {
 	
 	public void invalidateProgressInfo() {
 		cachedProgressInfo = null;
-	}
-	
-	public static final class Storage implements Capability.IStorage<FoodCapability> {
-		@Override
-		public INBT writeNBT(Capability<FoodCapability> capability, FoodCapability instance, Direction side) {
-			return instance.serializeNBT();
-		}
-		
-		@Override
-		public void readNBT(Capability<FoodCapability> capability, FoodCapability instance, Direction side, INBT tag) {
-			instance.deserializeNBT((CompoundNBT) tag);
-		}
 	}
 	
 	public static class FoodListNotFoundException extends RuntimeException {

@@ -2,16 +2,16 @@ package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.*;
-import net.minecraft.world.GameType;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameType;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,17 +23,16 @@ import static com.cazsius.solcarrot.lib.Localization.localizedQuantityComponent;
 public final class FoodTracker {
 	@SubscribeEvent
 	public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
-		if (!(event.getEntity() instanceof PlayerEntity)) return;
-		PlayerEntity player = (PlayerEntity) event.getEntity();
+		if (!(event.getEntity() instanceof Player player)) return;
 		
 		if (player.level.isClientSide) return;
-		ServerWorld world = (ServerWorld) player.level;
+		var world = (ServerLevel) player.level;
 		
-		ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+		var serverPlayer = (ServerPlayer) player;
 		boolean isInSurvival = serverPlayer.gameMode.getGameModeForPlayer() == GameType.SURVIVAL;
 		if (SOLCarrotConfig.limitProgressionToSurvival() && !isInSurvival) return;
 		
-		Item usedItem = event.getItem().getItem();
+		var usedItem = event.getItem().getItem();
 		if (!usedItem.isEdible()) return;
 		
 		FoodList foodList = FoodList.get(player);
@@ -43,7 +42,7 @@ public final class FoodTracker {
 		boolean newMilestoneReached = MaxHealthHandler.updateFoodHPModifier(player);
 		
 		CapabilityHandler.syncFoodList(player);
-		ProgressInfo progressInfo = foodList.getProgressInfo();
+		var progressInfo = foodList.getProgressInfo();
 		
 		if (newMilestoneReached) {
 			if (SOLCarrotConfig.shouldPlayMilestoneSounds()) {
@@ -51,7 +50,7 @@ public final class FoodTracker {
 				world.playSound(
 					null,
 					player.blockPosition(),
-					SoundEvents.PLAYER_LEVELUP, SoundCategory.PLAYERS,
+					SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS,
 					1.0F, 1.0F
 				);
 			}
@@ -64,15 +63,15 @@ public final class FoodTracker {
 				}
 			}
 			
-			ITextComponent heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.getHeartsPerMilestone());
+			var heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.getHeartsPerMilestone());
 			
 			if (SOLCarrotConfig.shouldShowProgressAboveHotbar()) {
 				String messageKey = progressInfo.hasReachedMax() ? "finished.hotbar" : "milestone_achieved";
 				player.displayClientMessage(localizedComponent("message", messageKey, heartsDescription), true);
 			} else {
-				showChatMessage(player, TextFormatting.DARK_AQUA, localizedComponent("message", "milestone_achieved", heartsDescription));
+				showChatMessage(player, ChatFormatting.DARK_AQUA, localizedComponent("message", "milestone_achieved", heartsDescription));
 				if (progressInfo.hasReachedMax()) {
-					showChatMessage(player, TextFormatting.GOLD, localizedComponent("message", "finished.chat"));
+					showChatMessage(player, ChatFormatting.GOLD, localizedComponent("message", "finished.chat"));
 				}
 			}
 		} else if (hasTriedNewFood) {
@@ -82,7 +81,7 @@ public final class FoodTracker {
 		}
 	}
 	
-	private static void spawnParticles(ServerWorld world, PlayerEntity player, IParticleData type, int count) {
+	private static void spawnParticles(ServerLevel world, Player player, ParticleOptions type, int count) {
 		// this overload sends a packet to the client
 		world.sendParticles(
 			type,
@@ -93,9 +92,9 @@ public final class FoodTracker {
 		);
 	}
 	
-	private static void showChatMessage(PlayerEntity player, TextFormatting color, ITextComponent message) {
-		ITextComponent component = localizedComponent("message", "chat_wrapper", message)
-			.withStyle(style -> style.applyFormat(color));
+	private static void showChatMessage(Player player, ChatFormatting color, Component message) {
+		var component = localizedComponent("message", "chat_wrapper", message)
+			.withStyle(color);
 		player.displayClientMessage(component, false);
 	}
 	

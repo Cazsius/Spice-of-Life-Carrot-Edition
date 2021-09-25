@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.client.gui.elements.UIItemStack;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
 import java.util.ArrayList;

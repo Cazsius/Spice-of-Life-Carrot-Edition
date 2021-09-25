@@ -1,13 +1,12 @@
 package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.communication.FoodListMessage;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,13 +29,6 @@ public final class SOLCarrot {
 	
 	public static ResourceLocation resourceLocation(String path) {
 		return new ResourceLocation(MOD_ID, path);
-	}
-	
-	// TODO: not sure if this is even implemented anymore
-	@SubscribeEvent
-	public static void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-		// This complains if jar not signed, even if certificateFingerprint is blank
-		LOGGER.warn("Invalid Fingerprint!");
 	}
 	
 	@SubscribeEvent

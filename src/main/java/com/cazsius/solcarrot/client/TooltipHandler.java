@@ -3,18 +3,15 @@ package com.cazsius.solcarrot.client;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.tracking.FoodList;
-import com.cazsius.solcarrot.tracking.ProgressInfo;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 
@@ -25,7 +22,7 @@ public final class TooltipHandler {
 	public static void onItemTooltip(ItemTooltipEvent event) {
 		if (!SOLCarrotConfig.isFoodTooltipEnabled()) return;
 		
-		PlayerEntity player = event.getPlayer();
+		Player player = event.getPlayer();
 		if (player == null) return;
 		
 		Item food = event.getItemStack().getItem();
@@ -36,29 +33,29 @@ public final class TooltipHandler {
 		boolean isAllowed = SOLCarrotConfig.isAllowed(food);
 		boolean isHearty = SOLCarrotConfig.isHearty(food);
 		
-		List<ITextComponent> tooltip = event.getToolTip();
+		var tooltip = event.getToolTip();
 		if (!isAllowed) {
 			if (hasBeenEaten) {
-				tooltip.add(localizedTooltip("disabled.eaten", TextFormatting.DARK_RED));
+				tooltip.add(localizedTooltip("disabled.eaten", ChatFormatting.DARK_RED));
 			}
 			String key = SOLCarrotConfig.hasWhitelist() ? "whitelist" : "blacklist";
-			tooltip.add(localizedTooltip("disabled." + key, TextFormatting.DARK_GRAY));
+			tooltip.add(localizedTooltip("disabled." + key, ChatFormatting.DARK_GRAY));
 		} else if (isHearty) {
 			if (hasBeenEaten) {
-				tooltip.add(localizedTooltip("hearty.eaten", TextFormatting.DARK_GREEN));
+				tooltip.add(localizedTooltip("hearty.eaten", ChatFormatting.DARK_GREEN));
 			} else {
-				tooltip.add(localizedTooltip("hearty.not_eaten", TextFormatting.DARK_AQUA));
+				tooltip.add(localizedTooltip("hearty.not_eaten", ChatFormatting.DARK_AQUA));
 			}
 		} else {
 			if (hasBeenEaten) {
-				tooltip.add(localizedTooltip("cheap.eaten", TextFormatting.DARK_RED));
+				tooltip.add(localizedTooltip("cheap.eaten", ChatFormatting.DARK_RED));
 			}
-			tooltip.add(localizedTooltip("cheap", TextFormatting.DARK_GRAY));
+			tooltip.add(localizedTooltip("cheap", ChatFormatting.DARK_GRAY));
 		}
 	}
 	
-	private static ITextComponent localizedTooltip(String path, TextFormatting color) {
-		return localizedComponent("tooltip", path).withStyle(style -> style.applyFormat(color));
+	private static MutableComponent localizedTooltip(String path, ChatFormatting color) {
+		return localizedComponent("tooltip", path).withStyle(color);
 	}
 	
 	private TooltipHandler() {}

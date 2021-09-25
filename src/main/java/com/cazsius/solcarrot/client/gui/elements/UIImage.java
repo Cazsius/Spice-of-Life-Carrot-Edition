@@ -1,8 +1,9 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraftforge.fml.client.gui.GuiUtils;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 
 import java.awt.*;
 
@@ -21,21 +22,23 @@ public class UIImage extends UIElement {
 	}
 	
 	@Override
-	protected void render(MatrixStack matrices) {
+	protected void render(PoseStack matrices) {
 		super.render(matrices);
 		
 		int imageWidth = data.partOfTexture.width;
 		int imageHeight = data.partOfTexture.height;
 		
-		RenderSystem.enableBlend();
-		RenderSystem.color4f(1, 1, 1, alpha);
-		mc.getTextureManager().bind(data.textureLocation);
-		GuiUtils.drawTexturedModalRect(
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, data.textureLocation);
+		
+		GuiComponent.blit(
+			matrices,
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),
 			frame.y + (int) Math.floor((frame.height - imageHeight) / 2d),
+			0,
 			data.partOfTexture.x, data.partOfTexture.y,
 			data.partOfTexture.width, data.partOfTexture.height,
-			0
+			256, 256
 		);
 	}
 	

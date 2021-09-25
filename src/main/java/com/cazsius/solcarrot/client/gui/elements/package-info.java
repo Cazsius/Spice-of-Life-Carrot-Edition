@@ -5,6 +5,6 @@
 @ParametersAreNonnullByDefault
 package com.cazsius.solcarrot.client.gui.elements;
 
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;

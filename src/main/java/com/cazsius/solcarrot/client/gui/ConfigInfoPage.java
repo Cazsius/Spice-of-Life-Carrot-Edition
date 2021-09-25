@@ -2,7 +2,8 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.FoodItems;
-import com.cazsius.solcarrot.client.gui.elements.*;
+import com.cazsius.solcarrot.client.gui.elements.ImageData;
+import com.cazsius.solcarrot.client.gui.elements.UIElement;
 import com.cazsius.solcarrot.tracking.FoodInstance;
 
 import java.awt.*;

@@ -1,14 +1,12 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
-import java.util.List;
 
-import static net.minecraft.client.util.ITooltipFlag.TooltipFlags.ADVANCED;
-import static net.minecraft.client.util.ITooltipFlag.TooltipFlags.NORMAL;
+import static net.minecraft.world.item.TooltipFlag.Default.ADVANCED;
+import static net.minecraft.world.item.TooltipFlag.Default.NORMAL;
 
 public class UIItemStack extends UIElement {
 	public static final int size = 16;
@@ -22,11 +20,11 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void render(MatrixStack matrices) {
+	protected void render(PoseStack matrices) {
 		super.render(matrices);
 		
 		mc.getItemRenderer().renderGuiItem(
-			// no MatrixStack? oof
+			// no PoseStack? oof
 			itemStack,
 			frame.x + (frame.width - size) / 2,
 			frame.y + (frame.height - size) / 2
@@ -39,8 +37,8 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void renderTooltip(MatrixStack matrices, int mouseX, int mouseY) {
-		List<ITextComponent> tooltip = itemStack.getTooltipLines(mc.player, mc.options.advancedItemTooltips ? ADVANCED : NORMAL);
+	protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
+		var tooltip = itemStack.getTooltipLines(mc.player, mc.options.advancedItemTooltips ? ADVANCED : NORMAL);
 		renderTooltip(matrices, itemStack, tooltip, mouseX, mouseY);
 	}
 }

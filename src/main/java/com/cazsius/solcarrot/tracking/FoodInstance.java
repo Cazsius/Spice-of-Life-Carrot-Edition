@@ -1,12 +1,11 @@
 package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
-import net.minecraft.item.*;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.Optional;
 
 public final class FoodInstance {
@@ -48,8 +47,7 @@ public final class FoodInstance {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof FoodInstance)) return false;
-		FoodInstance other = (FoodInstance) obj;
+		if (!(obj instanceof FoodInstance other)) return false;
 		
 		return item.equals(other.item);
 	}

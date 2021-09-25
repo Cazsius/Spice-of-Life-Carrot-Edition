@@ -4,7 +4,7 @@ import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.FoodItems;
 import com.cazsius.solcarrot.tracking.FoodList;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

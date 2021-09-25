@@ -4,14 +4,14 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.gui.elements.*;
 import com.cazsius.solcarrot.tracking.FoodList;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -64,18 +64,18 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	private PageFlipButton nextPageButton;
 	private PageFlipButton prevPageButton;
 	
-	private PlayerEntity player;
+	private Player player;
 	private FoodData foodData;
 	
 	private final List<Page> pages = new ArrayList<>();
 	private int currentPageNumber = 0;
 	
-	public static void open(PlayerEntity player) {
+	public static void open(Player player) {
 		Minecraft.getInstance().setScreen(new FoodBookScreen(player));
 	}
 	
-	public FoodBookScreen(PlayerEntity player) {
-		super(new StringTextComponent(""));
+	public FoodBookScreen(Player player) {
+		super(TextComponent.EMPTY);
 		this.player = player;
 	}
 	
@@ -100,13 +100,13 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 		initPages();
 		
 		int pageFlipButtonSpacing = 50;
-		prevPageButton = addButton(new PageFlipButton(
+		prevPageButton = addRenderableWidget(new PageFlipButton(
 			background.getCenterX() - pageFlipButtonSpacing / 2 - PageFlipButton.width,
 			background.getMinY() + 152,
 			PageFlipButton.Direction.BACKWARD,
 			this
 		));
-		nextPageButton = addButton(new PageFlipButton(
+		nextPageButton = addRenderableWidget(new PageFlipButton(
 			background.getCenterX() + pageFlipButtonSpacing / 2,
 			background.getMinY() + 152,
 			PageFlipButton.Direction.FORWARD,
@@ -137,7 +137,7 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	}
 	
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack matrices, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrices);
 		
 		UIElement.render(matrices, background, mouseX, mouseY);

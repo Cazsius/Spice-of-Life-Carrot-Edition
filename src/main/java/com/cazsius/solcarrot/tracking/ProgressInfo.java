@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import net.minecraft.nbt.CompoundNBT;
 
 /** contains all relevant variables for current progress */
 public final class ProgressInfo {
