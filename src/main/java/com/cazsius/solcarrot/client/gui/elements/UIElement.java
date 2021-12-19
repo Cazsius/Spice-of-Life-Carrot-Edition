@@ -8,7 +8,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmlclient.gui.GuiUtils;
+import net.minecraftforge.client.gui.GuiUtils;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -61,7 +61,7 @@ public abstract class UIElement {
 	}
 	
 	/**
-	 @return whether or not the element has a tooltip. This is used to determine which of multiple overlapping tooltips to render.
+	 @return whether the element has a tooltip. This is used to determine which of multiple overlapping tooltips to render.
 	 */
 	protected boolean hasTooltip() {
 		return tooltip != null;
@@ -88,24 +88,9 @@ public abstract class UIElement {
 	 @param mouseY the mouse's y position
 	 */
 	protected final void renderTooltip(PoseStack matrices, ItemStack itemStack, List<? extends FormattedText> tooltip, int mouseX, int mouseY) {
-		if (!itemStack.isEmpty()) {
-			GuiUtils.preItemToolTip(itemStack);
-		}
+		assert mc.screen != null;
 		
-		GuiUtils.drawHoveringText(
-			itemStack,
-			matrices,
-			tooltip,
-			mouseX, mouseY,
-			mc.getWindow().getGuiScaledWidth(),
-			mc.getWindow().getGuiScaledHeight(),
-			-1,
-			font
-		);
-		
-		if (!itemStack.isEmpty()) {
-			GuiUtils.postItemToolTip();
-		}
+		mc.screen.renderComponentTooltip(matrices, tooltip, mouseX, mouseY, itemStack);
 	}
 	
 	/** calculates and sets the frame to the smallest rectangle enclosing all children's frames */

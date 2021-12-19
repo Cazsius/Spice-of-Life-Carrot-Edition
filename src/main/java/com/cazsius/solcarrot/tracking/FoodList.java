@@ -8,7 +8,6 @@ import net.minecraft.nbt.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nullable;
@@ -57,7 +56,7 @@ public final class FoodList implements FoodCapability {
 	/** used for persistent storage */
 	@Override
 	public void deserializeNBT(CompoundTag tag) {
-		var list = tag.getList(NBT_KEY_FOOD_LIST, Constants.NBT.TAG_STRING);
+		var list = tag.getList(NBT_KEY_FOOD_LIST, Tag.TAG_STRING);
 		
 		foods.clear();
 		list.stream()
