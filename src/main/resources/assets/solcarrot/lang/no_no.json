@@ -1,0 +1,72 @@
+{
+	"tooltip.solcarrot.hearty.not_eaten": "Ikke spist ennå! Hvordan smaker det?",
+	"tooltip.solcarrot.hearty.eaten": "Spist: Assisterte i å øke helse",
+	"tooltip.solcarrot.cheap.eaten": "Spist: Ingen merkbar effekt",
+	"tooltip.solcarrot.cheap": "Denne maten er ikke nærende nok til å forbedre helsen din.",
+	"tooltip.solcarrot.disabled.blacklist": "Denne maten er på svartelisten og kan derfor ikke forbedre helsen din.",
+	"tooltip.solcarrot.disabled.whitelist": "Denne maten er ikke på hvitelisten og kan derfor ikke forbedre helsen din.",
+	"tooltip.solcarrot.disabled.eaten": "Spist: Ingen merkbar effekt",
+	
+	"command.solcarrot.foodlist.no_permissions": "Du har ikke de nødvendige tillatelsene for å bruke denne kommandoen på andre spillere!",
+	
+	"command.solcarrot.foodlist.size.desc.foods_eaten.singular": "Du har spist en unik matvare!",
+	"command.solcarrot.foodlist.size.desc.foods_eaten.plural": "Du har spist %s unike matvarer!",
+	"command.solcarrot.foodlist.size.desc.milestone.max": "Du kan dessverre ikke få mer helse av å prøve ny matvarer.",
+	"command.solcarrot.foodlist.size.desc.milestone.more": "Du trenger %s mer for å øke din maksimale helse.",
+	
+	"command.solcarrot.foodlist.clear.success": "Matliste tilbakestilt!",
+	
+	"command.solcarrot.foodlist.sync.success": "Matliste synkronisert!",
+	
+	"message.solcarrot.chat_wrapper": "[SoL: Carrot] %s",
+	"message.solcarrot.hearts.singular": "et hjerte",
+	"message.solcarrot.hearts.plural": "%s hjerter",
+	"message.solcarrot.milestone_achieved": "For en unik smak! Du har fått %s!",
+	"message.solcarrot.finished.chat": "Ditt ønske om å prøve ut unike matvarer er endelig oppfylt.",
+	"message.solcarrot.finished.hotbar": "Du har fått %s. Ditt ønske om å prøve ut unike matvarer er endelig oppfylt.",
+	
+	"item.solcarrot.food_book": "Matbok",
+	
+	"gui.solcarrot.food_book.stats": "Oversikt",
+	"gui.solcarrot.food_book.eaten_foods": "Allerede Spist: %s",
+	"gui.solcarrot.food_book.uneaten_foods": "Ikke Prøvd Ennå: %s",
+	"gui.solcarrot.food_book.config": "Konfigurering",
+	
+	"gui.solcarrot.food_book.fraction": "%1$s/%2$s",
+	
+	"gui.solcarrot.food_book.stats.foods_tasted": "Matvarer Spist",
+	"gui.solcarrot.food_book.stats.hearts_gained": "Hjerter Tjent",
+	"gui.solcarrot.food_book.stats.tooltip.progress": "%s matvare(r) til neste milepæl",
+	"gui.solcarrot.food_book.stats.tooltip.progress.max": "Høyeste milepæl nådd!",
+	"gui.solcarrot.food_book.stats.tooltip.previous_milestone": "Forrige Milepæl: %s",
+	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "Neste Milepæl: %s",
+	"gui.solcarrot.food_book.stats.tooltip.total_foods": "%s Totale Matvarer",
+	"gui.solcarrot.food_book.stats.tooltip.foods_tasted": "Matvarer Spist: %s",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.singular": "1 Hjerte per Milepæl",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.plural": "%s Hjerter per Milepæl",
+	
+	"gui.solcarrot.food_book.config.minimum_food_value": "Minste Næringssverdi",
+	"gui.solcarrot.food_book.config.tooltip.minimum_food_value": "Den minste næringssverdien en matrett trenger for å regnes med i milepæltellingen.",
+	"gui.solcarrot.food_book.config.hearty_fraction": "Nærende Matretter",
+	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "Av %1$s matretter, er %2$s næringsrike nok til å forbedre din helse.",
+	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Kjedelige Matretter Spist",
+	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "Du har spist %2$s av %1$s matretter som ikke er nærende nok til å øke helsen din.",
+	"gui.solcarrot.food_book.config.blacklist": "Svartelistede Matretter",
+	"gui.solcarrot.food_book.config.whitelist": "Hvitelistede Matretter",
+	"gui.solcarrot.food_book.config.tooltip.blacklist": "Hvor mange matretter som er nektet av svartelisten.",
+	"gui.solcarrot.food_book.config.tooltip.whitelist": "Hvor mange matretter som er tillatt av hvitelisten.",
+	
+	"config.solcarrot.base_hearts": "Grunnhjerter",
+	"config.solcarrot.hearts_per_milestone": "Hjerter per milepæl",
+	"config.solcarrot.milestones": "Milepæler",
+	"config.solcarrot.is_food_tooltip_enabled": "Aktiver matverktøytips ",
+	"config.solcarrot.should_show_progress_above_hotbar": "Vis fremgang over hurtigbaren",
+	"config.solcarrot.should_show_uneaten_foods": "Vis uspiste matretter",
+	"config.solcarrot.should_play_milestone_sounds": "Aktiver milepællyder",
+	"config.solcarrot.should_spawn_intermediate_particles": "Aktiver Mellom-milepælspartikler",
+	"config.solcarrot.should_spawn_milestone_particles": "Aktiver Milepælspartikler",
+	"config.solcarrot.food_blacklist": "Svarteliste",
+	"config.solcarrot.food_whitelist": "Hviteliste (slår av svarteliste)",
+	"config.solcarrot.minimum_food_value": "Minimum næringsverdi",
+	"config.solcarrot.reset_on_death": "Nullstill ved dødsfall"
+}
