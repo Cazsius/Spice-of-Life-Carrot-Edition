@@ -1,0 +1,72 @@
+{
+	"tooltip.solcarrot.hearty.not_eaten": "먹어 본 적 없습니다! 무슨 맛 일까요?",
+	"tooltip.solcarrot.hearty.eaten": "먹었음: 체력 추가를 도움",
+	"tooltip.solcarrot.cheap.eaten": "먹었음: 눈에 띄는 효과 없음",
+	"tooltip.solcarrot.cheap": "이 음식은 체력을 추가할 만큼의 영양가가 없습니다.",
+	"tooltip.solcarrot.disabled.blacklist": "이 음식은 블랙리스트에 있으므로 체력을 추가할 수 없습니다.",
+	"tooltip.solcarrot.disabled.whitelist": "이 음식은 화이트리스트에 없으므로 체력을 추가할 수 없습니다.",
+	"tooltip.solcarrot.disabled.eaten": "먹었음: 눈에 띄는 효과 없음",
+	
+	"command.solcarrot.foodlist.no_permissions": "이 명령을 다른 플레이어에게 적용하는 데 필요한 권한이 없습니다!",
+	
+	"command.solcarrot.foodlist.size.desc.foods_eaten.singular": "한 종류의 음식을 먹었습니다!",
+	"command.solcarrot.foodlist.size.desc.foods_eaten.plural": "%s 종류의 음식들을 먹었습니다!",
+	"command.solcarrot.foodlist.size.desc.milestone.max": "슬프게도 새로운 음식을 먹는 것으로는 더 이상 체력을 얻을 수 없습니다.",
+	"command.solcarrot.foodlist.size.desc.milestone.more": "최대 체력을 늘리려면 %s 종류 더 먹어야 합니다.",
+	
+	"command.solcarrot.foodlist.clear.success": "음식 목록 초기화!",
+	
+	"command.solcarrot.foodlist.sync.success": "음식 목록 동기화!",
+	
+	"message.solcarrot.chat_wrapper": "[SoL: Carrot] %s",
+	"message.solcarrot.hearts.singular": "체력 1 칸",
+	"message.solcarrot.hearts.plural": "체력 %s 칸",
+	"message.solcarrot.milestone_achieved": "독특한 맛인데요! %s을 얻었습니다!",
+	"message.solcarrot.finished.chat": "독특한 음식을 찾으려는 욕망이 마침내 채워졌습니다.",
+	"message.solcarrot.finished.hotbar": "%s을 얻었습니다.독특한 음식을 찾으려는 욕망이 마침내 채워졌습니다.",
+	
+	"item.solcarrot.food_book": "음식 책",
+	
+	"gui.solcarrot.food_book.stats": "개요",
+	"gui.solcarrot.food_book.eaten_foods": "이미 맛 봄: %s",
+	"gui.solcarrot.food_book.uneaten_foods": "아직 먹지 않음: %s",
+	"gui.solcarrot.food_book.config": "구성",
+	
+	"gui.solcarrot.food_book.fraction": "%1$s/%2$s",
+	
+	"gui.solcarrot.food_book.stats.foods_tasted": "맛 본 음식들",
+	"gui.solcarrot.food_book.stats.hearts_gained": "얻은 체력",
+	"gui.solcarrot.food_book.stats.tooltip.progress": "다음 단계까지 %s 남음",
+	"gui.solcarrot.food_book.stats.tooltip.progress.max": "가장 높은 단계까지 달성!",
+	"gui.solcarrot.food_book.stats.tooltip.previous_milestone": "이전 단계: %s",
+	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "다음 단계: %s",
+	"gui.solcarrot.food_book.stats.tooltip.total_foods": "%s 총 음식",
+	"gui.solcarrot.food_book.stats.tooltip.foods_tasted": "맛 본 음식들: %s",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.singular": "단계 당 체력 1 칸",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.plural": "단계 당 체력 %s 칸",
+	
+	"gui.solcarrot.food_book.config.minimum_food_value": "최소 배고픔 제공 수치",
+	"gui.solcarrot.food_book.config.tooltip.minimum_food_value": "단계를 진행하는 데 필요한 음식의 최소 배고픔 제공 수치.",
+	"gui.solcarrot.food_book.config.hearty_fraction": "영양가 있는 음식",
+	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "%1$s 개의 음식들 중, %2$s 개 만큼이 체력을 추가할 만큼 영양가가 높습니다.",
+	"gui.solcarrot.food_book.config.eaten_cheap_foods": "맛 본 영양가 없는 음식",
+	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "당신의 체력을 추가할 만큼 영양가가 높지 않은 %1$s 개의 음식들 중, %2$s 개를 먹었습니다.",
+	"gui.solcarrot.food_book.config.blacklist": "블랙리스트에 올라간 음식",
+	"gui.solcarrot.food_book.config.whitelist": "화이트리스트에 올라간 음식",
+	"gui.solcarrot.food_book.config.tooltip.blacklist": "블랙리스트가 비활성화 한 음식의 수",
+	"gui.solcarrot.food_book.config.tooltip.whitelist": "화이트리스트가 허용하는 음식의 수.",
+	
+	"config.solcarrot.base_hearts": "기본 체력",
+	"config.solcarrot.hearts_per_milestone": "단계 당 체력",
+	"config.solcarrot.milestones": "단계",
+	"config.solcarrot.is_food_tooltip_enabled": "음식 툴팁 활성화",
+	"config.solcarrot.should_show_progress_above_hotbar": "핫바 위에 진행률 표시",
+	"config.solcarrot.should_show_uneaten_foods": "먹지 않은 음식 표시",
+	"config.solcarrot.should_play_milestone_sounds": "단계 달성 소리 활성화",
+	"config.solcarrot.should_spawn_intermediate_particles": "단계 진행 중 입자 활성화",
+	"config.solcarrot.should_spawn_milestone_particles": "단계 달성 입자 활성화",
+	"config.solcarrot.food_blacklist": "블랙리스트",
+	"config.solcarrot.food_whitelist": "화이트리스트 (블랙리스트를 비활성화함)",
+	"config.solcarrot.minimum_food_value": "최소 배고픔 제공 수치",
+	"config.solcarrot.reset_on_death": "죽으면 초기화"
+}
