@@ -21,7 +21,7 @@ Instead of using the stick, we use the carrot!
 '''
 
 # Dependencies are optional.
-[[dependencies]]
+[[dependencies.solcarrot]]
 	modId = "forge"
 	mandatory = true
 	versionRange = "[36,)"
