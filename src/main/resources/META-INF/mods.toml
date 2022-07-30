@@ -21,14 +21,14 @@ Instead of using the stick, we use the carrot!
 '''
 
 # Dependencies are optional.
-[[dependencies]]
+[[dependencies.solcarrot]]
 	modId = "forge"
 	mandatory = true
 	versionRange = "[28,)"
 	ordering = "NONE" # BEFORE or AFTER required if the relationship is not mandatory
 	side = "BOTH" # BOTH, CLIENT or SERVER
 
-[[dependencies]]
+[[dependencies.solcarrot]]
 	modId = "minecraft"
 	mandatory = true
 	versionRange = "[1.14.4]"
