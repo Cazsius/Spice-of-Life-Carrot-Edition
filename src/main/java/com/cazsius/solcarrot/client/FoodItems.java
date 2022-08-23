@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
@@ -35,14 +36,12 @@ public final class FoodItems {
 	}
 	
 	@SubscribeEvent
-	public static void setUp(FMLCommonSetupEvent event) {
+	public static void setUp(FMLLoadCompleteEvent event) {
 		foodsBeforeBlacklist = ForgeRegistries.ITEMS.getValues().stream()
 			.filter(Item::isEdible)
 			// sort by name
 			.sorted(Comparator.comparing(food -> I18n.get(food.getDescriptionId() + ".name")))
 			.collect(Collectors.toList());
-		
-		applyBlacklist();
 	}
 	
 	@SubscribeEvent

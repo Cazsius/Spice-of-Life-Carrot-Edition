@@ -20,7 +20,7 @@ public final class MaxHealthHandler {
 	
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-		updateFoodHPModifier(event.getPlayer());
+		updateFoodHPModifier(event.getEntity());
 	}
 	
 	@SubscribeEvent
@@ -28,7 +28,7 @@ public final class MaxHealthHandler {
 		var prevModifier = getHealthModifier(event.getOriginal());
 		if (prevModifier == null) return;
 		
-		updateHealthModifier(event.getPlayer(), prevModifier);
+		updateHealthModifier(event.getEntity(), prevModifier);
 	}
 	
 	/** @return whether or not the player reached a new milestone in this update */

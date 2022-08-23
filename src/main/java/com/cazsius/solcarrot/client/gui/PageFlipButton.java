@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,7 +23,7 @@ final class PageFlipButton extends Button {
 	private final Pageable pageable;
 	
 	PageFlipButton(int x, int y, Direction direction, Pageable pageable) {
-		super(x, y, width, height, new TextComponent(""), (button) -> ((PageFlipButton) button).changePage());
+		super(x, y, width, height, Component.empty(), (button) -> ((PageFlipButton) button).changePage());
 		
 		this.direction = direction;
 		this.pageable = pageable;

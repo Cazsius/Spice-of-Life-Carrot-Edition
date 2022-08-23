@@ -7,7 +7,7 @@ import com.cazsius.solcarrot.tracking.FoodList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -75,7 +75,7 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	}
 	
 	public FoodBookScreen(Player player) {
-		super(TextComponent.EMPTY);
+		super(Component.empty());
 		this.player = player;
 	}
 	

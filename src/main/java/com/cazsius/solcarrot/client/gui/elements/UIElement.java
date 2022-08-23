@@ -3,15 +3,14 @@ package com.cazsius.solcarrot.client.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.gui.GuiUtils;
 
 import javax.annotation.Nullable;
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.List;
 import java.util.*;
 import java.util.stream.Stream;
@@ -76,7 +75,7 @@ public abstract class UIElement {
 	protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
 		if (tooltip == null) return;
 		
-		renderTooltip(matrices, ItemStack.EMPTY, Collections.singletonList(new TextComponent(tooltip)), mouseX, mouseY);
+		renderTooltip(matrices, ItemStack.EMPTY, Collections.singletonList(Component.translatable(tooltip)), mouseX, mouseY);
 	}
 	
 	/**
