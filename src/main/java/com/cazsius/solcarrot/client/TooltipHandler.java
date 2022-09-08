@@ -19,7 +19,7 @@ import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SOLCarrot.MOD_ID)
 public final class TooltipHandler {
-	@SubscribeEvent(priority = EventPriority.LOWEST)
+	@SubscribeEvent(priority = EventPriority.LOWER)
 	public static void onItemTooltip(ItemTooltipEvent event) {
 		if (!SOLCarrotConfig.isFoodTooltipEnabled()) return;
 		
