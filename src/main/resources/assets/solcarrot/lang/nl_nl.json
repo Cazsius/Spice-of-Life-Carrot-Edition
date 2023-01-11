@@ -1,0 +1,72 @@
+{
+	"tooltip.solcarrot.hearty.not_eaten": "Nog nooit gegeten! Hoe zou 't smaken?",
+	"tooltip.solcarrot.hearty.eaten": "Gegeten: Bijgedragen aan extra hartjes",
+	"tooltip.solcarrot.cheap.eaten": "Gegeten: Geen merkbaar effect",
+	"tooltip.solcarrot.cheap": "Dit gerechtje is niet voedzaam genoeg om je gezondheid te verbeteren.",
+	"tooltip.solcarrot.disabled.blacklist": "Dit gerecht staat op de blacklist en kan je gezondheid dus niet verbeteren.",
+	"tooltip.solcarrot.disabled.whitelist": "Dit gerecht staat niet op de whitelist en kan je gezondheid dus niet verbeteren.",
+	"tooltip.solcarrot.disabled.eaten": "Gegeten: Geen merkbaar effect",
+	
+	"command.solcarrot.foodlist.no_permissions": "Je hebt niet de nodige permissies om dit commando op andere spelers toe te passen!",
+	
+	"command.solcarrot.foodlist.size.desc.foods_eaten.singular": "Je hebt één uniek gerecht gegeten!",
+	"command.solcarrot.foodlist.size.desc.foods_eaten.plural": "Je hebt %s unieke gerechten gegeten!",
+	"command.solcarrot.foodlist.size.desc.milestone.max": "Je kan helaas niet nog meer gezondheid krijgen door nieuwe gerechten te eten.",
+	"command.solcarrot.foodlist.size.desc.milestone.more": "Je hebt nog %s nodig om je maximale gezondheid te verhogen.",
+	
+	"command.solcarrot.foodlist.clear.success": "Gerechtenlijst gereset!",
+	
+	"command.solcarrot.foodlist.sync.success": "Gerechtenlijst gesynchroniseerd!",
+	
+	"message.solcarrot.chat_wrapper": "[SoL: Carrot] %s",
+	"message.solcarrot.hearts.singular": "een extra hartje",
+	"message.solcarrot.hearts.plural": "%s extra hartjes",
+	"message.solcarrot.milestone_achieved": "Wat een unieke smaak! Je hebt %s gekregen!",
+	"message.solcarrot.finished.chat": "Je lust naar nieuwe gerechten is eindelijk gestild.",
+	"message.solcarrot.finished.hotbar": "Je hebt %s gekregen. Je lust naar nieuwe gerechten is eindelijk gestild.",
+	
+	"item.solcarrot.food_book": "Gerechtenboek",
+	
+	"gui.solcarrot.food_book.stats": "Overzicht",
+	"gui.solcarrot.food_book.eaten_foods": "Al geproefd: %s",
+	"gui.solcarrot.food_book.uneaten_foods": "Nog niet geproefd: %s",
+	"gui.solcarrot.food_book.config": "Configuratie",
+	
+	"gui.solcarrot.food_book.fraction": "%1$s/%2$s",
+	
+	"gui.solcarrot.food_book.stats.foods_tasted": "Gerechten geproefd",
+	"gui.solcarrot.food_book.stats.hearts_gained": "Hartjes gekregen",
+	"gui.solcarrot.food_book.stats.tooltip.progress": "Nog %s tot volgende mijlpaal",
+	"gui.solcarrot.food_book.stats.tooltip.progress.max": "Hoogste mijlpaal bereikt!",
+	"gui.solcarrot.food_book.stats.tooltip.previous_milestone": "Laatste mijlpaal: %s",
+	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "Volgende mijlpaal: %s",
+	"gui.solcarrot.food_book.stats.tooltip.total_foods": "%s gerechten in totaal",
+	"gui.solcarrot.food_book.stats.tooltip.foods_tasted": "Gerechten geproefd: %s",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.singular": "Eén hartje per mijlpaal",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.plural": "%s hartjes per mijlpaal",
+	
+	"gui.solcarrot.food_book.config.minimum_food_value": "Minimum voedingswaarde",
+	"gui.solcarrot.food_book.config.tooltip.minimum_food_value": "De minimale voedingswaarde die een gerecht moet hebben om tot mijlpalen mee te tellen.",
+	"gui.solcarrot.food_book.config.hearty_fraction": "Voedzame gerechten",
+	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "Van alle %1$s gerechten, zijn %2$s voedzaam genoeg om je gezondheid te verbeteren.",
+	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Te kleine gerechtjes",
+	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "Van de %1$s gerechtjes die niet voedzaam genoeg zijn om je gezondheid te verbeteren, heb je er %2$s gegeten.",
+	"gui.solcarrot.food_book.config.blacklist": "Gerechten op blacklist",
+	"gui.solcarrot.food_book.config.whitelist": "Gerechten op whitelist",
+	"gui.solcarrot.food_book.config.tooltip.blacklist": "Hoeveel gerechten uitgesloten zijn door de blacklist.",
+	"gui.solcarrot.food_book.config.tooltip.whitelist": "Hoeveel gerechten toegestaan zijn door de whitelist.",
+	
+	"config.solcarrot.base_hearts": "Beginhartjes",
+	"config.solcarrot.hearts_per_milestone": "Hartjes per mijlpaal",
+	"config.solcarrot.milestones": "Mijlpalen",
+	"config.solcarrot.is_food_tooltip_enabled": "Toon tooltip bij eten",
+	"config.solcarrot.should_show_progress_above_hotbar": "Toon voortgang boven hotbar",
+	"config.solcarrot.should_show_uneaten_foods": "Toon niet geproefde gerechten",
+	"config.solcarrot.should_play_milestone_sounds": "Laat geluid horen bij mijlpaal",
+	"config.solcarrot.should_spawn_intermediate_particles": "Toon partikels tussendoor",
+	"config.solcarrot.should_spawn_milestone_particles": "Toon partikels bij mijlpalen",
+	"config.solcarrot.food_blacklist": "Blacklist",
+	"config.solcarrot.food_whitelist": "Whitelist (gaat boven blacklist)",
+	"config.solcarrot.minimum_food_value": "Minimum voedingswaarde",
+	"config.solcarrot.reset_on_death": "Reset bij doodgaan"
+}
