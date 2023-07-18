@@ -1,7 +1,7 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 
 import java.awt.*;
 
@@ -25,8 +25,8 @@ public class UILabel extends UIElement {
 	}
 	
 	@Override
-	protected void render(PoseStack matrices) {
-		super.render(matrices);
+	protected void render(GuiGraphics graphics) {
+		super.render(graphics);
 		
 		int textWidth = font.width(text) - 1;
 		int x = frame.x + (frame.width - textWidth) * alignment.ordinal / 2;
@@ -34,7 +34,7 @@ public class UILabel extends UIElement {
 		if (color.getTransparency() == Color.TRANSLUCENT) {
 			RenderSystem.enableBlend();
 		}
-		font.draw(matrices, text, x, y, color.getRGB());
+		graphics.drawCenteredString(font, text, x, y, color.getRGB());
 	}
 	
 	enum TextAlignment {

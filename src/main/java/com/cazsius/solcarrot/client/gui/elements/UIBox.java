@@ -1,7 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 
 import java.awt.*;
 
@@ -23,9 +22,9 @@ public class UIBox extends UIElement {
 	}
 	
 	@Override
-	protected void render(PoseStack matrices) {
-		super.render(matrices);
+	protected void render(GuiGraphics graphics) {
+		super.render(graphics);
 		
-		GuiComponent.fill(matrices, frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
+		graphics.fill(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
 	}
 }

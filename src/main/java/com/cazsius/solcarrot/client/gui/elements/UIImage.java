@@ -1,9 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 
 import java.awt.*;
 
@@ -22,17 +19,14 @@ public class UIImage extends UIElement {
 	}
 	
 	@Override
-	protected void render(PoseStack matrices) {
-		super.render(matrices);
+	protected void render(GuiGraphics graphics) {
+		super.render(graphics);
 		
 		int imageWidth = data.partOfTexture.width;
 		int imageHeight = data.partOfTexture.height;
 		
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, data.textureLocation);
-		
-		GuiComponent.blit(
-			matrices,
+		graphics.blit(
+			data.textureLocation,
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),
 			frame.y + (int) Math.floor((frame.height - imageHeight) / 2d),
 			0,
@@ -41,5 +35,4 @@ public class UIImage extends UIElement {
 			256, 256
 		);
 	}
-	
 }

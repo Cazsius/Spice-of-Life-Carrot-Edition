@@ -2,10 +2,13 @@ package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.client.gui.elements.*;
+import com.cazsius.solcarrot.client.gui.elements.ImageData;
+import com.cazsius.solcarrot.client.gui.elements.UIElement;
+import com.cazsius.solcarrot.client.gui.elements.UIImage;
+import com.cazsius.solcarrot.client.gui.elements.UILabel;
 import com.cazsius.solcarrot.tracking.FoodList;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -137,17 +140,17 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	}
 	
 	@Override
-	public void render(PoseStack matrices, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(matrices);
+	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(graphics);
 		
-		UIElement.render(matrices, background, mouseX, mouseY);
+		UIElement.render(graphics, background, mouseX, mouseY);
 		
-		super.render(matrices, mouseX, mouseY, partialTicks);
+		super.render(graphics, mouseX, mouseY, partialTicks);
 		
 		if (!pages.isEmpty()) { // might not be loaded yet; race condition
 			// current page
-			UIElement.render(matrices, elements, mouseX, mouseY);
-			UIElement.render(matrices, pages.get(currentPageNumber), mouseX, mouseY);
+			UIElement.render(graphics, elements, mouseX, mouseY);
+			UIElement.render(graphics, pages.get(currentPageNumber), mouseX, mouseY);
 		}
 	}
 	

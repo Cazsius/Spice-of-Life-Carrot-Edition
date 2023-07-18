@@ -1,8 +1,8 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
@@ -10,27 +10,28 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.*;
 import java.util.stream.Stream;
 
 import static java.util.Collections.singletonList;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class UIElement {
-	public static void render(PoseStack matrices, UIElement element, int mouseX, int mouseY) {
-		render(matrices, singletonList(element), mouseX, mouseY);
+	public static void render(GuiGraphics graphics, UIElement element, int mouseX, int mouseY) {
+		render(graphics, singletonList(element), mouseX, mouseY);
 	}
 	
-	public static void render(PoseStack matrices, List<UIElement> elements, int mouseX, int mouseY) {
-		elements.forEach(element -> element.render(matrices));
+	public static void render(GuiGraphics graphics, List<UIElement> elements, int mouseX, int mouseY) {
+		elements.forEach(element -> element.render(graphics));
 		
 		elements.stream()
 			.flatMap(UIElement::getRecursiveChildren)
 			.filter(element -> element.hasTooltip() && element.frame.contains(mouseX, mouseY))
 			.reduce((one, two) -> two) // last element was rendered last and is thus visually on top
-			.ifPresent(element -> element.renderTooltip(matrices, mouseX, mouseY));
+			.ifPresent(element -> element.renderTooltip(graphics, mouseX, mouseY));
 	}
 	
 	protected static final Minecraft mc = Minecraft.getInstance();
@@ -48,8 +49,8 @@ public abstract class UIElement {
 	/**
 	 Renders the element to the screen. Note that no transforms have been applied, so you should take your position into account!
 	 */
-	protected void render(PoseStack matrices) {
-		children.forEach(child -> child.render(matrices));
+	protected void render(GuiGraphics graphics) {
+		children.forEach(child -> child.render(graphics));
 	}
 	
 	private Stream<UIElement> getRecursiveChildren() {
@@ -72,10 +73,10 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
+	protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
 		if (tooltip == null) return;
 		
-		renderTooltip(matrices, ItemStack.EMPTY, Collections.singletonList(Component.translatable(tooltip)), mouseX, mouseY);
+		renderTooltip(graphics, ItemStack.EMPTY, Collections.singletonList(Component.translatable(tooltip)), mouseX, mouseY);
 	}
 	
 	/**
@@ -86,10 +87,8 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected final void renderTooltip(PoseStack matrices, ItemStack itemStack, List<? extends FormattedText> tooltip, int mouseX, int mouseY) {
-		assert mc.screen != null;
-		
-		mc.screen.renderComponentTooltip(matrices, tooltip, mouseX, mouseY, itemStack);
+	protected final void renderTooltip(GuiGraphics graphics, ItemStack itemStack, List<? extends FormattedText> tooltip, int mouseX, int mouseY) {
+		graphics.renderComponentTooltip(font, tooltip, mouseX, mouseY, itemStack);
 	}
 	
 	/** calculates and sets the frame to the smallest rectangle enclosing all children's frames */

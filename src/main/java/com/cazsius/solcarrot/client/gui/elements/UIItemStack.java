@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 
 import java.awt.*;
@@ -20,11 +20,10 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void render(PoseStack matrices) {
-		super.render(matrices);
+	protected void render(GuiGraphics graphics) {
+		super.render(graphics);
 		
-		mc.getItemRenderer().renderGuiItem(
-			// no PoseStack? oof
+		graphics.renderItem(
 			itemStack,
 			frame.x + (frame.width - size) / 2,
 			frame.y + (frame.height - size) / 2
@@ -37,8 +36,8 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
+	protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
 		var tooltip = itemStack.getTooltipLines(mc.player, mc.options.advancedItemTooltips ? ADVANCED : NORMAL);
-		renderTooltip(matrices, itemStack, tooltip, mouseX, mouseY);
+		renderTooltip(graphics, itemStack, tooltip, mouseX, mouseY);
 	}
 }
