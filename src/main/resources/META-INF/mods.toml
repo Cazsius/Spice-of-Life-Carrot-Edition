@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[36,)"
+loaderVersion = "[${loader_version},)"
 
 issueTrackerURL = "https://github.com/Cazsius/Spice-of-Life-Carrot-Edition/issues"
 displayURL = "https://curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition"
@@ -8,10 +8,10 @@ license = "LGPL-2.1"
 credits = "Lewis_McReu for some coding assistance, Vik for the great new art :)"
 authors = "Cazsius, Talonos, juliand665"
 
-[[mods]] # no need to indent — we only have one mod anyway
+[[mods]] # no need to indent — we only have one mod anyway
 
 modId = "solcarrot"
-version = "${file.jarVersion}"
+version = "${mod_version}"
 displayName = "Spice of Life: Carrot Edition"
 description = '''
 A mod designed to encourage dietary variety!
@@ -24,6 +24,6 @@ Instead of using the stick, we use the carrot!
 [[dependencies.solcarrot]]
 	modId = "forge"
 	mandatory = true
-	versionRange = "[36,)"
+	versionRange = "[${loader_version},)"
 	ordering = "NONE" # BEFORE or AFTER required if the relationship is not mandatory
 	side = "BOTH" # BOTH, CLIENT or SERVER

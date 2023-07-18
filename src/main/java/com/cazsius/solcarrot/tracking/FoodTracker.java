@@ -25,8 +25,8 @@ public final class FoodTracker {
 	public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
 		if (!(event.getEntity() instanceof Player player)) return;
 		
-		if (player.level.isClientSide) return;
-		var world = (ServerLevel) player.level;
+		if (player.level().isClientSide) return;
+		var world = (ServerLevel) player.level();
 		
 		var serverPlayer = (ServerPlayer) player;
 		boolean isInSurvival = serverPlayer.gameMode.getGameModeForPlayer() == GameType.SURVIVAL;

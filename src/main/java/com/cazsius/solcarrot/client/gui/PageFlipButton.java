@@ -3,10 +3,12 @@ package com.cazsius.solcarrot.client.gui;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -23,20 +25,23 @@ final class PageFlipButton extends Button {
 	private final Pageable pageable;
 	
 	PageFlipButton(int x, int y, Direction direction, Pageable pageable) {
-		super(x, y, width, height, Component.empty(), (button) -> ((PageFlipButton) button).changePage());
+		super(
+			x, y, width, height,
+			CommonComponents.EMPTY,
+			(button) -> pageable.switchToPage(pageable.getCurrentPageNumber() + direction.distance),
+			DEFAULT_NARRATION
+		);
 		
 		this.direction = direction;
 		this.pageable = pageable;
 	}
 	
 	@Override
-	public void renderButton(PoseStack matrices, int mouseX, int mouseY, float partialTicks) {
+	protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
 		if (!visible) return;
 		
 		int textureX = 0;
-		
-		boolean isHovered = x <= mouseX && mouseX < x + width && y <= mouseY && mouseY < y + height;
-		if (isHovered) {
+		if (isHovered()) {
 			textureX += width;
 		}
 		
@@ -45,17 +50,11 @@ final class PageFlipButton extends Button {
 			textureY += height;
 		}
 		
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, texture);
-		blit(matrices, x, y, 0, textureX, textureY, width, height, 256, 256);
+		graphics.blit(texture, getX(), getY(), textureX, textureY, width, height);
 	}
 	
 	public void updateState() {
 		visible = pageable.isWithinRange(pageable.getCurrentPageNumber() + direction.distance);
-	}
-	
-	private void changePage() {
-		pageable.switchToPage(pageable.getCurrentPageNumber() + direction.distance);
 	}
 	
 	@Override

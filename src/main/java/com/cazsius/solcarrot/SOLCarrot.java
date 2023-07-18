@@ -1,6 +1,7 @@
 package com.cazsius.solcarrot;
 
 import com.cazsius.solcarrot.communication.FoodListMessage;
+import com.cazsius.solcarrot.item.SOLCarrotItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -36,11 +37,12 @@ public final class SOLCarrot {
 		channel.messageBuilder(FoodListMessage.class, 0)
 			.encoder(FoodListMessage::write)
 			.decoder(FoodListMessage::new)
-			.consumer(FoodListMessage::handle)
+			.consumerMainThread(FoodListMessage::handle)
 			.add();
 	}
 	
 	public SOLCarrot() {
 		SOLCarrotConfig.setUp();
+		SOLCarrotItems.setUp();
 	}
 }

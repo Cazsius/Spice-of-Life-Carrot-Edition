@@ -91,7 +91,7 @@ public final class FoodListCommand {
 	}
 	
 	static void sendFeedback(CommandSourceStack source, MutableComponent message) {
-		source.sendSuccess(applyFeedbackStyle(message), true);
+		source.sendSuccess(() -> applyFeedbackStyle(message), true);
 	}
 	
 	private static MutableComponent applyFeedbackStyle(MutableComponent text) {

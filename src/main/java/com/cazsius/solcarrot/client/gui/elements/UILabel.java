@@ -34,7 +34,7 @@ public class UILabel extends UIElement {
 		if (color.getTransparency() == Color.TRANSLUCENT) {
 			RenderSystem.enableBlend();
 		}
-		graphics.drawCenteredString(font, text, x, y, color.getRGB());
+		graphics.drawString(font, text, x, y, color.getRGB(), false);
 	}
 	
 	enum TextAlignment {

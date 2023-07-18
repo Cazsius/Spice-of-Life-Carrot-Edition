@@ -33,9 +33,9 @@ public final class MaxHealthHandler {
 		updateHealthModifier(event.getEntity(), prevModifier);
 	}
 	
-	/** @return whether or not the player reached a new milestone in this update */
+	/** @return whether the player reached a new milestone in this update */
 	public static boolean updateFoodHPModifier(Player player) {
-		if (player.level.isClientSide) return false;
+		if (player.level().isClientSide) return false;
 		
 		var prevModifier = getHealthModifier(player);
 		

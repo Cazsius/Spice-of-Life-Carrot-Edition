@@ -65,12 +65,12 @@ public final class CapabilityHandler {
 	}
 	
 	public static void syncFoodList(Player player) {
-		if (player.level.isClientSide) return;
+		if (player.level().isClientSide) return;
 		
 		var target = (ServerPlayer) player;
 		SOLCarrot.channel.sendTo(
 			new FoodListMessage(FoodList.get(player)),
-			target.connection.getConnection(),
+			target.connection.connection,
 			NetworkDirection.PLAY_TO_CLIENT
 		);
 		
