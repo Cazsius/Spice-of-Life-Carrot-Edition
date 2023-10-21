@@ -39,7 +39,7 @@ public final class Localization {
 		if (number < 1000) {
 			return "" + number;
 		} else if (number < 10_000) {
-			return Math.round(number / 1000F) + "." + Math.round((number % 1000) / 100F) + "k";
+			return Math.floor(number / 1000F) + "." + Math.floor((number % 1000) / 100F) + "k";
 		} else {
 			return Math.round(number / 1000F) + "k";
 		}
