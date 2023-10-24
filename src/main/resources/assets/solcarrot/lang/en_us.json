@@ -51,8 +51,8 @@
 	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "Out of %1$s foods, %2$s are nourishing enough to improve your health.",
 	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Boring Foods Tasted",
 	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "Out of the %1$s foods that aren't nourishing enough to improve your health, you've eaten %2$s.",
-	"gui.solcarrot.food_book.config.blacklist": "Blacklisted Foods",
-	"gui.solcarrot.food_book.config.whitelist": "Whitelisted Foods",
+	"gui.solcarrot.food_book.config.blacklist": "Foods Blacklisted",
+	"gui.solcarrot.food_book.config.whitelist": "Foods Whitelisted",
 	"gui.solcarrot.food_book.config.tooltip.blacklist": "How many foods have been disabled by the blacklist.",
 	"gui.solcarrot.food_book.config.tooltip.whitelist": "How many foods the whitelist allows.",
 	
