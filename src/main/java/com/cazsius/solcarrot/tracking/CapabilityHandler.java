@@ -52,11 +52,13 @@ public final class CapabilityHandler {
 		if (event.isWasDeath() && SOLCarrotConfig.shouldResetOnDeath()) return;
 		
 		var originalPlayer = event.getOriginal();
-		originalPlayer.revive(); // so we can access the capabilities; entity will get removed either way
+		originalPlayer.reviveCaps(); // so we can access the capabilities; entity will get removed either way
 		var original = FoodList.get(originalPlayer);
 		var newInstance = FoodList.get(event.getEntity());
 		newInstance.deserializeNBT(original.serializeNBT());
 		// can't sync yet; client hasn't attached capabilities yet
+		
+		originalPlayer.invalidateCaps();
 	}
 	
 	@SubscribeEvent
