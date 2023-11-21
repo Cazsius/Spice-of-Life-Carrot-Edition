@@ -3,9 +3,13 @@ package com.cazsius.solcarrot.tracking;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -25,12 +29,9 @@ public final class FoodTracker {
 	public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
 		if (!(event.getEntity() instanceof Player player)) return;
 		
-		if (player.level().isClientSide) return;
-		var world = (ServerLevel) player.level();
+		var isClientSide = player.level().isClientSide;
 		
-		var serverPlayer = (ServerPlayer) player;
-		boolean isInSurvival = serverPlayer.gameMode.getGameModeForPlayer() == GameType.SURVIVAL;
-		if (SOLCarrotConfig.limitProgressionToSurvival() && !isInSurvival) return;
+		if (SOLCarrotConfig.limitProgressionToSurvival() && player.isCreative()) return;
 		
 		var usedItem = event.getItem().getItem();
 		if (!usedItem.isEdible()) return;
@@ -45,27 +46,27 @@ public final class FoodTracker {
 		var progressInfo = foodList.getProgressInfo();
 		
 		if (newMilestoneReached) {
-			if (SOLCarrotConfig.shouldPlayMilestoneSounds()) {
+			if (isClientSide && SOLCarrotConfig.shouldPlayMilestoneSounds()) {
 				// passing the player makes it not play for some reason
-				world.playSound(
-					null,
+				player.level().playSound(
+					player,
 					player.blockPosition(),
 					SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS,
 					1.0F, 1.0F
 				);
 			}
 			
-			if (SOLCarrotConfig.shouldSpawnMilestoneParticles()) {
-				spawnParticles(world, player, ParticleTypes.HEART, 12);
+			if (isClientSide && SOLCarrotConfig.shouldSpawnMilestoneParticles()) {
+				spawnParticles(player, ParticleTypes.HEART, 12);
 				
 				if (progressInfo.hasReachedMax()) {
-					spawnParticles(world, player, ParticleTypes.HAPPY_VILLAGER, 16);
+					spawnParticles(player, ParticleTypes.HAPPY_VILLAGER, 16);
 				}
 			}
 			
 			var heartsDescription = localizedQuantityComponent("message", "hearts", SOLCarrotConfig.getHeartsPerMilestone());
 			
-			if (SOLCarrotConfig.shouldShowProgressAboveHotbar()) {
+			if (isClientSide && SOLCarrotConfig.shouldShowProgressAboveHotbar()) {
 				String messageKey = progressInfo.hasReachedMax() ? "finished.hotbar" : "milestone_achieved";
 				player.displayClientMessage(localizedComponent("message", messageKey, heartsDescription), true);
 			} else {
@@ -75,21 +76,22 @@ public final class FoodTracker {
 				}
 			}
 		} else if (hasTriedNewFood) {
-			if (SOLCarrotConfig.shouldSpawnIntermediateParticles()) {
-				spawnParticles(world, player, ParticleTypes.END_ROD, 12);
+			if (isClientSide && SOLCarrotConfig.shouldSpawnIntermediateParticles()) {
+				spawnParticles(player, ParticleTypes.END_ROD, 12);
 			}
 		}
 	}
 	
-	private static void spawnParticles(ServerLevel world, Player player, ParticleOptions type, int count) {
-		// this overload sends a packet to the client
-		world.sendParticles(
-			type,
+	private static void spawnParticles(Player player, ParticleOptions type, int count) {
+		// hacky way to reuse the existing logic for randomizing particle spawn positions
+		var connection = Minecraft.getInstance().getConnection();
+		assert connection != null;
+		connection.handleParticleEvent(new ClientboundLevelParticlesPacket(
+			type, false,
 			player.getX(), player.getY() + player.getEyeHeight(), player.getZ(),
-			count,
 			0.5F, 0.5F, 0.5F,
-			0.0F
-		);
+			0.0F, count
+		));
 	}
 	
 	private static void showChatMessage(Player player, ChatFormatting color, Component message) {

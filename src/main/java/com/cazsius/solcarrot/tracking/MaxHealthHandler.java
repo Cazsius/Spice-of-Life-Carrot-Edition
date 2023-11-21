@@ -35,8 +35,6 @@ public final class MaxHealthHandler {
 	
 	/** @return whether the player reached a new milestone in this update */
 	public static boolean updateFoodHPModifier(Player player) {
-		if (player.level().isClientSide) return false;
-		
 		var prevModifier = getHealthModifier(player);
 		
 		int healthPenalty = 2 * (SOLCarrotConfig.getBaseHearts() - 10);
@@ -48,14 +46,16 @@ public final class MaxHealthHandler {
 		double totalHealthModifier = healthPenalty + addedHealthFromFood;
 		boolean hasChanged = prevModifier == null || prevModifier.getAmount() != totalHealthModifier;
 		
-		AttributeModifier modifier = new AttributeModifier(
-			MILESTONE_HEALTH_MODIFIER_ID,
-			"Health Gained from Trying New Foods",
-			totalHealthModifier,
-			AttributeModifier.Operation.ADDITION
-		);
-		
-		updateHealthModifier(player, modifier);
+		if (!player.level().isClientSide) {
+			AttributeModifier modifier = new AttributeModifier(
+				MILESTONE_HEALTH_MODIFIER_ID,
+				"Health Gained from Trying New Foods",
+				totalHealthModifier,
+				AttributeModifier.Operation.ADDITION
+			);
+			
+			updateHealthModifier(player, modifier);
+		}
 		
 		return hasChanged;
 	}
