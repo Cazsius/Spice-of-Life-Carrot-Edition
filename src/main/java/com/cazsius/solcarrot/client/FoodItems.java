@@ -25,6 +25,7 @@ import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 public final class FoodItems {
 	private static List<Item> foodsBeforeBlacklist;
 	private static List<Item> foods;
+	private static boolean isConfigLoaded = false;
 	
 	/** @return a list of all item stacks that can be eaten, including blacklisted/hidden ones */
 	public static List<Item> getAllFoodsIgnoringBlacklist() {
@@ -43,16 +44,24 @@ public final class FoodItems {
 			// sort by name
 			.sorted(Comparator.comparing(food -> I18n.get(food.getDescriptionId() + ".name")))
 			.collect(Collectors.toList());
+		
+		// depending on the other mods involved, config might be loaded before or after this event
+		tryApplyBlacklist();
 	}
 	
 	@SubscribeEvent
 	public static void onConfigUpdate(ModConfigEvent event) {
 		if (event.getConfig().getType() == ModConfig.Type.CLIENT) return;
 		
-		applyBlacklist();
+		isConfigLoaded = true;
+		
+		tryApplyBlacklist();
 	}
 	
-	private static void applyBlacklist() {
+	private static void tryApplyBlacklist() {
+		if (foodsBeforeBlacklist == null) return;
+		if (!isConfigLoaded) return;
+		
 		foods = foodsBeforeBlacklist.stream()
 			.filter(SOLCarrotConfig::isAllowed)
 			.collect(Collectors.toList());
