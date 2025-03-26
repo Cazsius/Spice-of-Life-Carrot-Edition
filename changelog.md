@@ -1,1 +1,1 @@
-* Fix a crash when opening the book in a server
+* Initial update to 1.21.4
