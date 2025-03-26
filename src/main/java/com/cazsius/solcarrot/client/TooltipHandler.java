@@ -4,6 +4,7 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +28,7 @@ public final class TooltipHandler {
 		if (player == null) return;
 
 		ItemStack food = event.getItemStack();
-		if (food.getFoodProperties(player) == null) return;
+		if (food.get(DataComponents.FOOD) == null) return;
 		
 		FoodList foodList = FoodList.get(player);
 		boolean hasBeenEaten = foodList.hasEaten(food);

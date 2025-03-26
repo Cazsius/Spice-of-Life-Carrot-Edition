@@ -1,6 +1,7 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 
 import java.awt.*;
 
@@ -26,10 +27,10 @@ public class UIImage extends UIElement {
 		int imageHeight = data.partOfTexture.height;
 		
 		graphics.blit(
+			RenderType::guiTextured,
 			data.textureLocation,
 			frame.x + (int) Math.floor((frame.width - imageWidth) / 2d),
 			frame.y + (int) Math.floor((frame.height - imageHeight) / 2d),
-			0,
 			data.partOfTexture.x, data.partOfTexture.y,
 			data.partOfTexture.width, data.partOfTexture.height,
 			256, 256

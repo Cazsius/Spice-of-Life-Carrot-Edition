@@ -3,6 +3,7 @@ package com.cazsius.solcarrot.client;
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
@@ -41,7 +42,7 @@ public final class FoodItems {
 	 */
 	public static void setUp() {
 		foodsBeforeBlacklist = BuiltInRegistries.ITEM.stream()
-			.filter((item) -> item.getDefaultInstance().getFoodProperties(null) != null)
+			.filter((item) -> item.getDefaultInstance().has(DataComponents.FOOD) )
 			// sort by name
 			.sorted(Comparator.comparing(food -> I18n.get(food.getDescriptionId() + ".name")))
 			.collect(Collectors.toList());

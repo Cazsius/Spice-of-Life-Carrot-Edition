@@ -4,6 +4,7 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -29,7 +30,7 @@ public final class FoodTracker {
 		if (SOLCarrotConfig.limitProgressionToSurvival() && player.isCreative()) return;
 
 		var usedStack = event.getItem();
-		if (usedStack.getFoodProperties(player) == null) return;
+		if (usedStack.get(DataComponents.FOOD) == null) return;
 		
 		FoodList foodList = FoodList.get(player);
 		boolean hasTriedNewFood = foodList.addFood(usedStack);
@@ -82,7 +83,7 @@ public final class FoodTracker {
 		var connection = Minecraft.getInstance().getConnection();
 		assert connection != null;
 		connection.handleParticleEvent(new ClientboundLevelParticlesPacket(
-			type, false,
+			type, false, false,
 			player.getX(), player.getY() + player.getEyeHeight(), player.getZ(),
 			0.5F, 0.5F, 0.5F,
 			0.0F, count

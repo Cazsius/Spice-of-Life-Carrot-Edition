@@ -1,6 +1,7 @@
 package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -20,13 +21,13 @@ public final class FoodInstance {
 		ResourceLocation name = ResourceLocation.tryParse(encoded);
 		
 		// TODO it'd be nice to store (and maybe even count) references to missing items, in case the mod is added back in later
-		Item item = BuiltInRegistries.ITEM.get(name);
+		Item item = BuiltInRegistries.ITEM.getValue(name);
 		if (item == null) {
             SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer registered: {} (removing from list)", encoded);
 			return null;
 		}
 		
-		if (item.getDefaultInstance().getFoodProperties(null) == null) {
+		if (item.getDefaultInstance().get(DataComponents.FOOD) == null) {
             SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer edible: {} (ignoring in case it becomes edible again later)", encoded);
 		}
 		

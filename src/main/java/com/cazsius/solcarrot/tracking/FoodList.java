@@ -4,6 +4,7 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.api.FoodCapability;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -79,7 +80,7 @@ public final class FoodList implements FoodCapability {
 
 	@Override
 	public boolean hasEaten(ItemStack food) {
-		if (food.getFoodProperties(null) == null) return false;
+		if (food.get(DataComponents.FOOD) == null) return false;
 		return foods.contains(new FoodInstance(food.getItem()));
 	}
 	

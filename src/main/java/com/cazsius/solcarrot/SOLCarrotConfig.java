@@ -4,6 +4,7 @@ import com.cazsius.solcarrot.communication.ConstructFoodsMessage;
 import com.cazsius.solcarrot.tracking.CapabilityHandler;
 import com.cazsius.solcarrot.tracking.FoodList;
 import com.google.common.collect.Lists;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -293,7 +294,7 @@ public final class SOLCarrotConfig {
 	}
 
 	public static boolean isHearty(ItemStack food) {
-		var foodInfo = food.getFoodProperties(null);
+		var foodInfo = food.get(DataComponents.FOOD);
 		if (foodInfo == null) return false;
 		return foodInfo.nutrition() >= SERVER.minimumFoodValue.get();
 	}
