@@ -9,13 +9,8 @@ import net.minecraft.world.item.Item;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public final class FoodInstance {
-	public final Item item;
-	
-	public FoodInstance(Item item) {
-		this.item = item;
-	}
-	
+public record FoodInstance(Item item) {
+
 	@Nullable
 	public static FoodInstance decode(String encoded) {
 		ResourceLocation name = ResourceLocation.tryParse(encoded);

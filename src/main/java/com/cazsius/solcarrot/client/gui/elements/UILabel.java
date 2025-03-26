@@ -31,9 +31,9 @@ public class UILabel extends UIElement {
 		int textWidth = font.width(text) - 1;
 		int x = frame.x + (frame.width - textWidth) * alignment.ordinal / 2;
 		int y = frame.y + (frame.height - 7) / 2;
-		if (color.getTransparency() == Color.TRANSLUCENT) {
-			RenderSystem.enableBlend();
-		}
+//		if (color.getTransparency() == Color.TRANSLUCENT) {
+//			RenderSystem.enableBlend(); TODO: Check if this is still needed
+//		}
 		graphics.drawString(font, text, x, y, color.getRGB(), false);
 	}
 	

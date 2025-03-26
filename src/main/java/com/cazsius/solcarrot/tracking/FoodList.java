@@ -53,12 +53,12 @@ public final class FoodList implements FoodCapability {
 	/** used for persistent storage */
 	@Override
 	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
-		var list = tag.getList(NBT_KEY_FOOD_LIST, Tag.TAG_STRING);
+		var list = tag.getListOrEmpty(NBT_KEY_FOOD_LIST);
 		
 		foods.clear();
 		list.stream()
 			.map(nbt -> (StringTag) nbt)
-			.map(StringTag::getAsString)
+			.map(stringTag -> stringTag.asString().get())
 			.map(FoodInstance::decode)
 			.filter(Objects::nonNull)
 			.forEach(foods::add);
