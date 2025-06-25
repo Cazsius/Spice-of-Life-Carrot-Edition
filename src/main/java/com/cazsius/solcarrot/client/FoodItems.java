@@ -18,10 +18,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static net.neoforged.fml.common.EventBusSubscriber.Bus.MOD;
-
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(value = Dist.CLIENT, modid = SOLCarrot.MOD_ID, bus = MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid = SOLCarrot.MOD_ID)
 public final class FoodItems {
 	private static List<Item> foodsBeforeBlacklist;
 	private static List<Item> foods;

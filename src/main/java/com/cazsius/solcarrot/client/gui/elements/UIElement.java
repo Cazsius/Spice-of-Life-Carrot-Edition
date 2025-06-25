@@ -37,7 +37,7 @@ public abstract class UIElement {
 	protected static final Minecraft mc = Minecraft.getInstance();
 	protected static final Font font = mc.font;
 	
-	public Rectangle frame;
+	public final Rectangle frame;
 	@Nullable
 	public String tooltip;
 	protected final List<UIElement> children = new ArrayList<>();
@@ -88,7 +88,7 @@ public abstract class UIElement {
 	 @param mouseY the mouse's y position
 	 */
 	protected final void renderTooltip(GuiGraphics graphics, ItemStack itemStack, List<? extends FormattedText> tooltip, int mouseX, int mouseY) {
-		graphics.renderComponentTooltip(font, tooltip, mouseX, mouseY, itemStack);
+		graphics.setComponentTooltipForNextFrame(font, tooltip, mouseX, mouseY, itemStack);
 	}
 	
 	/** calculates and sets the frame to the smallest rectangle enclosing all children's frames */

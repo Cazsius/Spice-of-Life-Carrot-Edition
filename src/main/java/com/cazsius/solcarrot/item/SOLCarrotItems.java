@@ -13,9 +13,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import static net.neoforged.fml.common.EventBusSubscriber.Bus.MOD;
-
-@EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
+@EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class SOLCarrotItems {
 	private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(SOLCarrot.MOD_ID);
 	

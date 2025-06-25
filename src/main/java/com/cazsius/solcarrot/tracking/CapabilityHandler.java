@@ -13,13 +13,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import static net.neoforged.fml.common.EventBusSubscriber.Bus.MOD;
-
 @EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class CapabilityHandler {
 	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("food");
 	
-	@EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
+	@EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 	private static final class Setup {
 		@SubscribeEvent
 		public static void registerCapabilities(RegisterCapabilitiesEvent event) {

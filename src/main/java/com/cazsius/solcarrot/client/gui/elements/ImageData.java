@@ -7,8 +7,8 @@ import java.awt.*;
 public final class ImageData {
 	public final ResourceLocation textureLocation;
 	public final Rectangle partOfTexture;
-	public int visualWidth;
-	public int visualHeight;
+	public final int visualWidth;
+	public final int visualHeight;
 	
 	public ImageData(ResourceLocation textureLocation, Rectangle partOfTexture) {
 		this(textureLocation, partOfTexture, partOfTexture.width, partOfTexture.height);

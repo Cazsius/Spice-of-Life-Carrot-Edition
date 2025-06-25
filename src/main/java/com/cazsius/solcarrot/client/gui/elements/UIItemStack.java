@@ -12,7 +12,7 @@ import static net.minecraft.world.item.TooltipFlag.Default.NORMAL;
 public class UIItemStack extends UIElement {
 	public static final int size = 16;
 	
-	public ItemStack itemStack;
+	public final ItemStack itemStack;
 	
 	public UIItemStack(ItemStack itemStack) {
 		super(new Rectangle(size, size));

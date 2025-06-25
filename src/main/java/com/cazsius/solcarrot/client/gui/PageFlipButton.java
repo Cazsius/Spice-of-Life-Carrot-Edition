@@ -3,7 +3,7 @@ package com.cazsius.solcarrot.client.gui;
 import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.CommonComponents;
@@ -47,7 +47,7 @@ final class PageFlipButton extends Button {
 			textureY += height;
 		}
 
-		graphics.blit(RenderType::guiTextured, texture, getX(), getY(), textureX, textureY, width, height, 256, 256);
+		graphics.blit(RenderPipelines.GUI_TEXTURED, texture, getX(), getY(), textureX, textureY, width, height, 256, 256);
 	}
 
 	public void updateState() {

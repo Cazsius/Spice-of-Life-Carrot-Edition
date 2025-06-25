@@ -67,7 +67,7 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	private PageFlipButton nextPageButton;
 	private PageFlipButton prevPageButton;
 	
-	private Player player;
+	private final Player player;
 	private FoodData foodData;
 	
 	private final List<Page> pages = new ArrayList<>();

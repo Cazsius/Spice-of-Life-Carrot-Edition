@@ -9,7 +9,7 @@ public final class ProgressInfo {
 	
 	ProgressInfo(FoodList foodList) {
 		foodsEaten = (int) foodList.getEatenFoods().stream()
-			.filter(food -> SOLCarrotConfig.shouldCount(food.item()))
+			.filter(food -> SOLCarrotConfig.shouldCount(food.value()))
 			.count();
 	}
 	

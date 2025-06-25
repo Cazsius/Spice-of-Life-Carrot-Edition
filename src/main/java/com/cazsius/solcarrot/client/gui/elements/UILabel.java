@@ -1,6 +1,5 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 
 import java.awt.*;
@@ -37,7 +36,7 @@ public class UILabel extends UIElement {
 		graphics.drawString(font, text, x, y, color.getRGB(), false);
 	}
 	
-	enum TextAlignment {
+	public enum TextAlignment {
 		LEFT(0), CENTER(1), RIGHT(2);
 		
 		final int ordinal;

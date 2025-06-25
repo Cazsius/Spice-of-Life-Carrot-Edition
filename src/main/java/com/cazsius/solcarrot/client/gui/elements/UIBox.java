@@ -13,7 +13,7 @@ public class UIBox extends UIElement {
 		return new UIBox(new Rectangle(x, minY, 1, maxY + 1 - minY), color);
 	}
 	
-	public Color color;
+	public final Color color;
 	
 	public UIBox(Rectangle frame, Color color) {
 		super(frame);

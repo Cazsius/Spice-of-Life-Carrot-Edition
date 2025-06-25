@@ -4,7 +4,6 @@ import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.client.FoodItems;
 import com.cazsius.solcarrot.client.gui.elements.ImageData;
 import com.cazsius.solcarrot.client.gui.elements.UIElement;
-import com.cazsius.solcarrot.tracking.FoodInstance;
 
 import java.awt.*;
 
@@ -18,8 +17,7 @@ final class ConfigInfoPage extends Page {
 		int validFoods = foodData.validFoods.size();
 		int cheapFoods = totalFoods - validFoods;
 		int eatenCheapFoods = (int) foodData.foodList.getEatenFoods().stream()
-			.map(FoodInstance::getItem)
-			.filter(food -> SOLCarrotConfig.isAllowed(food) && !SOLCarrotConfig.isHearty(food))
+			.filter(food -> SOLCarrotConfig.isAllowed(food.value()) && !SOLCarrotConfig.isHearty(food.value()))
 			.count();
 		
 		{

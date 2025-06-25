@@ -19,7 +19,8 @@ public class ClientPayloadHandler {
 		context.enqueueWork(() -> {
 					Player player = context.player();
 					if (player != null) {
-						FoodList.get(player).deserializeNBT(player.registryAccess(), message.capabilityNBT());
+						FoodList foodList = FoodList.get(player);
+						foodList.readFoods(message.foodList());
 					}
 				})
 				.exceptionally(e -> {

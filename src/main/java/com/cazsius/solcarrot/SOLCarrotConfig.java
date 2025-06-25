@@ -33,9 +33,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static net.neoforged.fml.common.EventBusSubscriber.Bus.MOD;
-
-@EventBusSubscriber(modid = SOLCarrot.MOD_ID, bus = MOD)
+@EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class SOLCarrotConfig {
 	private static String localizationPath(String path) {
 		return "config." + SOLCarrot.MOD_ID + "." + path;
