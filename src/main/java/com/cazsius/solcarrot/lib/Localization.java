@@ -4,8 +4,6 @@ import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public final class Localization {
 	/** e.g. keyString("tooltip", "eaten_status.not_eaten_1") -> "tooltip.solcarrot.eatenStatus.not_eaten_1") */
@@ -13,7 +11,6 @@ public final class Localization {
 		return domain + "." + SOLCarrot.MOD_ID + "." + path;
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	public static String localized(String domain, String path, Object... args) {
 		return I18n.get(keyString(domain, path), args);
 	}
@@ -22,7 +19,6 @@ public final class Localization {
 		return Component.translatable(keyString(domain, path), args);
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	public static String localizedQuantity(String domain, String path, int number) {
 		return number == 1
 			? I18n.get(keyString(domain, path + ".singular"))

@@ -5,15 +5,12 @@ import com.cazsius.solcarrot.client.FoodItems;
 import com.cazsius.solcarrot.tracking.FoodList;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 import net.minecraft.world.item.Item;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /** collects the information the food book needs in a convenient single location */
-@OnlyIn(Dist.CLIENT)
 final class FoodData {
 	public final FoodList foodList;
 	public final ProgressInfo progressInfo;

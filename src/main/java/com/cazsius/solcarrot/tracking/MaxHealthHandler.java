@@ -46,7 +46,7 @@ public final class MaxHealthHandler {
 		double totalHealthModifier = healthPenalty + addedHealthFromFood;
 		boolean hasChanged = prevModifier == null || prevModifier.amount() != totalHealthModifier;
 		
-		if (!player.level().isClientSide) {
+		if (!player.level().isClientSide()) {
 			AttributeModifier modifier = new AttributeModifier(
 				MILESTONE_HEALTH_MODIFIER_ID,
 				totalHealthModifier,

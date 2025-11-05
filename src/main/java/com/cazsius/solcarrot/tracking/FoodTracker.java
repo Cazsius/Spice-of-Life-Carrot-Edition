@@ -25,7 +25,7 @@ public final class FoodTracker {
 	public static void onFoodEaten(LivingEntityUseItemEvent.Finish event) {
 		if (!(event.getEntity() instanceof Player player)) return;
 		
-		var isClientSide = player.level().isClientSide;
+		var isClientSide = player.level().isClientSide();
 		
 		if (SOLCarrotConfig.limitProgressionToSurvival() && player.isCreative()) return;
 

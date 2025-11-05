@@ -1,12 +1,18 @@
 package com.cazsius.solcarrot.client.gui;
 
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import com.cazsius.solcarrot.client.gui.elements.*;
+import com.cazsius.solcarrot.client.gui.elements.UIBox;
+import com.cazsius.solcarrot.client.gui.elements.UIElement;
+import com.cazsius.solcarrot.client.gui.elements.UIImage;
+import com.cazsius.solcarrot.client.gui.elements.UILabel;
+import com.cazsius.solcarrot.client.gui.elements.UIStack;
 import com.cazsius.solcarrot.tracking.ProgressInfo;
 
 import java.awt.*;
 
-import static com.cazsius.solcarrot.lib.Localization.*;
+import static com.cazsius.solcarrot.lib.Localization.formatBigNumber;
+import static com.cazsius.solcarrot.lib.Localization.localized;
+import static com.cazsius.solcarrot.lib.Localization.localizedQuantity;
 
 final class ProgressGraph extends UIElement {
 	private static final int segmentLength = 48;

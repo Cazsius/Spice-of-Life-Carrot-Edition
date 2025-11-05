@@ -1,6 +1,11 @@
 package com.cazsius.solcarrot.client.gui;
 
-import com.cazsius.solcarrot.client.gui.elements.*;
+import com.cazsius.solcarrot.client.gui.elements.ImageData;
+import com.cazsius.solcarrot.client.gui.elements.UIBox;
+import com.cazsius.solcarrot.client.gui.elements.UIElement;
+import com.cazsius.solcarrot.client.gui.elements.UIImage;
+import com.cazsius.solcarrot.client.gui.elements.UILabel;
+import com.cazsius.solcarrot.client.gui.elements.UIStack;
 
 import java.awt.*;
 

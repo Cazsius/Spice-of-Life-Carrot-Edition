@@ -6,8 +6,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -18,7 +16,6 @@ import java.util.stream.Stream;
 
 import static java.util.Collections.singletonList;
 
-@OnlyIn(Dist.CLIENT)
 public abstract class UIElement {
 	public static void render(GuiGraphics graphics, UIElement element, int mouseX, int mouseY) {
 		render(graphics, singletonList(element), mouseX, mouseY);

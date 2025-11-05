@@ -9,7 +9,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -17,7 +16,6 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import static com.cazsius.solcarrot.lib.Localization.localizedComponent;
 
-@OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(value = Dist.CLIENT, modid = SOLCarrot.MOD_ID)
 public final class TooltipHandler {
 	@SubscribeEvent(priority = EventPriority.LOW)

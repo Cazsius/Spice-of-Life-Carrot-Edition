@@ -15,7 +15,7 @@ public final class FoodBookItem extends Item {
 
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
-		if (player.isLocalPlayer() && FMLEnvironment.dist.isClient()) {
+		if (player.isLocalPlayer() && FMLEnvironment.getDist().isClient()) {
 			FoodBookScreen.open(player);
 		}
 
