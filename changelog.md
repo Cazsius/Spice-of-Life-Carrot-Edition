@@ -1,1 +1,1 @@
-* Fix a crash when opening the book in a server
+* Stop sending the result of `/foodlist sync` and `/foodlist size` to every OP in the server instead of the command sender
