@@ -58,12 +58,12 @@ public final class FoodListCommand {
 		var progressInfo = FoodList.get(target).getProgressInfo();
 		
 		var progressDesc = localizedQuantityComponent("size.desc.foods_eaten", progressInfo.foodsEaten);
-		sendFeedback(context.getSource(), progressDesc);
+		sendFeedback(context.getSource(), progressDesc, false);
 		
 		var milestoneDesc = progressInfo.hasReachedMax()
 			? localizedComponent("size.desc.milestone.max")
 			: localizedComponent("size.desc.milestone.more", progressInfo.foodsUntilNextMilestone());
-		sendFeedback(context.getSource(), milestoneDesc);
+		sendFeedback(context.getSource(), milestoneDesc, false);
 		
 		return Command.SINGLE_SUCCESS;
 	}
@@ -71,7 +71,7 @@ public final class FoodListCommand {
 	static int syncFoodList(CommandContext<CommandSourceStack> context, Player target) {
 		CapabilityHandler.syncFoodList(target);
 		
-		sendFeedback(context.getSource(), localizedComponent("sync.success"));
+		sendFeedback(context.getSource(), localizedComponent("sync.success"), false);
 		return Command.SINGLE_SUCCESS;
 	}
 
@@ -82,7 +82,7 @@ public final class FoodListCommand {
 		CapabilityHandler.syncFoodList(target);
 		
 		var feedback = localizedComponent("clear.success");
-		sendFeedback(context.getSource(), feedback);
+		sendFeedback(context.getSource(), feedback, true);
 		if (!isTargetingSelf) {
 			target.displayClientMessage(applyFeedbackStyle(feedback), true);
 		}
@@ -90,8 +90,8 @@ public final class FoodListCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 	
-	static void sendFeedback(CommandSourceStack source, MutableComponent message) {
-		source.sendSuccess(() -> applyFeedbackStyle(message), true);
+	static void sendFeedback(CommandSourceStack source, MutableComponent message, boolean allowLogging) {
+		source.sendSuccess(() -> applyFeedbackStyle(message), allowLogging);
 	}
 	
 	private static MutableComponent applyFeedbackStyle(MutableComponent text) {
