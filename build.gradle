@@ -41,6 +41,14 @@ runs {
 		systemProperty 'forge.enabledGameTestNamespaces', mod_id
 	}
 
+	client2 {
+		configure ("client")
+		// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+		systemProperty 'forge.enabledGameTestNamespaces', mod_id
+
+		programArguments.addAll '--username', 'Dev2'
+	}
+
 	server {
 		systemProperty 'forge.enabledGameTestNamespaces', mod_id
 		programArgument '--nogui'
