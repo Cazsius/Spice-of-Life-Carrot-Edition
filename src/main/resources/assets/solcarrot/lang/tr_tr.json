@@ -1,0 +1,74 @@
+{
+	"tooltip.solcarrot.hearty.not_eaten": "Henüz yenmedi! Acaba tadı nasıl?",
+	"tooltip.solcarrot.hearty.eaten": "Yendi: Kalplerin eklenmesine yardımcı oldu",
+	"tooltip.solcarrot.cheap.eaten": "Yendi: Fark edilebilir bir etki yok",
+	"tooltip.solcarrot.cheap": "Bu yiyecek sağlığını artırmak için yeterince besleyici değil.",
+	"tooltip.solcarrot.disabled.blacklist": "Bu yiyecek kara listede ve bu nedenle sağlığını artıramaz.",
+	"tooltip.solcarrot.disabled.whitelist": "Bu yiyecek beyaz listede değil ve bu nedenle sağlığını artıramaz.",
+	"tooltip.solcarrot.disabled.eaten": "Yendi: Fark edilebilir bir etki yok",
+	
+	"command.solcarrot.foodlist.no_permissions": "Bu komutu diğer oyunculara uygulamak için gerekli izinlere sahip değilsin!",
+	
+	"command.solcarrot.foodlist.size.desc.foods_eaten.singular": "Benzersiz bir yemek yedin!",
+	"command.solcarrot.foodlist.size.desc.foods_eaten.plural": "%s benzersiz yiyecek yedin!",
+	"command.solcarrot.foodlist.size.desc.milestone.max": "Ne yazık ki yeni yiyecekler deneyerek daha fazla sağlık kazanamazsın.",
+	"command.solcarrot.foodlist.size.desc.milestone.more": "Maksimum sağlığını artırmak için %s taneye daha ihtiyacın var.",
+	
+	"command.solcarrot.foodlist.clear.success": "Yiyecek listesi sıfırlandı!",
+	
+	"command.solcarrot.foodlist.sync.success": "Yiyecek listesi senkronize edildi!",
+	
+	"message.solcarrot.chat_wrapper": "[SoL: Carrot] %s",
+	"message.solcarrot.hearts.singular": "bir kalp",
+	"message.solcarrot.hearts.plural": "%s kalp",
+	"message.solcarrot.milestone_achieved": "Ne kadarda benzersiz bir lezzet! %s kazandın!",
+	"message.solcarrot.finished.chat": "Eşsiz yiyecekler arama arzun, nihayet tatmin oldu.",
+	"message.solcarrot.finished.hotbar": "%s kazandın. Eşsiz yiyecekler arama arzun, nihayet tatmin oldu.",
+	
+	"item.solcarrot.food_book": "Yiyecek Kitabı",
+	
+	"gui.solcarrot.food_book.stats": "Genel Bakış",
+	"gui.solcarrot.food_book.eaten_foods": "Çoktan Tadıldı: %s",
+	"gui.solcarrot.food_book.uneaten_foods": "Henüz Denenmedi: %s",
+	"gui.solcarrot.food_book.config": "Yapılandırma",
+	
+	"gui.solcarrot.food_book.fraction": "%1$s/%2$s",
+	
+	"gui.solcarrot.food_book.stats.foods_tasted": "Tadılan Yiyecekler",
+	"gui.solcarrot.food_book.stats.hearts_gained": "Kazanılan Kalpler",
+	"gui.solcarrot.food_book.stats.tooltip.progress": "Sonrakine Kilometre Taşına Kadar %s Daha",
+	"gui.solcarrot.food_book.stats.tooltip.progress.max": "En Yüksek Kilometre Taşına Ulaşıldı!",
+	"gui.solcarrot.food_book.stats.tooltip.previous_milestone": "Son Kilometre Taşı: %s",
+	"gui.solcarrot.food_book.stats.tooltip.next_milestone": "Sonraki Kilometre Taşı: %s",
+	"gui.solcarrot.food_book.stats.tooltip.total_foods": "%s Toplam Yiyecek",
+	"gui.solcarrot.food_book.stats.tooltip.foods_tasted": "Tadılan Yiyecekler: %s",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.singular": "Kilometre Taşı başına 1 Kalp",
+	"gui.solcarrot.food_book.stats.tooltip.hearts_per_milestone.plural": "Kilometre Taşı başına %s Kalp",
+	
+	"gui.solcarrot.food_book.config.minimum_food_value": "En Düşük Yiyecek Değeri",
+	"gui.solcarrot.food_book.config.tooltip.minimum_food_value": "Yiyeceklerin kilometre taşlarına sayılması için sağlaması gereken en düşük açlık değeri.",
+	"gui.solcarrot.food_book.config.hearty_fraction": "Besleyici Yiyecekler",
+	"gui.solcarrot.food_book.config.tooltip.hearty_fraction": "%1$s yiyecekden, %2$s tanesi sağlığını artıracak kadar besleyici.",
+	"gui.solcarrot.food_book.config.eaten_cheap_foods": "Sıkıcı Yiyecekler Tadıldı",
+	"gui.solcarrot.food_book.config.tooltip.eaten_cheap_foods": "Sağlığını artırmak için yeterince besleyici olmayan %1$s yiyecekden, %2$s tanesini yedin.",
+	"gui.solcarrot.food_book.config.blacklist": "Kara Listedeki Yiyecekler",
+	"gui.solcarrot.food_book.config.whitelist": "Beyaz Listedeki Yiyecekler",
+	"gui.solcarrot.food_book.config.tooltip.blacklist": "Kara liste tarafından kaç yiyecek devre dışı bırakıldı.",
+	"gui.solcarrot.food_book.config.tooltip.whitelist": "Beyaz listenin kaç yiyeceğe izin verdiği.",
+	
+	"config.solcarrot.base_hearts": "Temel Kalp",
+	"config.solcarrot.hearts_per_milestone": "Kilometre Taşı Başına Kalp",
+	"config.solcarrot.milestones": "Kilometre Taşları",
+	"config.solcarrot.is_food_tooltip_enabled": "Yiyecek Alet İpucusunu Etkinleştir",
+	"config.solcarrot.should_show_progress_above_hotbar": "İlerlemeyi Araç Çubuğu Yuvasının Üstünde Göster",
+	"config.solcarrot.should_show_uneaten_foods": "Yenmemiş Yiyecekleri Göster",
+	"config.solcarrot.should_play_milestone_sounds": "Kilometre Taşı Seslerini Etkinleştir",
+	"config.solcarrot.should_spawn_intermediate_particles": "Ara Parçacıkları Etkinleştir",
+	"config.solcarrot.should_spawn_milestone_particles": "Kilometre Taşı Parçacıklarını Etkinleştir",
+	"config.solcarrot.food_blacklist": "Kara Liste",
+	"config.solcarrot.food_whitelist": "Beyaz Liste (kara listeyi devre dışı bırakır)",
+	"config.solcarrot.minimum_food_value": "En Düşük Yiyecek Değeri",
+	"config.solcarrot.reset_on_death": "Ölümden Sonra Sıfırla",
+
+	"solcarrot.networking.food_list_message.failed": "Yiyecek listesi senkronize edilemedi! %s"
+}
