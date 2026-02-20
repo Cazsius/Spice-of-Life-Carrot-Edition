@@ -1,1 +1,1 @@
-* Initial update to 1.21.11
+* Stop sending the result of `/foodlist sync` and `/foodlist size` to every OP in the server instead of the command sender
