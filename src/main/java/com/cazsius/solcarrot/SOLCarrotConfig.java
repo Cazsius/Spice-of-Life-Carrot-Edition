@@ -217,7 +217,7 @@ public final class SOLCarrotConfig {
 		public final BooleanValue shouldShowUneatenFoods;
 		
 		Client(Builder builder) {
-			builder.push("milestone celebration");
+			builder.push("milestone_celebration");
 			
 			shouldPlayMilestoneSounds = builder
 				.translation(localizationPath("should_play_milestone_sounds"))

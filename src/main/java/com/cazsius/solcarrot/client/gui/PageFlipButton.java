@@ -7,11 +7,11 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 
 final class PageFlipButton extends Button {
-	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
+	private static final Identifier texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	public static final int width = 23;
 	public static final int height = 13;
 
@@ -31,7 +31,7 @@ final class PageFlipButton extends Button {
 	}
 
 	@Override
-	protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderContents(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
 		if (!visible) return;
 
 		int textureX = 0;

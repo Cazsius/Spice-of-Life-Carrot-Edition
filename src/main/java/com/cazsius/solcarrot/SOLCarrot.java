@@ -5,7 +5,7 @@ import com.cazsius.solcarrot.communication.FoodListMessage;
 import com.cazsius.solcarrot.communication.handler.ClientPayloadHandler;
 import com.cazsius.solcarrot.item.SOLCarrotItems;
 import com.cazsius.solcarrot.tracking.FoodList;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -34,8 +34,8 @@ public final class SOLCarrot {
 			AttachmentType.builder(() -> new FoodList()).serialize(FoodList.CODEC).build());
 
 
-	public static ResourceLocation resourceLocation(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	public static Identifier resourceLocation(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	@SubscribeEvent

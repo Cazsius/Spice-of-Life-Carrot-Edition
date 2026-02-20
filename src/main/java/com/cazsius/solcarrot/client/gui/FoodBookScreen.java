@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static com.cazsius.solcarrot.lib.Localization.localized;
 
 public final class FoodBookScreen extends Screen implements PageFlipButton.Pageable {
-	private static final ResourceLocation texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
+	private static final Identifier texture = SOLCarrot.resourceLocation("textures/gui/food_book.png");
 	private static final ImageData bookImage = new ImageData(texture,
 		new Rectangle(0, 0, 186, 192)
 	);

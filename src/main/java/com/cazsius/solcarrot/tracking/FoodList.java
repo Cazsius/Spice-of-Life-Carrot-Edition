@@ -26,7 +26,7 @@ public final class FoodList implements FoodCapability {
 									foodItem -> {
 										for (Holder<Item> item : foodItem) {
 											if (item.value().getDefaultInstance().get(DataComponents.FOOD) == null) {
-												SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer edible: {} (ignoring in case it becomes edible again later)", item.unwrapKey().orElseThrow().location());
+												SOLCarrot.LOGGER.warn("attempting to load item into food list that is no longer edible: {} (ignoring in case it becomes edible again later)", item.unwrapKey().orElseThrow().identifier());
 											}
 										}
 

@@ -2,7 +2,7 @@ package com.cazsius.solcarrot.tracking;
 
 import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,7 +18,7 @@ import java.util.Objects;
 @EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class MaxHealthHandler {
 	private static final boolean HAS_FIRST_AID = ModList.get().isLoaded("firstaid");
-	private static final ResourceLocation MILESTONE_HEALTH_MODIFIER_ID = SOLCarrot.resourceLocation("health_gained");
+	private static final Identifier MILESTONE_HEALTH_MODIFIER_ID = SOLCarrot.resourceLocation("health_gained");
 	
 	@SubscribeEvent
 	public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {

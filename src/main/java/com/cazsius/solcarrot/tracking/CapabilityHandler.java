@@ -4,7 +4,7 @@ import com.cazsius.solcarrot.SOLCarrot;
 import com.cazsius.solcarrot.SOLCarrotConfig;
 import com.cazsius.solcarrot.api.SOLCarrotAPI;
 import com.cazsius.solcarrot.communication.FoodListMessage;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 @EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class CapabilityHandler {
-	private static final ResourceLocation FOOD = SOLCarrot.resourceLocation("food");
+	private static final Identifier FOOD = SOLCarrot.resourceLocation("food");
 	
 	@EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 	private static final class Setup {

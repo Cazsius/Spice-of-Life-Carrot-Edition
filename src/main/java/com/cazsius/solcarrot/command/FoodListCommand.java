@@ -11,6 +11,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -34,7 +35,8 @@ public final class FoodListCommand {
 			literal(name)
 				.then(withPlayerArgumentOrSender(literal("size"), FoodListCommand::showFoodListSize))
 				.then(withPlayerArgumentOrSender(literal("sync"), FoodListCommand::syncFoodList))
-				.then(withPlayerArgumentOrSender(literal("clear"), FoodListCommand::clearFoodList))
+				.then(withPlayerArgumentOrSender(literal("clear"), FoodListCommand::clearFoodList)
+						.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)))
 		);
 	}
 	
@@ -73,12 +75,8 @@ public final class FoodListCommand {
 		return Command.SINGLE_SUCCESS;
 	}
 
-	static final DynamicCommandExceptionType ERROR_NO_PERMISSION = new DynamicCommandExceptionType(object -> (Component)object);
-	static int clearFoodList(CommandContext<CommandSourceStack> context, Player target) throws CommandSyntaxException {
-		boolean isOp = context.getSource().hasPermission(2);
+	static int clearFoodList(CommandContext<CommandSourceStack> context, Player target) {
 		boolean isTargetingSelf = isTargetingSelf(context, target);
-		if (!isOp && !isTargetingSelf)
-			throw ERROR_NO_PERMISSION.create(localizedComponent("no_permissions"));
 		
 		FoodList.get(target).clearFood();
 		CapabilityHandler.syncFoodList(target);

@@ -3,7 +3,7 @@ package com.cazsius.solcarrot.item;
 import com.cazsius.solcarrot.SOLCarrot;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -21,7 +21,7 @@ public final class SOLCarrotItems {
 			new FoodBookItem(properties.setId(getKey("food_book"))));
 
 	private static ResourceKey<Item> getKey(String name) {
-		return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SOLCarrot.MOD_ID, name));
+		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(SOLCarrot.MOD_ID, name));
 	}
 
 	public static void setUp(IEventBus eventBus) {
