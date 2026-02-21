@@ -67,6 +67,8 @@ public final class FoodList implements FoodCapability {
 
 	/** @return true if the food was not previously known, i.e. if a new food has been tried */
 	public boolean addFood(ItemStack food) {
+		if (foods.stream().anyMatch(holder -> holder.is(food.getItemHolder())))
+			return false;
 		boolean wasAdded = foods.add(food.getItemHolder()) && SOLCarrotConfig.shouldCount(food);
 		invalidateProgressInfo();
 		return wasAdded;
@@ -80,7 +82,7 @@ public final class FoodList implements FoodCapability {
 	@Override
 	public boolean hasEaten(ItemStack food) {
 		if (food.get(DataComponents.FOOD) == null) return false;
-		return foods.contains(food.getItemHolder());
+		return foods.stream().anyMatch(holder -> holder.is(food.getItemHolder()));
 	}
 
 	public void clearFood() {
