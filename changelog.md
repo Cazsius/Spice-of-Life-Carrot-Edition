@@ -1,1 +1,1 @@
-* Fix foods counting multiple times
+* Initial update to 26.1
