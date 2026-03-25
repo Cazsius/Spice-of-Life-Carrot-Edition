@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 import java.awt.*;
 
@@ -20,11 +20,11 @@ public class UIBox extends UIElement {
 		
 		this.color = color;
 	}
-	
+
 	@Override
-	protected void render(GuiGraphics graphics) {
+	protected void render(GuiGraphicsExtractor graphics) {
 		super.render(graphics);
-		
+
 		graphics.fill(frame.x, frame.y, frame.x + frame.width, frame.y + frame.height, color.getRGB());
 	}
 }

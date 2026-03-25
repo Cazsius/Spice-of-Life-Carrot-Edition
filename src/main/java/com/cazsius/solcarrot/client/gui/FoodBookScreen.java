@@ -8,7 +8,7 @@ import com.cazsius.solcarrot.client.gui.elements.UIImage;
 import com.cazsius.solcarrot.client.gui.elements.UILabel;
 import com.cazsius.solcarrot.tracking.FoodList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -135,10 +135,10 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 		List<ItemStack> stacks = items.stream().map(ItemStack::new).collect(Collectors.toList());
 		pages.addAll(ItemListPage.pages(background.frame, header, stacks));
 	}
-	
+
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		super.render(graphics, mouseX, mouseY, partialTicks);
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
 		if (!pages.isEmpty()) { // might not be loaded yet; race condition
 			// current page
@@ -148,10 +148,9 @@ public final class FoodBookScreen extends Screen implements PageFlipButton.Pagea
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-
-		UIElement.render(guiGraphics, background, mouseX, mouseY);
+	public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+		super.extractBackground(graphics, mouseX, mouseY, a);
+		UIElement.render(graphics, background, mouseX, mouseY);
 	}
 
 	@Override

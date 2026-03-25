@@ -84,7 +84,7 @@ public final class FoodListCommand {
 		var feedback = localizedComponent("clear.success");
 		sendFeedback(context.getSource(), feedback, true);
 		if (!isTargetingSelf) {
-			target.displayClientMessage(applyFeedbackStyle(feedback), true);
+			target.sendOverlayMessage(applyFeedbackStyle(feedback));
 		}
 		
 		return Command.SINGLE_SUCCESS;

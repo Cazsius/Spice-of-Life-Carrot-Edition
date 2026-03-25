@@ -2,7 +2,7 @@ package com.cazsius.solcarrot.client.gui.elements;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
@@ -17,11 +17,11 @@ import java.util.stream.Stream;
 import static java.util.Collections.singletonList;
 
 public abstract class UIElement {
-	public static void render(GuiGraphics graphics, UIElement element, int mouseX, int mouseY) {
+	public static void render(GuiGraphicsExtractor graphics, UIElement element, int mouseX, int mouseY) {
 		render(graphics, singletonList(element), mouseX, mouseY);
 	}
 	
-	public static void render(GuiGraphics graphics, List<UIElement> elements, int mouseX, int mouseY) {
+	public static void render(GuiGraphicsExtractor graphics, List<UIElement> elements, int mouseX, int mouseY) {
 		elements.forEach(element -> element.render(graphics));
 		
 		elements.stream()
@@ -46,7 +46,7 @@ public abstract class UIElement {
 	/**
 	 Renders the element to the screen. Note that no transforms have been applied, so you should take your position into account!
 	 */
-	protected void render(GuiGraphics graphics) {
+	protected void render(GuiGraphicsExtractor graphics) {
 		children.forEach(child -> child.render(graphics));
 	}
 	
@@ -70,7 +70,7 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+	protected void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		if (tooltip == null) return;
 		
 		renderTooltip(graphics, ItemStack.EMPTY, Collections.singletonList(Component.translatable(tooltip)), mouseX, mouseY);
@@ -84,7 +84,7 @@ public abstract class UIElement {
 	 @param mouseX the mouse's x position
 	 @param mouseY the mouse's y position
 	 */
-	protected final void renderTooltip(GuiGraphics graphics, ItemStack itemStack, List<? extends FormattedText> tooltip, int mouseX, int mouseY) {
+	protected final void renderTooltip(GuiGraphicsExtractor graphics, ItemStack itemStack, List<? extends FormattedText> tooltip, int mouseX, int mouseY) {
 		graphics.setComponentTooltipForNextFrame(font, tooltip, mouseX, mouseY, itemStack);
 	}
 	

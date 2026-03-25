@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,10 +21,10 @@ public class UIItemStack extends UIElement {
 	}
 	
 	@Override
-	protected void render(GuiGraphics graphics) {
+	protected void render(GuiGraphicsExtractor graphics) {
 		super.render(graphics);
 		
-		graphics.renderItem(
+		graphics.item(
 			itemStack,
 			frame.x + (frame.width - size) / 2,
 			frame.y + (frame.height - size) / 2
@@ -35,9 +35,9 @@ public class UIItemStack extends UIElement {
 	protected boolean hasTooltip() {
 		return true;
 	}
-	
+
 	@Override
-	protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+	protected void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		var tooltip = itemStack.getTooltipLines(Item.TooltipContext.of(mc.level), mc.player, mc.options.advancedItemTooltips ? ADVANCED : NORMAL);
 		renderTooltip(graphics, itemStack, tooltip, mouseX, mouseY);
 	}

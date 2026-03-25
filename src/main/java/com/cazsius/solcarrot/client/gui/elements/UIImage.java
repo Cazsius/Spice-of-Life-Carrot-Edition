@@ -1,6 +1,6 @@
 package com.cazsius.solcarrot.client.gui.elements;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 
 import java.awt.*;
@@ -20,7 +20,7 @@ public class UIImage extends UIElement {
 	}
 	
 	@Override
-	protected void render(GuiGraphics graphics) {
+	protected void render(GuiGraphicsExtractor graphics) {
 		super.render(graphics);
 		
 		int imageWidth = data.partOfTexture.width;

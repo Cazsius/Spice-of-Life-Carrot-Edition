@@ -64,7 +64,7 @@ public final class FoodTracker {
 			
 			if (isClientSide && SOLCarrotConfig.shouldShowProgressAboveHotbar()) {
 				String messageKey = progressInfo.hasReachedMax() ? "finished.hotbar" : "milestone_achieved";
-				player.displayClientMessage(localizedComponent("message", messageKey, heartsDescription), true);
+				player.sendOverlayMessage(localizedComponent("message", messageKey, heartsDescription));
 			} else {
 				showChatMessage(player, ChatFormatting.DARK_AQUA, localizedComponent("message", "milestone_achieved", heartsDescription));
 				if (progressInfo.hasReachedMax()) {
@@ -93,7 +93,7 @@ public final class FoodTracker {
 	private static void showChatMessage(Player player, ChatFormatting color, Component message) {
 		var component = localizedComponent("message", "chat_wrapper", message)
 			.withStyle(color);
-		player.displayClientMessage(component, false);
+		player.sendSystemMessage(component);
 	}
 	
 	private FoodTracker() {}
