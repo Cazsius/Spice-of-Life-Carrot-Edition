@@ -21,18 +21,18 @@ public final class TooltipHandler {
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public static void onItemTooltip(ItemTooltipEvent event) {
 		if (!SOLCarrotConfig.isFoodTooltipEnabled()) return;
-		
+
 		Player player = event.getEntity();
 		if (player == null) return;
 
 		ItemStack food = event.getItemStack();
 		if (food.get(DataComponents.FOOD) == null) return;
-		
+
 		FoodList foodList = FoodList.get(player);
 		boolean hasBeenEaten = foodList.hasEaten(food);
 		boolean isAllowed = SOLCarrotConfig.isAllowed(food.getItem());
 		boolean isHearty = SOLCarrotConfig.isHearty(food);
-		
+
 		var tooltip = event.getToolTip();
 		if (!isAllowed) {
 			if (hasBeenEaten) {
@@ -53,10 +53,11 @@ public final class TooltipHandler {
 			tooltip.add(localizedTooltip("cheap", ChatFormatting.DARK_GRAY));
 		}
 	}
-	
+
 	private static MutableComponent localizedTooltip(String path, ChatFormatting color) {
 		return localizedComponent("tooltip", path).withStyle(color);
 	}
-	
-	private TooltipHandler() {}
+
+	private TooltipHandler() {
+	}
 }

@@ -22,12 +22,16 @@ public final class FoodItems {
 	private static List<Item> foodsBeforeBlacklist;
 	private static List<Item> foods;
 
-	/** @return a list of all item stacks that can be eaten, including blacklisted/hidden ones */
+	/**
+	 * @return a list of all item stacks that can be eaten, including blacklisted/hidden ones
+	 */
 	public static List<Item> getAllFoodsIgnoringBlacklist() {
 		return new ArrayList<>(foodsBeforeBlacklist);
 	}
-	
-	/** @return a list of all item stacks that can be eaten */
+
+	/**
+	 * @return a list of all item stacks that can be eaten
+	 */
 	public static List<Item> getAllFoods() {
 		return new ArrayList<>(foods);
 	}
@@ -38,11 +42,11 @@ public final class FoodItems {
 	 */
 	public static void setUp() {
 		foodsBeforeBlacklist = BuiltInRegistries.ITEM.stream()
-			.filter((item) -> item.getDefaultInstance().has(DataComponents.FOOD) )
-			// sort by name
-			.sorted(Comparator.comparing(food -> I18n.get(food.getDescriptionId() + ".name")))
-			.collect(Collectors.toList());
-		
+				.filter((item) -> item.getDefaultInstance().has(DataComponents.FOOD))
+				// sort by name
+				.sorted(Comparator.comparing(food -> I18n.get(food.getDescriptionId() + ".name")))
+				.collect(Collectors.toList());
+
 		// depending on the other mods involved, config might be loaded before or after this event
 		tryApplyBlacklist();
 	}
@@ -58,13 +62,13 @@ public final class FoodItems {
 
 		tryApplyBlacklist();
 	}
-	
+
 	private static void tryApplyBlacklist() {
 		if (foodsBeforeBlacklist == null) return;
 		if (!SOLCarrotConfig.SERVER_SPEC.isLoaded()) return;
 
 		foods = foodsBeforeBlacklist.stream()
-			.filter(SOLCarrotConfig::isAllowed)
-			.collect(Collectors.toList());
+				.filter(SOLCarrotConfig::isAllowed)
+				.collect(Collectors.toList());
 	}
 }

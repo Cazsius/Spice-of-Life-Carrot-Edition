@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 @EventBusSubscriber(modid = SOLCarrot.MOD_ID)
 public final class SOLCarrot {
 	public static final String MOD_ID = "solcarrot";
-	
+
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
 	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, MOD_ID);
@@ -45,7 +45,7 @@ public final class SOLCarrot {
 		registrar.playToClient(FoodListMessage.ID, FoodListMessage.CODEC, ClientPayloadHandler.getInstance()::handleFoodList);
 		registrar.playToClient(ConstructFoodsMessage.ID, ConstructFoodsMessage.CODEC, ClientPayloadHandler.getInstance()::handleConstructFoods);
 	}
-	
+
 	public SOLCarrot(IEventBus eventBus, ModContainer container, Dist dist) {
 		ATTACHMENT_TYPES.register(eventBus);
 		SOLCarrotConfig.setUp(container, dist);

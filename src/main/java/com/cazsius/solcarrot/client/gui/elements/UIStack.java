@@ -6,20 +6,20 @@ import java.util.List;
 public final class UIStack extends UIElement {
 	public Axis axis = Axis.HORIZONTAL;
 	public int spacing = 1;
-	
+
 	public UIStack() {
 		super(new Rectangle(0, 0));
 	}
-	
+
 	public void addChild(UIElement child) {
 		children.add(child);
 		updateFrames();
 	}
-	
+
 	public List<UIElement> getChildren() {
 		return children;
 	}
-	
+
 	public void updateFrames() {
 		switch (axis) {
 			case HORIZONTAL:
@@ -56,7 +56,7 @@ public final class UIStack extends UIElement {
 				throw new AssertionError();
 		}
 	}
-	
+
 	public enum Axis {
 		HORIZONTAL, VERTICAL
 	}

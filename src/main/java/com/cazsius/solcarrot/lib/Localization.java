@@ -6,31 +6,33 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public final class Localization {
-	/** e.g. keyString("tooltip", "eaten_status.not_eaten_1") -> "tooltip.solcarrot.eatenStatus.not_eaten_1") */
+	/**
+	 * e.g. keyString("tooltip", "eaten_status.not_eaten_1") -> "tooltip.solcarrot.eatenStatus.not_eaten_1")
+	 */
 	public static String keyString(String domain, String path) {
 		return domain + "." + SOLCarrot.MOD_ID + "." + path;
 	}
-	
+
 	public static String localized(String domain, String path, Object... args) {
 		return I18n.get(keyString(domain, path), args);
 	}
-	
+
 	public static MutableComponent localizedComponent(String domain, String path, Object... args) {
 		return Component.translatable(keyString(domain, path), args);
 	}
-	
+
 	public static String localizedQuantity(String domain, String path, int number) {
 		return number == 1
-			? I18n.get(keyString(domain, path + ".singular"))
-			: I18n.get(keyString(domain, path + ".plural"), number);
+				? I18n.get(keyString(domain, path + ".singular"))
+				: I18n.get(keyString(domain, path + ".plural"), number);
 	}
-	
+
 	public static MutableComponent localizedQuantityComponent(String domain, String path, int number) {
 		return number == 1
-			? Component.translatable(keyString(domain, path + ".singular"))
-			: Component.translatable(keyString(domain, path + ".plural"), number);
+				? Component.translatable(keyString(domain, path + ".singular"))
+				: Component.translatable(keyString(domain, path + ".plural"), number);
 	}
-	
+
 	public static String formatBigNumber(int number) {
 		if (number < 1000) {
 			return "" + number;
@@ -40,6 +42,7 @@ public final class Localization {
 			return Math.round(number / 1000F) + "k";
 		}
 	}
-	
-	private Localization() {}
+
+	private Localization() {
+	}
 }

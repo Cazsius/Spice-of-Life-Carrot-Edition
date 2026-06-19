@@ -20,10 +20,10 @@ final class PageFlipButton extends Button {
 
 	PageFlipButton(int x, int y, Direction direction, Pageable pageable) {
 		super(
-			x, y, width, height,
-			CommonComponents.EMPTY,
-			(button) -> pageable.switchToPage(pageable.getCurrentPageNumber() + direction.distance),
-			DEFAULT_NARRATION
+				x, y, width, height,
+				CommonComponents.EMPTY,
+				(button) -> pageable.switchToPage(pageable.getCurrentPageNumber() + direction.distance),
+				DEFAULT_NARRATION
 		);
 
 		this.direction = direction;

@@ -9,11 +9,11 @@ public final class ImageData {
 	public final Rectangle partOfTexture;
 	public final int visualWidth;
 	public final int visualHeight;
-	
+
 	public ImageData(Identifier textureLocation, Rectangle partOfTexture) {
 		this(textureLocation, partOfTexture, partOfTexture.width, partOfTexture.height);
 	}
-	
+
 	public ImageData(Identifier textureLocation, Rectangle partOfTexture, int visualWidth, int visualHeight) {
 		this.textureLocation = textureLocation;
 		this.partOfTexture = partOfTexture;

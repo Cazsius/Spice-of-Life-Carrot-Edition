@@ -10,20 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** collects the information the food book needs in a convenient single location */
+/**
+ * collects the information the food book needs in a convenient single location
+ */
 final class FoodData {
 	public final FoodList foodList;
 	public final ProgressInfo progressInfo;
 	public final List<Item> validFoods;
 	public final List<Item> eatenFoods;
 	public final List<Item> uneatenFoods;
-	
+
 	FoodData(FoodList foodList) {
 		this.foodList = foodList;
 		this.progressInfo = foodList.getProgressInfo();
 		this.validFoods = FoodItems.getAllFoods().stream()
-			.filter(SOLCarrotConfig::isHearty)
-			.collect(Collectors.toList());
+				.filter(SOLCarrotConfig::isHearty)
+				.collect(Collectors.toList());
 		this.eatenFoods = new ArrayList<>();
 		this.uneatenFoods = new ArrayList<>();
 		for (Item food : validFoods) {

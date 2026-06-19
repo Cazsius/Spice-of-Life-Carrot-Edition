@@ -57,6 +57,7 @@ public final class FoodList implements FoodCapability {
 
 	/**
 	 * Used to sync the food list from the server to the client.
+	 *
 	 * @param foodList the list of foods that the player has eaten.
 	 */
 	public void readFoods(List<Holder<Item>> foodList) {
@@ -65,7 +66,9 @@ public final class FoodList implements FoodCapability {
 		invalidateProgressInfo();
 	}
 
-	/** @return true if the food was not previously known, i.e. if a new food has been tried */
+	/**
+	 * @return true if the food was not previously known, i.e. if a new food has been tried
+	 */
 	public boolean addFood(ItemStack food) {
 		if (foods.stream().anyMatch(holder -> holder.is(food.typeHolder())))
 			return false;
