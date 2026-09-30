@@ -58,7 +58,7 @@ public final class SOLCarrotConfig {
 	}
 
 	public static void setUp(ModContainer container, Dist dist) {
-		container.registerConfig(ModConfig.Type.SERVER, SERVER_SPEC);
+		container.registerConfig(ModConfig.Type.SYNCED, SERVER_SPEC);
 		container.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 
 		NeoForge.EVENT_BUS.addListener(SOLCarrotConfig::onLoggedIn);
